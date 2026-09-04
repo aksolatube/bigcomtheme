@@ -3,11 +3,16 @@ node_modules/
 
 # BigCommerce Stencil local configuration and generated output
 config.stencil.json
+secrets.stencil.json
 .stencil
 stencil_bundle*
+*.zip
 parsed/
 stencil_context/
 assets/dist/
+assets/css-artifacts/
+assets/js/bundle.js
+*.js.map
 
 # Logs and local environment files
 *.log

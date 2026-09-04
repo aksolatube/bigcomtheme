@@ -360,6 +360,9 @@
                 {{/if}}
             </form>
             {{> components/products/complete-system}}
+            {{#unless is_ajax}}
+                {{> components/products/specifications}}
+            {{/unless}}
             <button
                 class="button contactHub-productButton"
                 type="button"
@@ -370,9 +373,6 @@
                 <span class="contactHub-productButton-mobile">Need help choosing? Ask a Solatube specialist <span aria-hidden="true">&rarr;</span></span>
                 <span class="contactHub-productButton-desktop">Questions about fit or installation? Ask a Solatube specialist <span aria-hidden="true">&rarr;</span></span>
             </button>
-            {{#unless is_ajax}}
-                {{> components/products/specifications}}
-            {{/unless}}
             {{#if settings.show_wishlist}}
                 {{> components/common/wishlist-dropdown}}
             {{/if}}

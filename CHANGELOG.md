@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.128 (2026-09-04)
+
+- Load the PDP Specifications disclosure collapsed by default while retaining its native accessible expand-and-collapse behavior.
+- Move the “Questions about fit or installation?” specialist link directly below Specifications so it remains beneath the disclosure whether collapsed or expanded.
+
 ## 5.8.127 (2026-09-04)
 
 - Add Klaviyo `Viewed Product` and `trackViewedItem` events to product pages using safely serialized Stencil product data.

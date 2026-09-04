@@ -1,0 +1,42 @@
+<section
+    id="complete-your-system"
+    class="completeSystem"
+    data-complete-system
+    data-parent-product-id="{{product.id}}"
+    data-parent-product-name="{{product.title}}"
+    data-parent-product-sku="{{product.sku}}"
+    data-parent-product-categories="{{#each product.category}}{{this}}{{#unless @last}}|{{/unless}}{{/each}}"
+    data-parent-product-breadcrumbs="{{#each breadcrumbs}}{{name}}{{#unless @last}}|{{/unless}}{{/each}}"
+    data-store-name="{{settings.store_name}}"
+    data-parent-product-series="{{#each product.custom_fields}}{{#if name '===' 'Skylight Tube Diameter'}}{{value}}{{else}}{{#if name '===' 'Tube Diameter'}}{{value}}{{/if}}{{/if}}{{/each}}"
+    data-parent-product-has-nightlight="{{#each product.custom_fields}}{{#if name '===' 'Solar-powered Night Light Included'}}{{value}}{{/if}}{{/each}}"
+    data-currency-code="{{currency_selector.active_currency_code}}"
+    hidden
+>
+    <button
+        class="completeSystem-header"
+        type="button"
+        data-complete-system-toggle
+        aria-expanded="false"
+        aria-controls="complete-system-panel-{{product.id}}"
+    >
+        <span class="completeSystem-toggleCopy">
+            <span class="completeSystem-eyebrow">Recommended accessories</span>
+            <span class="completeSystem-heading">Complete Your Skylight Kit</span>
+        </span>
+        <span class="completeSystem-toggleMeta">
+            <span class="completeSystem-helper" data-complete-system-toggle-label>Loading accessories&hellip;</span>
+            <span class="completeSystem-toggleIcon" aria-hidden="true"></span>
+        </span>
+    </button>
+
+    <div class="completeSystem-panel" id="complete-system-panel-{{product.id}}" data-complete-system-panel hidden>
+        <div class="completeSystem-list" data-complete-system-list aria-live="polite"></div>
+        <p class="completeSystem-status" data-complete-system-status role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="completeSystem-summary" data-complete-system-summary hidden>
+        <span>Selected accessories</span>
+        <strong data-complete-system-total></strong>
+    </div>
+</section>

@@ -1,0 +1,661 @@
+{{#each product.reviews.messages}}
+    {{#if error}}
+        {{> components/common/alert/alert-error error}}
+    {{/if}}
+    {{#if success}}
+        {{> components/common/alert/alert-success success}}
+    {{/if}}
+{{/each}}
+
+<div class="productView" {{#if settings.data_tag_enabled}} data-event-type="product" data-entity-id="{{product.id}}" data-name="{{product.title}}" data-product-category="{{#each product.category}}{{#if @last}}{{this}}{{else}}{{this}}, {{/if}}{{/each}}" data-product-brand="{{product.brand.name}}" data-product-price="{{#or customer (unless theme_settings.restrict_to_login)}}{{#if product.price.with_tax}}{{product.price.with_tax.value}}{{else}}{{product.price.without_tax.value}}{{/if}}{{else}}{{lang 'common.login_for_pricing'}}{{/or}}" data-product-variant="single-product-option"{{/if}}>
+    <section class="productView-images" data-image-gallery>
+        {{#if page_type '===' 'product'}}
+            {{#or product.price.non_sale_price_with_tax product.price.non_sale_price_without_tax}}
+                <div class="sale-flag-side productView-mobileSaleFlag">
+                    <span class="sale-text">Sale</span>
+                </div>
+            {{/or}}
+        {{/if}}
+        {{#each product.custom_fields}}
+            {{#if name '===' 'Gallery Video Poster'}}
+                <span hidden data-product-gallery-video-poster data-video-poster-url="{{value}}"></span>
+            {{/if}}
+        {{/each}}
+        {{!--
+            Note that these image sizes are coupled to image sizes used in /assets/js/theme/common/product-details.js
+            for variant/rule image replacement
+        --}}
+        {{#if product.images.length '>' 1 }}
+        {{> components/carousel-content-announcement}}
+        {{/if}}
+        <figure class="productView-image"
+                data-image-gallery-main
+                {{#if product.main_image}}
+                data-zoom-image="{{getImageSrcset product.main_image (cdn theme_settings.default_image_product) 1x=theme_settings.zoom_size }}"
+                {{/if}}
+                >
+            <div class="productView-img-container">
+                {{!-- Remove the surrounding a-element if there is no main image. --}}
+                {{#if product.main_image}}
+                    <a href="{{getImageSrcset product.main_image (cdn theme_settings.default_image_product) 1x=theme_settings.zoom_size}}"
+                        target="_blank">
+                {{/if}}
+                {{> components/common/responsive-img
+                    image=product.main_image
+                    class="productView-image--default"
+                    fallback_size=theme_settings.product_size
+                    lazyload=theme_settings.lazyload_mode
+                    default_image=theme_settings.default_image_product
+                    otherAttributes="data-main-image"
+                }}
+                {{!-- Remove the surrounding a-element if there is no main image. --}}
+                {{#if product.main_image}}
+                    </a>
+                {{/if}}
+                {{!--
+                    The selected rule/variant image is preloaded in layout/base.
+                    Apply it before lazysizes or the product route bundle can request
+                    and paint the generic image first. Quick View is intentionally
+                    excluded because it does not own the page-level BCData object.
+                --}}
+                {{#if page_type '===' 'product'}}
+                <script nonce="{{nonce}}">
+                    (function () {
+                        var initialImage = window.solatubeInitialPdpImage;
+                        var script = document.currentScript;
+                        var container = script && script.parentNode;
+                        var image = container && container.querySelector('[data-main-image]');
+                        var link = image && image.closest('a');
+                        var figure = container && container.closest('[data-image-gallery-main]');
+
+                        if (!initialImage || !image) return;
+
+                        image.classList.remove('lazyload');
+                        image.removeAttribute('data-srcset');
+                        image.removeAttribute('data-sizes');
+                        image.setAttribute('src', initialImage.src);
+                        image.setAttribute('srcset', initialImage.srcset);
+                        image.setAttribute('sizes', '(max-width: 800px) calc(100vw - 62px), (max-width: 1400px) 50vw, 700px');
+                        image.setAttribute('fetchpriority', 'high');
+                        image.setAttribute('loading', 'eager');
+                        image.setAttribute('decoding', 'async');
+
+                        if (initialImage.alt) {
+                            image.setAttribute('alt', initialImage.alt);
+                            image.setAttribute('title', initialImage.alt);
+                        }
+                        if (link) link.setAttribute('href', initialImage.zoom);
+                        if (figure) figure.setAttribute('data-zoom-image', initialImage.zoom);
+                    }());
+                </script>
+                {{/if}}
+            </div>
+        </figure>
+        <ul class="productView-thumbnails"{{#gt product.images.length 4}} data-slick='{
+                "infinite": true,
+                "mobileFirst": true,
+                "dots": false,
+                "accessibility": false,
+                "variableWidth": true,
+                "slidesToScroll": 3,
+                "responsive": [
+                    {
+                        "breakpoint": 801,
+                        "settings": {
+                            "slidesToScroll": 4
+                        }
+                    }
+                ]
+            }'
+            data-arrow-label="{{lang 'carousel.arrowAriaLabel'}} {{product.images.length}}"
+            {{/gt}}>
+            {{#each product.images}}
+                <li class="productView-thumbnail">
+                    <a
+                        class="productView-thumbnail-link"
+                        href="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.zoom_size}}"
+                        data-image-gallery-item
+                        data-image-gallery-new-image-url="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.product_size}}"
+                        data-image-gallery-new-image-srcset="{{getImageSrcset this use_default_sizes=true}}"
+                        data-image-gallery-zoom-image-url="{{getImageSrcset this (cdn ../theme_settings.default_image_product) 1x=../theme_settings.zoom_size}}"
+                    >
+                        <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage this 'productview_thumb_size' (cdn ../theme_settings.default_image_product)}}" alt="{{this.alt}}" title="{{this.alt}}">
+                    </a>
+                </li>
+                {{#if @first}}
+                    {{#each ../product.custom_fields}}
+                        {{#if name '===' 'Gallery Video MP4'}}
+                            <li class="productView-thumbnail productView-thumbnail--video" data-product-gallery-video>
+                                <button
+                                    type="button"
+                                    class="productView-thumbnail-link productView-video-thumbnail-link"
+                                    data-product-gallery-video-trigger
+                                    data-video-url="{{value}}"
+                                    aria-label="Play product video"
+                                >
+                                    <img
+                                        class="productView-video-thumbnail-poster"
+                                        data-product-gallery-video-thumbnail-poster
+                                        alt=""
+                                        loading="lazy"
+                                        hidden
+                                    >
+                                    <span class="productView-video-play" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false">
+                                            <path d="M9 7.2v9.6L17 12 9 7.2Z" />
+                                        </svg>
+                                    </span>
+                                    <span class="productView-video-label" aria-hidden="true">Video</span>
+                                </button>
+                            </li>
+                        {{/if}}
+                    {{/each}}
+                {{/if}}
+            {{/each}}
+        </ul>
+    </section>
+    <section class="productView-details product-data">
+        <div class="productView-product">
+            {{#if page_type '===' 'product'}}
+                {{#or product.price.non_sale_price_with_tax product.price.non_sale_price_without_tax}}
+                    <div class="sale-flag-side productView-desktopSaleFlag">
+                        <span class="sale-text">Sale</span>
+                    </div>
+                {{/or}}
+            {{/if}}
+
+            <h1 class="productView-title main-heading">{{product.title}}</h1>
+            {{#if product.brand}}
+                <span class="productView-brand">
+                    <a href="{{product.brand.url}}"><span><strong>{{product.brand.name}}</strong></span></a>
+                </span>
+            {{/if}}
+            <div class="productIdentifiers productIdentifiers--summary">
+                <div class="productSKU">
+                    <dt class="productView-info-name sku-label" {{#unless product.sku}} style="display: none;"{{/unless}}>{{lang 'products.sku'}}</dt>
+                    <dd class="productView-info-value" data-product-sku{{#if schema}} itemprop="sku"{{/if}}>{{product.sku}}</dd>
+                </div>
+                {{#if product.upc}}
+                    <div class="productUPC u-hidden" aria-hidden="true">
+                        <dt class="productView-info-name upc-label">{{lang 'products.upc'}}</dt>
+                        <dd class="productView-info-value" data-product-upc>{{product.upc}}</dd>
+                    </div>
+                {{/if}}
+            </div>
+            {{#if product.call_for_price}}
+                <p class="productView-price">
+                    <span>{{product.call_for_price}}</span>
+                </p>
+            {{/if}}
+            <div class="productView-price{{#or product.price.non_sale_price_with_tax product.price.non_sale_price_without_tax}} productView-price--sale{{/or}}">
+                {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                    {{> components/products/price price=product.price}}
+                {{else}}
+                    {{> components/common/login-for-pricing}}
+                {{/or}}
+            </div>
+
+            {{#and settings.bulk_discount_enabled product.bulk_discount_rates.length}}
+                <div class="productView-info-bulkPricing">
+                    {{> components/products/bulk-discount-rates bulk_discount_rates=product.bulk_discount_rates}}
+                </div>
+            {{/and}}
+
+            {{{region name="product_below_price"}}}
+            <div class="productView-rating">
+                {{#if settings.show_product_rating}}
+                    {{> components/products/ratings rating=product.rating}}
+                    {{#if product.num_reviews '>' 0}}
+                        <a href="{{product.url}}{{#if is_ajax}}#product-reviews{{/if}}" id="productReview_link" class="productView-reviewCount">
+                            <span>{{lang 'products.reviews.link_to_review' total=product.num_reviews}}</span>
+                            <span class="productView-reviewCountArrow" aria-hidden="true">&darr;</span>
+                        </a>
+                    {{else}}
+                        <span>{{lang 'products.reviews.link_to_review' total=product.num_reviews}}</span>
+                    {{/if}}
+                {{/if}}
+                {{#if settings.show_product_reviews}}
+                    {{#if is_ajax}}
+                        <a
+                            class="productView-reviewLink productView-reviewLink--new"
+                            href="{{product.url}}#write_review"
+                            aria-label="{{lang 'products.reviews.new'}}"
+                        >
+                            <span class="productView-reviewAddIcon" aria-hidden="true">+</span>
+                            <span>Review</span>
+                        </a>
+                    {{else}}
+                        <button
+                            class="productView-reviewLink productView-reviewLink--new"
+                            type="button"
+                            data-reveal-id="modal-review-form"
+                            aria-haspopup="dialog"
+                            aria-controls="modal-review-form"
+                            aria-label="{{lang 'products.reviews.new'}}"
+                        >
+                            <span class="productView-reviewAddIcon" aria-hidden="true">+</span>
+                            <span>Review</span>
+                        </button>
+                    {{/if}}
+                    {{> components/products/modals/writeReview}}
+                {{/if}}
+            </div>
+            <div class="productView-specs">
+            {{#all product.weight theme_settings.show_product_weight}}
+                <div class="productView-info">
+                    <dt class="productView-info-name">{{lang 'products.weight'}}</dt>
+                    <dd class="productView-info-value" data-product-weight>{{product.weight}}</dd>
+                </div>
+            {{/all}}
+            {{#all product.width product.height product.depth theme_settings.show_product_dimensions}}
+                <div>
+                    <dt class="productView-info-name">{{lang 'products.width'}}</dt>
+                    <dd class="productView-info-value" data-product-width>
+                        {{product.width}}
+                        {{#if settings.measurements.length '==' 'Centimeters'}}
+                        ({{lang 'products.measurement.metric'}})
+                        {{else}}
+                        ({{lang 'products.measurement.imperial'}})
+                        {{/if}}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="productView-info-name">{{lang 'products.height'}}</dt>
+                    <dd class="productView-info-value" data-product-height>
+                        {{product.height}}
+                        {{#if settings.measurements.length '==' 'Centimeters'}}
+                        ({{lang 'products.measurement.metric'}})
+                        {{else}}
+                        ({{lang 'products.measurement.imperial'}})
+                        {{/if}}
+                    </dd>
+                </div>
+                <div>
+                    <dt class="productView-info-name">{{lang 'products.depth'}}</dt>
+                    <dd class="productView-info-value" data-product-depth>
+                        {{product.depth}}
+                        {{#if settings.measurements.length '==' 'Centimeters'}}
+                        ({{lang 'products.measurement.metric'}})
+                        {{else}}
+                        ({{lang 'products.measurement.imperial'}})
+                        {{/if}}
+                    </dd>
+                </div>
+            {{/all}}
+            {{#if product.condition}}
+                <div>
+                    <dt class="productView-info-name">{{lang 'products.condition'}}</dt>
+                    <dd class="productView-info-value">{{product.condition}}</dd>
+                </div>
+            {{/if}}
+            </div>
+            {{product.detail_messages}}
+        </div>
+        {{#and product.warranty theme_settings.show_short_desc}}
+            <div class="productView-warranty">
+                {{{product.warranty}}}
+            </div>
+        {{/and}}
+        <div class="productView-options">
+            <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data" novalidate
+                  data-cart-item-add>
+                <input type="hidden" name="action" value="add"/>
+                <input type="hidden" name="product_id" value="{{product.id}}"/>
+                
+                <div class="productView-options-wrap" data-product-option-change style="display:none;">
+                    {{inject 'showSwatchNames' theme_settings.show_product_swatch_names}}
+                    {{#if product.options}}
+                        <div class="productView-options-inner">
+                            {{#each product.options}}
+                                {{{dynamicComponent 'components/products/options'}}}
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+                
+                <div class="shipping-giftWrap-stock">
+                    {{#if product.shipping}}
+                        {{#unless product.shipping.calculated}}
+                            {{#if product.shipping.price.value '===' 0}}
+                                <div class="productView-shipping productView-shipping--free">
+                                    <span class="productView-shippingIcon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" focusable="false">
+                                            <path d="M3 6h11v10H3V6Zm11 4h3.4l2.6 3v3h-6v-6Zm-7 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm13 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                                        </svg>
+                                    </span>
+                                    <span class="productView-shippingCopy">
+                                        <strong>{{lang 'products.shipping_free'}}</strong>
+                                        <small>Included with this item</small>
+                                    </span>
+                                </div>
+                            {{else}}
+                                <div class="productView-shipping">
+                                    <dt class="productView-info-name">Fixed Shipping Cost: </dt>
+                                    <dd class="productView-info-value">{{product.shipping.price.formatted}}</dd>
+                                </div>
+                            {{/if}}
+                        {{/unless}}
+                    {{/if}}
+                    {{#if product.gift_wrapping_available}}
+                        <div class="productView-giftWrap">
+                            <dt class="productView-info-name">{{lang 'products.gift_wrapping'}}</dt>
+                            <dd class="productView-info-value">{{lang 'products.gift_wrapping_available'}}</dd>
+                        </div>
+                    {{/if}}
+                    <div class="form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
+                        <dt class="productView-info-name">{{lang 'products.current_stock'}}</dt>
+                        <dd class="productView-info-value"><span data-product-stock>{{product.stock_level}}</span></dd>
+                    </div>
+                </div>
+                
+                {{> components/products/add-to-cart}}
+
+                {{#if product.out_of_stock}}
+                    {{#if product.out_of_stock_message}}
+                        {{> components/common/alert/alert-error product.out_of_stock_message}}
+                    {{else}}
+                        {{> components/common/alert/alert-error (lang 'products.sold_out')}}
+                    {{/if}}
+                    <span class="button button--primary button--out-of-stock">Out of Stock</span>
+                {{/if}}
+            </form>
+            {{> components/products/complete-system}}
+            <button
+                class="button contactHub-productButton"
+                type="button"
+                aria-haspopup="dialog"
+                data-contact-hub-open="product"
+                hidden
+            >
+                <span class="contactHub-productButton-mobile">Need help choosing? Ask a Solatube specialist <span aria-hidden="true">&rarr;</span></span>
+                <span class="contactHub-productButton-desktop">Questions about fit or installation? Ask a Solatube specialist <span aria-hidden="true">&rarr;</span></span>
+            </button>
+            {{#unless is_ajax}}
+                {{> components/products/specifications}}
+            {{/unless}}
+            {{#if settings.show_wishlist}}
+                {{> components/common/wishlist-dropdown}}
+            {{/if}}
+            {{#if product.release_date }}
+                <p>{{product.release_date}}</p>
+            {{/if}}
+            
+        </div>
+    </section>
+</div>
+
+<div id="previewModal" class="modal modal--large" data-reveal>
+    {{> components/common/modal/modal-close-btn }}
+    <div class="modal-content"></div>
+    <div class="loadingOverlay"></div>
+</div>
+
+{{#unless is_ajax}}
+    <div
+        id="modal-roof-type-guide"
+        class="modal modal--roofTypeGuide modal--roofFlashingGuide"
+        data-reveal
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="roof-type-guide-title"
+        aria-describedby="roof-type-guide-intro"
+    >
+        {{> components/common/modal/modal-close-btn }}
+
+        <div class="modal-content roofTypeGuide">
+            <header class="roofTypeGuide-header">
+                <span class="roofTypeGuide-kicker">Installation guide &#9728;</span>
+                <h2 class="roofTypeGuide-title" id="roof-type-guide-title">Choose Your Roof Setup</h2>
+                <p class="roofTypeGuide-intro" id="roof-type-guide-intro">
+                    Answer two quick questions to match the flashing to your roof.
+                </p>
+            </header>
+
+            <section class="roofTypeGuide-step" data-roof-guide-step="pitch">
+                <span class="roofTypeGuide-stepLabel">Question 1 of 2</span>
+                <h3 class="roofTypeGuide-stepTitle">What is your roof pitch?</h3>
+
+                <div class="roofTypeGuide-grid roofTypeGuide-grid--flashing">
+                    <button
+                        class="roofTypeGuide-card roofTypeGuide-card--choice"
+                        type="button"
+                        data-roof-flashing-choice="pitched"
+                        data-roof-flashing-labels="Pitched Flashing|Sloped/Pitched Roof"
+                        aria-pressed="false"
+                    >
+                        <span class="roofTypeGuide-illustration">
+                            <img
+                                src="{{cdn 'assets/img/roof-flashing-guide/pitched-flashing.webp'}}"
+                                alt="Pitched roof guide showing the 4/12 through 8/12 flashing range"
+                                width="800"
+                                height="800"
+                                loading="lazy"
+                            >
+                        </span>
+                        <span class="roofTypeGuide-cardAction">Pitched Flashing</span>
+                    </button>
+
+                    <button
+                        class="roofTypeGuide-card roofTypeGuide-card--choice"
+                        type="button"
+                        data-roof-flashing-choice="little-to-no-pitch"
+                        data-roof-flashing-labels="Little to No-Pitch Flashing|Flat/No-Pitch Roof"
+                        aria-pressed="false"
+                    >
+                        <span class="roofTypeGuide-illustration">
+                            <img
+                                src="{{cdn 'assets/img/roof-flashing-guide/little-to-no-pitch-flashing.webp'}}"
+                                alt="Little to no-pitch roof guide showing the 0/12 through 3/12 flashing range"
+                                width="1000"
+                                height="1000"
+                                loading="lazy"
+                            >
+                        </span>
+                        <span class="roofTypeGuide-cardAction">Little to No-Pitch Flashing</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="roofTypeGuide-step roofTypeGuide-step--covering" data-roof-guide-step="covering" hidden>
+                <span class="roofTypeGuide-stepLabel">Question 2 of 2</span>
+                <h3 class="roofTypeGuide-stepTitle">Is your roof covered with tile?</h3>
+
+                <div class="roofTypeGuide-coveringGrid">
+                    <button
+                        class="roofTypeGuide-coveringChoice"
+                        type="button"
+                        data-roof-tile-choice="standard"
+                        aria-pressed="false"
+                    >
+                        <span class="roofTypeGuide-coveringMarker" aria-hidden="true">&#10003;</span>
+                        <span class="roofTypeGuide-coveringCopy">
+                            <strong>No &mdash; standard roof</strong>
+                            <span>No additional tile flashing is needed.</span>
+                        </span>
+                    </button>
+
+                    <button
+                        class="roofTypeGuide-coveringChoice roofTypeGuide-coveringChoice--tile"
+                        type="button"
+                        data-roof-tile-choice="tile"
+                        aria-pressed="false"
+                    >
+                        <img
+                            class="roofTypeGuide-coveringImage"
+                            src="{{cdn 'assets/img/roof-flashing-guide/universal-tile-flashing.jpg'}}"
+                            alt="Solatube installed with Universal Tile Flashing on a tile roof"
+                            width="1280"
+                            height="1024"
+                            loading="lazy"
+                        >
+                        <span class="roofTypeGuide-coveringCopy">
+                            <strong>Yes &mdash; tile roof</strong>
+                            <span>Universal Tile Flashing is a required add-on.</span>
+                        </span>
+                    </button>
+                </div>
+            </section>
+
+            <aside class="roofTypeGuide-summary" data-roof-guide-summary hidden aria-live="polite">
+                <span class="roofTypeGuide-summaryLabel">Your setup</span>
+                <strong data-roof-guide-summary-flashing></strong>
+                <span data-roof-guide-summary-tile></span>
+            </aside>
+
+            <div class="roofTypeGuide-actions">
+                <button class="button button--primary roofTypeGuide-done" type="button" data-roof-guide-apply disabled>
+                    Apply choices
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div
+        id="modal-roof-covering-guide"
+        class="modal modal--roofTypeGuide"
+        data-reveal
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="roof-covering-guide-title"
+        aria-describedby="roof-covering-guide-intro"
+    >
+        {{> components/common/modal/modal-close-btn }}
+
+        <div class="modal-content roofTypeGuide">
+            <header class="roofTypeGuide-header">
+                <span class="roofTypeGuide-kicker">Installation guide &#9728;</span>
+                <h2 class="roofTypeGuide-title" id="roof-covering-guide-title">Choosing Your Roof Covering</h2>
+                <p class="roofTypeGuide-intro" id="roof-covering-guide-intro">
+                    Choose the option that matches the material covering the outside of your roof where the Solatube will be installed.
+                </p>
+            </header>
+
+            <div class="roofTypeGuide-grid">
+                <article class="roofTypeGuide-card">
+                    <div class="roofTypeGuide-illustration" aria-hidden="true">
+                        <svg viewBox="0 0 320 170" focusable="false">
+                            <rect width="320" height="170" rx="12" fill="#eef7fb"/>
+                            <circle cx="264" cy="34" r="18" fill="#f8c400"/>
+                            <path d="M243 45 228 53M239 34l-16 3M252 52l-13 12" fill="none" stroke="#f8c400" stroke-width="3" stroke-linecap="round" opacity="0.48"/>
+                            <path d="M53 79h214" fill="none" stroke="#087fba" stroke-width="14" stroke-linecap="round"/>
+                            <path d="M68 86v64h184V86" fill="#fff" stroke="#334b5e" stroke-width="5" stroke-linejoin="round"/>
+                            <path d="M53 79h214" fill="none" stroke="#535d65" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M185 76c2-27 32-27 35 0Z" fill="#dff3fa" stroke="#334b5e" stroke-width="5" stroke-linejoin="round"/>
+                            <rect x="180" y="72" width="45" height="8" rx="3" fill="#f8c400"/>
+                        </svg>
+                    </div>
+                    <div class="roofTypeGuide-cardBody">
+                        <h3>Flat Roof</h3>
+                        <p>Select this for a flat or nearly flat roof finished with a continuous membrane such as EPDM, bitumen, or PVC.</p>
+                    </div>
+                </article>
+
+                <article class="roofTypeGuide-card">
+                    <div class="roofTypeGuide-illustration" aria-hidden="true">
+                        <svg viewBox="0 0 320 170" focusable="false">
+                            <rect width="320" height="170" rx="12" fill="#eef7fb"/>
+                            <circle cx="282" cy="29" r="17" fill="#f8c400"/>
+                            <path d="M259 43 243 52M253 34l-18 4M268 52l-13 13" fill="none" stroke="#f8c400" stroke-width="3" stroke-linecap="round" opacity="0.48"/>
+                            <path d="M67 108v42h186v-42L160 58Z" fill="#fff" stroke="#334b5e" stroke-width="5" stroke-linejoin="round"/>
+                            <path d="M39 113 160 45l121 68-25 15-96-54-96 54Z" fill="#c96f4e" stroke="#087fba" stroke-width="7" stroke-linejoin="round"/>
+                            <g fill="none" stroke="#f4c1a7" stroke-width="4" stroke-linecap="round">
+                                <path d="M58 111 160 54l102 57"/>
+                                <path d="M77 113 160 67l83 46"/>
+                                <path d="M98 114 160 80l62 34"/>
+                            </g>
+                            <g fill="none" stroke="#873f2d" stroke-width="3" stroke-linecap="round">
+                                <path d="M78 100q8 7 16 0M102 87q8 7 16 0M126 74q8 7 16 0"/>
+                                <path d="M178 66q8 7 16 0M202 79q8 7 16 0M226 93q8 7 16 0M250 106q8 7 16 0"/>
+                                <path d="M99 108q8 7 16 0M126 93q8 7 16 0M153 78q8 7 16 0M180 83q8 7 16 0M207 98q8 7 16 0M234 113q8 7 16 0"/>
+                            </g>
+                            <g transform="translate(215 68) rotate(29)">
+                                <path d="M-17 2C-15-18 15-18 17 2Z" fill="#dff3fa" stroke="#334b5e" stroke-width="5" stroke-linejoin="round"/>
+                                <rect x="-23" y="0" width="46" height="8" rx="3" fill="#f8c400"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="roofTypeGuide-cardBody">
+                        <h3>Profiled Tile Roof</h3>
+                        <p>Select this for a sloped roof covered with overlapping clay or concrete tiles that create a raised or wavy profile.</p>
+                    </div>
+                </article>
+            </div>
+
+            <aside class="roofTypeGuide-note">
+                <strong>Important:</strong> Look at the roof covering at the planned installation point. Roof pitch alone does not determine this choice. If you are unsure, confirm the material with your installer before ordering.
+            </aside>
+
+            <div class="roofTypeGuide-actions">
+                <button class="button button--primary roofTypeGuide-done" type="button" data-reveal-close>
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div
+        id="modal-roof-tile-type-guide"
+        class="modal modal--roofTypeGuide"
+        data-reveal
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="roof-tile-type-guide-title"
+        aria-describedby="roof-tile-type-guide-intro"
+    >
+        {{> components/common/modal/modal-close-btn }}
+
+        <div class="modal-content roofTypeGuide">
+            <header class="roofTypeGuide-header">
+                <span class="roofTypeGuide-kicker">Installation guide &#9728;</span>
+                <h2 class="roofTypeGuide-title" id="roof-tile-type-guide-title">Choosing Your Roof Tile Type</h2>
+                <p class="roofTypeGuide-intro" id="roof-tile-type-guide-intro">
+                    Choose the option that matches the shape of the tiles or slate at the planned installation point.
+                </p>
+            </header>
+
+            <div class="roofTypeGuide-grid">
+                <article class="roofTypeGuide-card">
+                    <div class="roofTypeGuide-illustration roofTypeGuide-illustration--variant">
+                        <img
+                            class="roofTypeGuide-variantImage"
+                            src="https://cdn11.bigcommerce.com/s-v30rg9y3yr/images/stencil/1280x1280/attribute_rule_images/268_source_1786593005.png"
+                            alt="Solatube flashing for a high-profile tiled roof"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </div>
+                    <div class="roofTypeGuide-cardBody">
+                        <h3>High Profile Tile</h3>
+                        <p>Select this for pantiles, S-shaped tiles, or other raised and wavy clay or concrete tiles with noticeable ridges and troughs.</p>
+                    </div>
+                </article>
+
+                <article class="roofTypeGuide-card">
+                    <div class="roofTypeGuide-illustration roofTypeGuide-illustration--variant">
+                        <img
+                            class="roofTypeGuide-variantImage"
+                            src="https://cdn11.bigcommerce.com/s-v30rg9y3yr/images/stencil/960w/attribute_rule_images/269_source_1786653573.png"
+                            alt="Solatube flashing for flat tile or slate roofing"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </div>
+                    <div class="roofTypeGuide-cardBody">
+                        <h3>Flat Tile or Slate</h3>
+                        <p>Select this for flat interlocking tiles, plain tiles, or natural slate that creates a relatively even roof surface.</p>
+                    </div>
+                </article>
+            </div>
+
+            <aside class="roofTypeGuide-note">
+                <strong>Important:</strong> Choose by the shape of the roof covering, not the roof pitch. &ldquo;Flat Tile or Slate&rdquo; does not mean a flat membrane roof. If your roof uses EPDM, bitumen, PVC, or another membrane, confirm the correct flashing with your installer before ordering.
+            </aside>
+
+            <div class="roofTypeGuide-actions">
+                <button class="button button--primary roofTypeGuide-done" type="button" data-reveal-close>
+                    Got it
+                </button>
+            </div>
+        </div>
+    </div>
+{{/unless}}

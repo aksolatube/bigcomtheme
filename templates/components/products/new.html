@@ -1,0 +1,9 @@
+<h2 class="page-heading">{{lang 'products.new' }}</h2>
+
+<ul class="productGrid productGrid--maxCol{{ columns }}" data-product-type="new">
+    {{#each products}}
+        <li class="product">
+            {{>components/products/card settings=../settings theme_settings=../theme_settings customer=../customer show_rating=../settings.show_product_rating show_review_count=true}}
+        </li>
+    {{/each}}
+</ul>

@@ -1,0 +1,97 @@
+<div class="container 4661726c6579">
+    {{> components/products/description-section schema=schema}}
+    
+    {{#unless theme_settings.show_short_desc}}
+        {{#if product.warranty}}
+            <div class="accordion-block productWarrantyAccordion">
+                <div
+                    class="accordion-navigation toggleLink"
+                    role="button"
+                    tabindex="0"
+                    data-collapsible="#accordion--warranty">
+                    <h5 class="accordion-title">
+                        Warranty
+                    </h5>
+    
+                    <div class="accordion-navigation-actions">
+                        <svg class="icon accordion-indicator toggleLink-text toggleLink-text--off">
+                            <use xlink:href="#icon-plus" />
+                        </svg>
+                        <svg class="icon accordion-indicator toggleLink-text toggleLink-text--on">
+                            <use xlink:href="#icon-minus" />
+                        </svg>
+                    </div>
+                </div>
+    
+                <div id="accordion--warranty" class="accordion-content">
+                    {{{product.warranty}}}
+                </div>
+            </div>
+        {{/if}}
+    {{/unless}}
+    
+</div>
+
+{{#and product.related_products theme_settings.related_products_tab}}
+    <div class="accordion-block">
+        <div class="container">
+            <div
+                class="accordion-navigation toggleLink"
+                role="button"
+                data-collapsible="#accordion--related">
+                <h5 class="accordion-title">
+                    {{lang 'products.related_products'}}
+                </h5>
+        
+                <div class="accordion-navigation-actions">
+                    <svg class="icon accordion-indicator toggleLink-text toggleLink-text--off">
+                        <use xlink:href="#icon-plus" />
+                    </svg>
+                    <svg class="icon accordion-indicator toggleLink-text toggleLink-text--on">
+                        <use xlink:href="#icon-minus" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    
+        <div id="accordion--related" class="accordion-content">
+            <div class="grid-bg">
+                <div class="container">
+                    {{> components/products/related products=product.related_products columns=6}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{/and}}
+
+{{#and product.similar_by_views theme_settings.customer_viewed_products_tab}}
+    <div class="accordion-block">
+        <div class="container">
+            <div
+                class="accordion-navigation toggleLink"
+                role="button"
+                data-collapsible="#accordion--similar">
+                <h5 class="accordion-title">
+                    {{lang 'products.similar_by_views'}}
+                </h5>
+        
+                <div class="accordion-navigation-actions">
+                    <svg class="icon accordion-indicator toggleLink-text toggleLink-text--off">
+                        <use xlink:href="#icon-plus" />
+                    </svg>
+                    <svg class="icon accordion-indicator toggleLink-text toggleLink-text--on">
+                        <use xlink:href="#icon-minus" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    
+        <div id="accordion--similar" class="accordion-content">
+            <div class="grid-bg">
+                <div class="container">
+                    {{> components/products/similar-by-views products=product.similar_by_views columns=6}}
+                </div>
+            </div>
+        </div>
+    </div>
+{{/and}}

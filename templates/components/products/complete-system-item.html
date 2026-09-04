@@ -1,0 +1,105 @@
+<article class="completeSystem-item" data-complete-system-item data-product-id="{{product.id}}">
+    <label class="completeSystem-select">
+        <input
+            class="completeSystem-checkbox"
+            type="checkbox"
+            data-complete-system-checkbox
+            aria-label="Add {{product.title}}"
+        >
+        <span class="completeSystem-checkmark" aria-hidden="true"></span>
+    </label>
+
+    <button
+        class="completeSystem-media"
+        type="button"
+        data-complete-system-details
+        aria-label="View details for {{product.title}}"
+        aria-controls="complete-system-details-{{product.id}}"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+    >
+        {{> components/common/responsive-img
+            image=product.main_image
+            class="completeSystem-image"
+            fallback_size=theme_settings.productthumb_size
+            lazyload=theme_settings.lazyload_mode
+            default_image=theme_settings.default_image_product
+        }}
+    </button>
+
+    <div class="completeSystem-copy">
+        <span class="completeSystem-name">{{product.title}}</span>
+        <button
+            class="completeSystem-learn"
+            type="button"
+            data-complete-system-details
+            aria-expanded="false"
+            aria-controls="complete-system-details-{{product.id}}"
+            aria-haspopup="dialog"
+        >Details</button>
+    </div>
+
+    <div
+        class="completeSystem-dialogOverlay"
+        id="complete-system-details-{{product.id}}"
+        data-complete-system-description
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="complete-system-detail-name-{{product.id}}"
+        hidden
+    >
+        <div class="completeSystem-dialog">
+            <button class="completeSystem-dialogClose" type="button" data-complete-system-details-close aria-label="Close accessory details">&times;</button>
+            <button
+                class="completeSystem-dialogMedia"
+                type="button"
+                data-complete-system-image-expand
+                data-complete-system-full-image="{{getImage product.main_image 'zoom_size'}}"
+                aria-label="View a full-screen image of {{product.title}}"
+            >
+                {{> components/common/responsive-img
+                    image=product.main_image
+                    class="completeSystem-dialogImage"
+                    fallback_size=theme_settings.product_size
+                    lazyload=theme_settings.lazyload_mode
+                    default_image=theme_settings.default_image_product
+                }}
+                <span class="completeSystem-dialogImageHint">View full size</span>
+            </button>
+            <div class="completeSystem-dialogCopy">
+                <span class="completeSystem-dialogEyebrow">Accessory details</span>
+                <strong class="completeSystem-dialogName" id="complete-system-detail-name-{{product.id}}" data-complete-system-detail-name>{{product.title}}</strong>
+                <p data-complete-system-description-text></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="completeSystem-buy">
+        <span
+            class="completeSystem-price"
+            data-complete-system-price
+            data-price-value="{{#if product.price.with_tax}}{{product.price.with_tax.value}}{{else}}{{product.price.without_tax.value}}{{/if}}"
+        >
+            {{#if product.price.with_tax}}{{product.price.with_tax.formatted}}{{else}}{{product.price.without_tax.formatted}}{{/if}}
+        </span>
+        <div class="completeSystem-quantity" data-complete-system-quantity hidden>
+            <label for="complete-system-qty-{{product.id}}">Qty</label>
+            <select id="complete-system-qty-{{product.id}}" data-complete-system-qty aria-label="Accessory quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+    </div>
+
+    <form class="completeSystem-form" data-complete-system-form hidden>
+        <input type="hidden" name="action" value="add">
+        <input type="hidden" name="product_id" value="{{product.id}}">
+        <input type="hidden" name="qty[]" value="1" data-complete-system-form-qty>
+        <div data-complete-system-options>
+            {{#each product.options}}
+                {{{dynamicComponent 'components/products/options'}}}
+            {{/each}}
+        </div>
+    </form>
+</article>

@@ -1,0 +1,340 @@
+<span class="mobile-closeNav">
+    <i class="icon" aria-hidden="true">
+        <svg><use xlink:href="#icon-close-large" /></svg>
+    </i>
+    close
+</span>
+<nav class="navPages">
+    <ul class="navPages-list navPages-list--user 5765697a656e20596f756e67">
+        {{#if currency_selector.currencies.length '>' 1}}
+            <li class="navPages-item navPages-item--currency">
+                <a class="navPages-action has-subMenu" href="#" data-collapsible="navPages-currency" aria-controls="navPages-currency" aria-expanded="false">
+                    {{lang 'common.currency' code=currency_selector.active_currency_code}} <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg></i>
+                </a>
+                <div class="navPage-subMenu" id="navPages-currency" aria-hidden="true" tabindex="-1">
+                    <ul class="navPage-subMenu-list">
+                        {{#each currency_selector.currencies}}
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action" href="{{{switch_url}}}">
+                                {{#if is_active}}
+                                    <strong>{{name}}</strong>
+                                {{else}}
+                                    {{name}}
+                                {{/if}}
+                            </a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </li>
+        {{/if}}
+        {{#if customer}}
+            <li class="navPages-item navPages-item--account">
+                <a class="navPages-action has-subMenu" href="{{urls.account.index}}" data-collapsible="navPages-account">
+                    <i class="icon" aria-hidden="true">
+                        <svg><use xlink:href="#icon-user" /></svg>
+                    </i>
+                    &nbsp;
+                    {{lang 'common.account'}}
+                    <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-down" /></svg></i>
+                </a>
+                <div class="navPage-subMenu" id="navPages-account" aria-hidden="true" tabindex="-1">
+                    <ul class="navPage-subMenu-list">
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.orders.all}}"
+                               aria-label="{{lang 'account.nav.orders'}}"
+                            >
+                                {{lang 'account.nav.orders'}}
+                            </a>
+                        </li>
+                        {{#if settings.returns_enabled}}
+                            <li class="navPage-subMenu-item">
+                                <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                                <a class="navPage-subMenu-action navPages-action"
+                                   href="{{urls.account.returns}}"
+                                   aria-label="{{lang 'account.nav.returns'}}"
+                                >
+                                    {{lang 'account.nav.returns'}}
+                                </a>
+                            </li>
+                        {{/if}}
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.inbox}}"
+                               aria-label="{{lang 'account.mobile_nav.messages'}}"
+                            >
+                                {{lang 'account.mobile_nav.messages'}}
+                            </a>
+                        </li>
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.addresses}}"
+                               aria-label="{{lang 'account.nav.addresses'}}"
+                            >
+                                {{lang 'account.nav.addresses'}}
+                            </a>
+                        </li>
+                        {{#if settings.show_payment_methods}}
+                            <li class="navPage-subMenu-item">
+                                <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                                <a class="navPage-subMenu-action navPages-action"
+                                   href="{{urls.account.payment_methods.all}}"
+                                   aria-label="{{lang 'account.nav.payment_methods'}}"
+                                >
+                                    {{lang 'account.nav.payment_methods'}}
+                                </a>
+                            </li>
+                        {{/if}}
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.wishlists.all}}"
+                               aria-label="{{lang 'account.mobile_nav.wishlists'}}"
+                            >
+                                {{lang 'account.mobile_nav.wishlists'}}
+                            </a>
+                        </li>
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.recent_items}}"
+                               aria-label="{{lang 'account.nav.recently_viewed'}}"
+                            >
+                                {{lang 'account.nav.recently_viewed'}}
+                            </a>
+                        </li>
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.details}}"
+                               aria-label="{{lang 'account.nav.settings'}}"
+                            >
+                                {{lang 'account.nav.settings'}}
+                            </a>
+                        </li>
+                        <li class="navPage-subMenu-item">
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-right" /></svg></i>
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.auth.logout}}"
+                               aria-label="{{lang 'common.logout'}}"
+                            >
+                                {{lang 'common.logout'}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        {{else}}
+            <li class="navPages-item">
+                <i class="icon" aria-hidden="true">
+                    <svg><use xlink:href="#icon-user" /></svg>
+                </i>
+                <a class="navPages-action" href="{{urls.auth.login}}">{{lang 'common.login'}}</a>
+                {{#if settings.account_creation_enabled}}
+                    {{lang 'common.or'}}
+                    <a class="navPages-action"
+                       href="{{urls.auth.create_account}}"
+                       aria-label="{{lang 'common.sign_up'}}"
+                    >
+                        {{lang 'common.sign_up'}}
+                    </a>
+                {{/if}}
+            </li>
+        {{/if}}
+        <li class="navPages-item navPages-item--language">
+            <div class="languageSelector languageSelector--mobile" data-language-selector>
+                <details class="languageSelector-details">
+                    <summary class="languageSelector-toggle" aria-label="Select language">
+                        <svg class="languageSelector-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9S14.7 18.5 12 21M12 3C9.3 5.5 7.9 8.5 7.9 12S9.3 18.5 12 21"></path>
+                        </svg>
+                        <span class="languageSelector-label">Language:</span>
+                        <strong data-language-current>EN</strong>
+                        <svg class="languageSelector-chevron" aria-hidden="true"><use xlink:href="#icon-chevron-down" /></svg>
+                    </summary>
+                    <div class="languageSelector-menu" role="menu" aria-label="Language">
+                        <button type="button" role="menuitem" data-translate-language="en">English</button>
+                        <button type="button" role="menuitem" data-translate-language="fr">Français</button>
+                        <button type="button" role="menuitem" data-translate-language="nl">Nederlands</button>
+                        <button type="button" role="menuitem" data-translate-language="es">Español</button>
+                        <button type="button" role="menuitem" data-translate-language="de">Deutsch</button>
+                    </div>
+                </details>
+            </div>
+        </li>
+    </ul>
+    <ul class="navPages-list navPages-mega navPages-mainNav">
+        {{#each categories}}
+            {{#if @index '===' 0}}
+                <li class="navPages-item featuredMega-item" data-featured-mega-item>
+                    <button type="button" class="navPages-action featuredMega-toggle has-subMenu is-root{{#if is_active}} activePage{{/if}}" data-featured-mega-toggle aria-controls="featuredMega-{{id}}" aria-expanded="false">
+                        {{name}}
+                        <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-down" /></svg></i>
+                    </button>
+                    <section class="featuredMega" id="featuredMega-{{id}}" data-featured-mega data-category-url="{{url}}" aria-hidden="true" aria-label="Explore {{name}}">
+                        <div class="featuredMega-inner">
+                            <div class="featuredMega-links">
+                                <p class="featuredMega-eyebrow">Find your system</p>
+                                <h2 class="featuredMega-heading">Shop {{name}}</h2>
+                                <ul class="featuredMega-shortcuts">
+                                    <li class="featuredMega-shortcutWithHelp">
+                                        <a href="{{url}}" data-featured-facet data-facet-name="Room Size" data-facet-value="Smaller spaces" data-facet-name-us="Room Size" data-facet-value-us="Smaller spaces" data-facet-name-be="Light Coverage Area" data-facet-value-be="0–150 ft² (0–14 m²)" data-facet-name-ca="Room Size" data-facet-value-ca="Smaller spaces" data-facet-name-uk="Tube Diameter" data-facet-value-uk="10 in. (250 mm)" data-href-uk="/categories/solatube-skylights/250-mm-diameter-tube-skylight.html" data-label-uk="Skylights for smaller spaces">Skylights for smaller spaces <span aria-hidden="true">→</span></a>
+                                        <span class="spaceSizeHelp">
+                                            <button class="spaceSizeHelp-trigger" type="button" data-space-size-help aria-expanded="false" aria-controls="space-size-help-smaller" aria-label="What counts as a smaller space?">?</button>
+                                            <span class="spaceSizeHelp-tooltip" id="space-size-help-smaller" role="tooltip" hidden>A helpful starting point for compact rooms such as bathrooms, hallways, wardrobes and utility rooms. Choose for each room; separate rooms generally need separate skylights.</span>
+                                        </span>
+                                    </li>
+                                    <li class="featuredMega-shortcutWithHelp">
+                                        <a href="{{url}}" data-featured-facet data-facet-name="Room Size" data-facet-value="Larger spaces" data-facet-name-us="Room Size" data-facet-value-us="Larger spaces" data-facet-name-be="Light Coverage Area" data-facet-value-be="150–300 ft² (14–28 m²)" data-facet-name-ca="Room Size" data-facet-value-ca="Larger spaces" data-facet-name-uk="Tube Diameter" data-facet-value-uk="14 in. (350 mm)" data-href-uk="/categories/solatube-skylights/350-mm-diameter-tube-skylights.html" data-label-uk="Skylights for larger spaces">Skylights for larger spaces <span aria-hidden="true">→</span></a>
+                                        <span class="spaceSizeHelp">
+                                            <button class="spaceSizeHelp-trigger" type="button" data-space-size-help aria-expanded="false" aria-controls="space-size-help-larger" aria-label="What counts as a larger space?">?</button>
+                                            <span class="spaceSizeHelp-tooltip" id="space-size-help-larger" role="tooltip" hidden>A helpful starting point for kitchens, living areas, garages, high ceilings and open rooms. Very large or divided spaces may need more than one skylight.</span>
+                                        </span>
+                                    </li>
+                                    <li><a href="{{url}}" data-featured-facet data-facet-name="Solar-powered Night Light Included" data-facet-value="Yes" data-facet-name-uk="Fixture Shape" data-facet-value-uk="Square" data-href-uk="/categories/solatube-skylights/square-ceiling-fixtures.html" data-label-uk="Square ceiling fixtures">Integrated NightLight Skylights <span aria-hidden="true">→</span></a></li>
+                                    <li><a href="{{url}}" data-featured-facet data-facet-name-us="20&quot; Extension Tubes Included" data-facet-value-us="Yes" data-facet-name-be="50cm Extension Tubes Included" data-facet-value-be="Yes" data-facet-name-ca="20&quot; Extension Tubes Included" data-facet-value-ca="Yes" data-facet-name-uk="20&quot; Extension Tubes Included" data-facet-value-uk="Yes" data-href-uk="/categories/solatube-skylights/kits-with-extension-tubes.html">Skylights with Extension Tubes <span aria-hidden="true">→</span></a></li>
+                                </ul>
+                                <a class="featuredMega-viewAll" href="{{url}}">View all {{name}} <span aria-hidden="true">→</span></a>
+                            </div>
+                            <div class="featuredMega-featured">
+                                <div class="featuredMega-titleRow">
+                                    <h3>Popular products</h3>
+                                    <span class="featuredMega-seriesBadge">
+                                        <span class="featuredMega-seriesBadgeSparkle" aria-hidden="true">✦</span>
+                                        <strong>NEW</strong> Brighten Up Skylight Series
+                                    </span>
+                                </div>
+                                <div class="featuredMega-products" data-featured-mega-products aria-live="polite">
+                                    <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                    <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                    <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                </div>
+                                <p class="featuredMega-status" data-featured-mega-status>Loading popular products…</p>
+                            </div>
+                        </div>
+                    </section>
+                </li>
+            {{else}}
+                {{#if @index '===' 1}}
+                    <li class="navPages-item featuredMega-item" data-featured-mega-item>
+                        <button type="button" class="navPages-action featuredMega-toggle has-subMenu is-root{{#if is_active}} activePage{{/if}}" data-featured-mega-toggle aria-controls="featuredMega-{{id}}" aria-expanded="false">
+                            {{name}}
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-down" /></svg></i>
+                        </button>
+                        <section class="featuredMega" id="featuredMega-{{id}}" data-featured-mega data-category-url="{{url}}" aria-hidden="true" aria-label="Explore {{name}}">
+                            <div class="featuredMega-inner">
+                                <div class="featuredMega-links">
+                                    <p class="featuredMega-eyebrow">Shop by category</p>
+                                    <h2 class="featuredMega-heading">Parts &amp; Accessories</h2>
+                                    <ul class="featuredMega-shortcuts">
+                                        <li><a href="{{url}}" data-featured-facet data-facet-name="Type" data-facet-value="Extension Tube" data-href-uk="/daylighting-systems/fixtures-accessories-flashings-parts/extension-tubes/">Extension tubes <span aria-hidden="true">→</span></a></li>
+                                        <li><a href="{{url}}" data-featured-facet data-facet-name="Type" data-facet-value="Add-On Kit" data-href-uk="/categories/parts-accessories/add-on-kits.html">Add-on kits <span aria-hidden="true">→</span></a></li>
+                                        <li><a href="{{url}}" data-featured-facet data-facet-name="Function" data-facet-value="Light Control" data-href-uk="/categories/parts-accessories/daylight-controls.html">Daylight controls <span aria-hidden="true">→</span></a></li>
+                                        <li><a href="{{url}}" data-featured-facet data-facet-name="Type" data-facet-value="Flashing/Installation" data-href-uk="/categories/parts-accessories/roof-flashing.html">Roof flashing <span aria-hidden="true">→</span></a></li>
+                                    </ul>
+                                    <a class="featuredMega-viewAll" href="{{url}}">View all {{name}} <span aria-hidden="true">→</span></a>
+                                </div>
+                                <div class="featuredMega-featured">
+                                    <div class="featuredMega-titleRow">
+                                        <h3>Featured Accessory Products</h3>
+                                    </div>
+                                    <div class="featuredMega-products" data-featured-mega-products aria-live="polite">
+                                        <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                        <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                        <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                    </div>
+                                    <p class="featuredMega-status" data-featured-mega-status>Loading popular products…</p>
+                                </div>
+                            </div>
+                        </section>
+                    </li>
+                {{else}}
+                    {{#if name '===' 'Ventilation'}}
+                        <li class="navPages-item featuredMega-item" data-featured-mega-item>
+                            <button type="button" class="navPages-action featuredMega-toggle has-subMenu is-root{{#if is_active}} activePage{{/if}}" data-featured-mega-toggle aria-controls="featuredMega-{{id}}" aria-expanded="false">
+                                {{name}}
+                                <i class="icon navPages-action-moreIcon" aria-hidden="true"><svg><use xlink:href="#icon-chevron-down" /></svg></i>
+                            </button>
+                            <section class="featuredMega" id="featuredMega-{{id}}" data-featured-mega data-category-url="{{url}}" aria-hidden="true" aria-label="Explore {{name}}">
+                                <div class="featuredMega-inner">
+                                    <div class="featuredMega-links">
+                                        <p class="featuredMega-eyebrow">Shop by category</p>
+                                        <h2 class="featuredMega-heading">Ventilation</h2>
+                                        <ul class="featuredMega-shortcuts">
+                                            {{#each children}}
+                                                <li><a href="{{url}}" data-featured-product-source>{{name}} <span aria-hidden="true">→</span></a></li>
+                                            {{/each}}
+                                        </ul>
+                                        <a class="featuredMega-viewAll" href="{{url}}">View all {{name}} <span aria-hidden="true">→</span></a>
+                                    </div>
+                                    <div class="featuredMega-featured">
+                                        <div class="featuredMega-titleRow">
+                                            <h3>Featured Ventilation Products</h3>
+                                        </div>
+                                        <div class="featuredMega-products" data-featured-mega-products aria-live="polite">
+                                            <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                            <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                            <div class="featuredMega-skeleton" aria-hidden="true"></div>
+                                        </div>
+                                        <p class="featuredMega-status" data-featured-mega-status>Loading popular products…</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    {{else}}
+                        <li class="navPages-item">
+                            {{> components/common/navigation-list}}
+                        </li>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        {{/each}}
+        {{#if theme_settings.show_content_navigation}}
+            {{#each pages}}
+                <li class="navPages-item{{#if @index '===' 0}} navPages-item--content-first{{/if}}">
+                    {{#if ../theme_settings.navigation_design '===' 'simple'}}
+                        {{> components/common/navigation-list-alternate}}
+                    {{/if}}
+                    {{#if ../theme_settings.navigation_design '===' 'mega'}}
+                        {{> components/common/navigation-list}}
+                    {{/if}}
+                </li>
+             {{/each}}
+        {{/if}}
+    </ul>
+    <ul class="navPages-list navPages-list--user">
+        {{#and settings.phone_number theme_settings.header-phone}}
+            <li class="navPages-item">
+                <a class="navPages-action navUser-action--phone" href="tel:{{settings.phone_number}}"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;{{settings.phone_number}}</a>
+            </li>
+        {{/and}}
+        {{#if settings.gift_certificates_enabled}}
+            <li class="navPages-item">
+                <a class="navPages-action" href="{{urls.gift_certificate.purchase}}">{{lang 'common.gift_cert'}}</a>
+            </li>
+        {{/if}}
+        {{#if customer.store_credit.value '>' 0}}
+            <li class="navPages-item">
+                <a class="navPages-action navPages-action--storeCredit">
+                    {{lang 'common.store_credit_overview' credit=customer.store_credit.formatted}}
+                </a>
+            </li>
+        {{/if}}
+        {{#if theme_settings.product_list_display_mode '==' 'list'}}
+            <li class="navPages-item">
+                <a class="navPages-action navPages-action--compare" href="{{urls.compare}}" data-compare-nav>{{lang 'common.compare'}} <span class="countPill countPill--positive countPill--alt"></span></a>
+            </li>
+        {{/if}}
+        {{#if theme_settings.social_icon_placement_top}}
+            <li class="navPages-item">
+                {{> components/common/social-links}}
+            </li>
+        {{/if}}
+    </ul>
+</nav>

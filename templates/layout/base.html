@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="no-js" lang="{{ locale_name }}">
+    <head>
+        <title>{{ head.title }}</title>
+        {{{ resourceHints }}}
+        {{{ head.meta_tags }}}
+        {{{ head.config }}}
+        {{#block "head"}} {{/block}}
+
+        <link href="{{ head.favicon }}" rel="shortcut icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <script nonce="{{nonce}}">
+            {{!-- Change document class from no-js to js so we can detect this in css --}}
+            document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+        </script>
+
+        {{> components/common/polyfill-script }}
+        <script nonce="{{nonce}}">window.consentManagerTranslations = `{{{langJson 'consent_manager'}}}`;</script>
+
+        {{!-- Load Lazysizes script ASAP so images will appear --}}
+        <script nonce="{{nonce}}">
+            {{!-- Only load visible elements until the onload event fires, after which preload nearby elements. --}}
+            window.lazySizesConfig = window.lazySizesConfig || {};
+            window.lazySizesConfig.loadMode = 1;
+        </script>
+        <script nonce="{{nonce}}" async src="{{cdn 'assets/dist/theme-bundle.head_async.js'}}"></script>
+        
+        {{getFontsCollection font-display='block'}}
+        
+        <link rel="preload" href="{{cdn 'assets/dist/theme-bundle.font.js'}}" as="script">
+        <script nonce="{{nonce}}" async src="{{cdn 'assets/dist/theme-bundle.font.js'}}"></script>
+
+        {{{stylesheet '/assets/css/theme.css'}}}
+
+        {{{head.scripts}}}
+
+        {{!--
+            BigCommerce exposes the initially selected rule/variant image in BCData,
+            while product.main_image can still be the generic catalog image. Start
+            the selected image request before the deferred product bundle replaces
+            the gallery image so the PDP LCP is not delayed by JavaScript startup.
+        --}}
+        {{#if page_type '===' 'product'}}
+        <script nonce="{{nonce}}">
+            (function () {
+                var attributes = window.BCData && window.BCData.product_attributes;
+                var image = attributes && attributes.image;
+                var template = image && image.data;
+                var widths = [80, 160, 320, 640, 960, 1280, 1920, 2560];
+
+                if (!template || template.indexOf('{:size}') === -1) return;
+
+                function imageUrl(size) {
+                    return template.replace('{:size}', size);
+                }
+
+                var initialImage = {
+                    alt: image.alt || '',
+                    src: imageUrl('{{theme_settings.product_size}}'),
+                    srcset: widths.map(function (width) {
+                        return imageUrl(width + 'w') + ' ' + width + 'w';
+                    }).join(', '),
+                    zoom: imageUrl('{{theme_settings.zoom_size}}')
+                };
+                var preload = document.createElement('link');
+
+                window.solatubeInitialPdpImage = initialImage;
+                preload.rel = 'preload';
+                preload.as = 'image';
+                preload.href = initialImage.src;
+                preload.setAttribute('imagesrcset', initialImage.srcset);
+                preload.setAttribute('imagesizes', '(max-width: 800px) calc(100vw - 62px), (max-width: 1400px) 50vw, 700px');
+                preload.setAttribute('fetchpriority', 'high');
+                document.head.appendChild(preload);
+            }());
+        </script>
+        {{/if}}
+
+        {{~inject 'zoomSize' theme_settings.zoom_size}}
+        {{~inject 'productSize' theme_settings.product_size}}
+        {{~inject 'genericError' (lang 'common.generic_error')}}
+        {{~inject 'maintenanceModeSettings' settings.maintenance}}
+        {{~inject 'adminBarLanguage' (langJson 'admin')}}
+        {{~inject 'urls' urls}}
+        {{~inject 'secureBaseUrl' settings.secure_base_url}}
+        {{~inject 'cartId' cart_id}}
+        {{~inject 'channelId' settings.channel_id}}
+        {{~inject 'template' template}}
+        
+        {{#if page_type '===' 'product'}}
+            {{> components/common/facebook-like}}
+        {{else if page_type '===' 'blog' }}
+            {{> components/common/facebook-like}}
+        {{else if page_type '===' 'blog_post' }}
+            {{> components/common/facebook-like}}
+        {{/if}}
+
+        <script nonce="{{nonce}}">
+            var theme_settings = {
+                show_fast_cart: {{theme_settings.show_fast_cart}},
+                linksPerCol: {{theme_settings.nav-links-per-col}},
+            };
+        </script>
+
+        {{~inject 'validationDictionaryJSON' (langJson 'validation_messages')}}
+        {{~inject 'validationFallbackDictionaryJSON' (langJson 'validation_fallback_messages')}}
+        {{~inject 'validationDefaultDictionaryJSON' (langJson 'validation_default_messages')}}
+        {{~inject 'carouselArrowAndDotAriaLabel' (lang 'carousel.arrow_and_dot_aria_label')}}
+        {{~inject 'carouselActiveDotAriaLabel' (lang 'carousel.active_dot_aria_label')}}
+        {{~inject 'carouselContentAnnounceMessage' (lang 'carousel.content_announce_message')}}
+
+        {{!-- Get this loading ASAP --}}
+        <link rel="preload" href="{{cdn 'assets/dist/theme-bundle.main.js'}}" as="script">
+    </head>
+    <body>
+        <svg data-src="{{cdn 'img/icon-sprite.svg'}}" class="icons-svg-sprite"></svg>
+
+        {{> components/common/header }}
+        {{> components/common/body }}
+        {{> components/common/footer }}
+        {{> components/common/contact-hub }}
+        {{> components/common/purchase-survey }}
+
+        <div id="google_translate_element" class="googleTranslateElement" aria-hidden="true"></div>
+        <script nonce="{{nonce}}">
+            (function () {
+                var languageNames = { en: 'EN', nl: 'NL', fr: 'FR', es: 'ES', de: 'DE' };
+
+                function getCurrentLanguage() {
+                    var match = document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([^;]+)/);
+                    var storedLanguage;
+                    try {
+                        storedLanguage = window.localStorage.getItem('solatubeLanguage');
+                    } catch (error) {
+                        storedLanguage = null;
+                    }
+                    return match && languageNames[match[1]] ? match[1] : (languageNames[storedLanguage] ? storedLanguage : 'en');
+                }
+
+                function updateLabels(language) {
+                    var label = languageNames[language] || 'EN';
+                    document.querySelectorAll('[data-language-current]').forEach(function (element) {
+                        element.textContent = label;
+                    });
+                    document.querySelectorAll('[data-translate-language]').forEach(function (button) {
+                        button.classList.toggle('is-active', button.getAttribute('data-translate-language') === language);
+                    });
+                }
+
+                function setTranslationCookie(language) {
+                    var value = '/en/' + language;
+                    var cookie = 'googtrans=' + value + '; path=/; max-age=31536000; SameSite=Lax';
+                    var hostParts = window.location.hostname.replace(/^www\./, '').split('.');
+
+                    document.cookie = cookie;
+                    if (hostParts.length > 1) {
+                        document.cookie = cookie + '; domain=.' + hostParts.slice(-2).join('.');
+                    }
+
+                    try {
+                        window.localStorage.setItem('solatubeLanguage', language);
+                    } catch (error) {
+                        // Cookies still preserve the selection when storage is unavailable.
+                    }
+                }
+
+                function applyGoogleLanguage(language, attempts) {
+                    var select = document.querySelector('#google_translate_element select.goog-te-combo');
+
+                    if (select) {
+                        function triggerChange() {
+                            select.value = language;
+                            var changeEvent = document.createEvent('HTMLEvents');
+                            changeEvent.initEvent('change', true, true);
+                            select.dispatchEvent(changeEvent);
+                        }
+
+                        // Google's control can appear just before its internal
+                        // change listener is ready. Repeating the same selection
+                        // during that short window prevents a required second click.
+                        triggerChange();
+                        window.setTimeout(triggerChange, 400);
+                        window.setTimeout(triggerChange, 1200);
+                        return;
+                    }
+
+                    if (attempts < 100) {
+                        window.setTimeout(function () {
+                            applyGoogleLanguage(language, attempts + 1);
+                        }, 100);
+                        return;
+                    }
+
+                    // If Google is unusually slow or unavailable, the saved
+                    // cookie applies the language on the next page load.
+                    window.location.reload();
+                }
+
+                function selectLanguage(language) {
+                    setTranslationCookie(language);
+                    updateLabels(language);
+                    applyGoogleLanguage(language, 0);
+                }
+
+
+                window.googleTranslateElementInit = function () {
+                    new window.google.translate.TranslateElement({
+                        pageLanguage: 'en',
+                        includedLanguages: 'en,nl,fr,es,de',
+                        autoDisplay: false
+                    }, 'google_translate_element');
+                    updateLabels(getCurrentLanguage());
+                };
+
+                document.addEventListener('click', function (event) {
+                    var button = event.target.closest('[data-translate-language]');
+                    if (!button) return;
+
+                    var language = button.getAttribute('data-translate-language');
+                    var selector = button.closest('.languageSelector');
+                    var details = selector && selector.querySelector('details');
+
+                    if (details) details.removeAttribute('open');
+                    selectLanguage(language);
+                }, true);
+
+                updateLabels(getCurrentLanguage());
+
+                var script = document.createElement('script');
+                script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+                script.async = true;
+                script.setAttribute('nonce', '{{nonce}}');
+                document.body.appendChild(script);
+            }());
+        </script>
+
+        {{#if page_type '===' 'product'}}
+        <script nonce="{{nonce}}">
+            (function () {
+                var messages = {
+                    en: 'Please select an option.',
+                    nl: 'Selecteer een optie.',
+                    fr: 'Veuillez sélectionner une option.',
+                    es: 'Seleccione una opción.',
+                    de: 'Bitte wählen Sie eine Option aus.'
+                };
+
+                function currentLanguage() {
+                    var match = document.cookie.match(/(?:^|;\s*)googtrans=\/en\/([^;]+)/);
+                    var storedLanguage;
+                    try {
+                        storedLanguage = window.localStorage.getItem('solatubeLanguage');
+                    } catch (error) {
+                        storedLanguage = null;
+                    }
+                    return match && messages[match[1]] ? match[1] : (messages[storedLanguage] ? storedLanguage : 'en');
+                }
+
+                function requiredControls(field) {
+                    return Array.prototype.slice.call(field.querySelectorAll('input[required], select[required], textarea[required]'));
+                }
+
+                function fieldIsValid(field) {
+                    var controls = requiredControls(field);
+                    if (!controls.length) return true;
+
+                    var choiceControls = controls.filter(function (control) {
+                        return control.type === 'radio' || control.type === 'checkbox';
+                    });
+
+                    if (choiceControls.length) {
+                        return choiceControls.some(function (control) { return control.checked; });
+                    }
+
+                    return controls.every(function (control) {
+                        if (control.type === 'file') return control.files && control.files.length > 0;
+                        return String(control.value || '').trim() !== '';
+                    });
+                }
+
+                function clearError(field) {
+                    var error = field.querySelector('.productOption-inlineError');
+                    if (error) error.remove();
+                    field.classList.remove('form-field--optionError');
+                    requiredControls(field).forEach(function (control) {
+                        control.removeAttribute('aria-invalid');
+                        control.removeAttribute('aria-describedby');
+                    });
+                }
+
+                function showError(field, index) {
+                    clearError(field);
+                    var error = document.createElement('div');
+                    var errorId = 'product-option-error-' + index;
+                    error.className = 'productOption-inlineError';
+                    error.id = errorId;
+                    error.setAttribute('role', 'alert');
+                    error.textContent = messages[currentLanguage()] || messages.en;
+
+                    var heading = field.querySelector('.form-label--inlineSmall');
+                    if (heading) {
+                        heading.insertAdjacentElement('afterend', error);
+                    } else {
+                        field.insertBefore(error, field.firstChild);
+                    }
+
+                    field.classList.add('form-field--optionError');
+                    requiredControls(field).forEach(function (control) {
+                        control.setAttribute('aria-invalid', 'true');
+                        control.setAttribute('aria-describedby', errorId);
+                    });
+                }
+
+                document.addEventListener('submit', function (event) {
+                    var form = event.target;
+                    if (!form.matches('form[data-cart-item-add]')) return;
+
+                    var invalidFields = Array.prototype.slice.call(form.querySelectorAll('[data-product-attribute]')).filter(function (field) {
+                        clearError(field);
+                        return !fieldIsValid(field);
+                    });
+
+                    if (!invalidFields.length) return;
+
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    invalidFields.forEach(showError);
+
+                    var firstField = invalidFields[0];
+                    var header = document.querySelector('.header');
+                    var headerHeight = header ? header.getBoundingClientRect().height : 0;
+                    var fieldTop = firstField.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({ top: Math.max(0, fieldTop - headerHeight - 20), behavior: 'smooth' });
+                }, true);
+
+                document.addEventListener('change', function (event) {
+                    var field = event.target.closest('[data-product-attribute]');
+                    if (field && fieldIsValid(field)) clearError(field);
+                }, true);
+
+                document.addEventListener('input', function (event) {
+                    var field = event.target.closest('[data-product-attribute]');
+                    if (field && fieldIsValid(field)) clearError(field);
+                }, true);
+            }());
+        </script>
+        {{/if}}
+
+        {{#if page_type '===' 'product'}}
+            <script nonce="{{nonce}}" defer src="{{cdn 'assets/js/theme/roots/product-lightbox.js'}}"></script>
+        {{/if}}
+
+        <script nonce="{{nonce}}" defer src="{{cdn 'assets/js/theme/roots/featured-mega-menu.js'}}"></script>
+        <script nonce="{{nonce}}" defer src="{{cdn 'assets/js/theme/roots/storefront-interactions.js'}}"></script>
+
+        {{#if page_type '===' 'category'}}
+            <script nonce="{{nonce}}" defer src="{{cdn 'assets/js/theme/roots/category-filter-stability.js'}}"></script>
+        {{/if}}
+
+        <script nonce="{{nonce}}">window.__webpack_public_path__ = "{{cdn 'assets/dist/'}}";</script>
+        <script nonce="{{nonce}}">
+            {{!-- Exported in app.js --}}
+            function onThemeBundleMain() {
+                window.stencilBootstrap("{{page_type}}", {{jsContext}}).load();
+            }
+        </script>
+        <script nonce="{{nonce}}" async defer src="{{cdn 'assets/dist/theme-bundle.main.js'}}" onload="onThemeBundleMain()"></script>
+
+        {{{footer.scripts}}}
+    </body>
+</html>

@@ -1,0 +1,32 @@
+{{#if selected.items}}
+    <section class="categoryCurrentView" data-current-view-category="{{category.name}}" aria-label="Current product view">
+        <div class="categoryCurrentView-items">
+            <div class="categoryCurrentView-primary">
+                <span class="categoryCurrentView-primaryCopy">
+                    <span class="categoryCurrentView-eyebrow">Showing:</span>
+                    <h2 class="categoryCurrentView-heading" data-current-view-heading>Filtered {{category.name}}</h2>
+                </span>
+            </div>
+
+            <div class="categoryCurrentView-data" hidden aria-hidden="true">
+                {{#each selected.items}}
+                    <span
+                        data-current-view-filter
+                        data-filter-facet="{{facet}}"
+                        data-filter-value="{{title}}"
+                    ></span>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+{{else}}
+    <section class="categoryCurrentView categoryCurrentView--root" data-current-view-category="{{category.name}}" aria-label="Product view">
+        <div class="categoryCurrentView-items">
+            <div class="categoryCurrentView-primary">
+                <span class="categoryCurrentView-primaryCopy">
+                    <h2 class="categoryCurrentView-heading">All {{category.name}}</h2>
+                </span>
+            </div>
+        </div>
+    </section>
+{{/if}}

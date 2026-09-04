@@ -1,0 +1,53 @@
+<div>
+    {{{ snippet "forms_search"}}}
+    <form class="form" action="{{urls.search}}" data-url="{{urls.search}}" data-quick-search-form>
+        <fieldset class="form-fieldset">
+            <div class="form-field">
+                <label class="is-srOnly" for="search_query">{{lang "search.quick_search.input_label"}}</label>
+                <input class="form-input"
+                       data-search-quick
+                       name="search_query"
+                       id="search_query"
+                       data-error-message="{{lang 'search.error.empty_field'}}"
+                       {{#if settings.store_name '===' 'Solatube International, Inc.'}}
+                           placeholder="Search Solatube products"
+                       {{else}}
+                           placeholder="Search {{settings.store_name}} products"
+                       {{/if}}
+                       autocomplete="off"
+                       role="combobox"
+                       aria-autocomplete="list"
+                       aria-controls="quickSearchResults"
+                       aria-expanded="false"
+                       aria-activedescendant="">
+                <button type="submit" class="form-button">
+                    <i class="icon" aria-hidden="true">
+                        <svg><use xlink:href="#icon-search" /></svg>
+                    </i>
+                </button>
+            </div>
+        </fieldset>
+    </form>
+    <section class="quickSearchResults"
+             id="quickSearchResults"
+             role="listbox"
+             aria-label="Search suggestions"
+             aria-busy="false">
+        <div class="quickSearchGuides" data-quick-search-guides>
+            <p class="quickSearchGuides-title">Popular searches</p>
+            <div class="quickSearchGuides-list">
+                <a class="quickSearchGuide" id="quick-search-guide-skylights" role="option" aria-selected="false" href="{{urls.search}}?search_query=skylight%20kits">Skylight kits</a>
+                <a class="quickSearchGuide" id="quick-search-guide-tubes" role="option" aria-selected="false" href="{{urls.search}}?search_query=extension%20tubes">Extension tubes</a>
+                <a class="quickSearchGuide" id="quick-search-guide-nightlight" role="option" aria-selected="false" href="{{urls.search}}?search_query=NightLight%20kits">NightLight kits</a>
+                <a class="quickSearchGuide" id="quick-search-guide-parts" role="option" aria-selected="false" href="{{urls.search}}?search_query=parts%20accessories">Parts &amp; accessories</a>
+            </div>
+            <p class="quickSearchHint">Type at least 3 characters to search products.</p>
+        </div>
+        <div data-quick-search-dynamic></div>
+    </section>
+    <p role="status"
+       aria-live="polite"
+       class="aria-description--hidden"
+       data-search-aria-message-predefined-text="{{{lang 'search.results.quick_count_live'}}}"
+    ></p>
+</div>

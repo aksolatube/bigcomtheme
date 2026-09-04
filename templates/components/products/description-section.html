@@ -1,0 +1,12 @@
+{{#or product.description product.videos.list.length}}
+    {{!-- Retain the existing ID for rich-content styles and saved anchor links. --}}
+    <section id="accordion--description" class="productDescription" aria-label="{{lang 'products.description'}}">
+        <div {{#if schema}} itemprop="description"{{/if}}>
+            {{{product.description}}}
+            {{{snippet 'product_description'}}}
+        </div>
+        {{#if product.videos.list.length}}
+            {{> components/products/videos product.videos}}
+        {{/if}}
+    </section>
+{{/or}}

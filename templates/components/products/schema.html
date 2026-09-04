@@ -1,0 +1,123 @@
+{{#or product.price.price_range product.price.with_tax product.price.without_tax product.reviews.list.length}}
+<script nonce="{{nonce}}" id="product-json-ld" type="application/ld+json">
+    {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": {{{JSONstringify product.title}}},
+        {{#if product.sku}}"sku": {{{JSONstringify product.sku}}},{{/if}}
+        {{#if product.mpn}}"mpn": {{{JSONstringify product.mpn}}},{{/if}}
+        {{#if product.gtin}}"gtin{{length product.gtin}}": {{{JSONstringify product.gtin}}},{{/if}}
+        "url": {{{JSONstringify product.url}}},
+        "brand": {
+            "@type": "Brand",
+            {{#if product.brand}}
+            "name": {{{JSONstringify product.brand.name}}}{{#if product.brand.url}},
+            "url": {{{JSONstringify product.brand.url}}}{{/if}}
+            {{else}}
+            "name": "Solatube"
+            {{/if}}
+        },
+        "description": {{{JSONstringify product.title}}},
+        "image": "{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}"
+        {{#and settings.show_product_reviews product.reviews.list.length}}
+        ,"aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "{{product.rating}}",
+            "reviewCount": "{{product.num_reviews}}"
+        },
+        "review": [
+        {{#each product.reviews.list}}
+            {
+                "@type": "Review",
+                "author": {
+                    "@type": "Person",
+                    "name": {{{JSONstringify name}}}
+                },
+                "datePublished": "{{date}}",
+                "reviewBody": {{{JSONstringify text}}},
+                "name": {{{JSONstringify title}}},
+                "reviewRating": {
+                    "@type": "Rating",
+                    "bestRating": "5",
+                    "ratingValue": "{{rating}}",
+                    "worstRating": "1"
+                }
+            }{{#unless @last}},{{/unless}}
+        {{/each}}
+        ]
+        {{/and}}
+        {{#if product.price.price_range}}
+        ,"offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "{{currency_selector.active_currency_code}}",
+            "lowPrice": "{{#if product.price.price_range.min.with_tax}}{{product.price.price_range.min.with_tax.value}}{{else}}{{product.price.price_range.min.without_tax.value}}{{/if}}",
+            "highPrice": "{{#if product.price.price_range.max.with_tax}}{{product.price.price_range.max.with_tax.value}}{{else}}{{product.price.price_range.max.without_tax.value}}{{/if}}",
+            "url": {{{JSONstringify product.url}}}
+        }
+        {{else}}
+        {{#or product.price.with_tax product.price.without_tax}}
+        ,"offers": {
+            "@type": "Offer",
+            "priceCurrency": "{{currency_selector.active_currency_code}}",
+            "price": "{{#if product.price.with_tax}}{{product.price.with_tax.value}}{{else}}{{product.price.without_tax.value}}{{/if}}",
+            "itemCondition": "https://schema.org/{{#if product.condition}}{{product.condition}}{{else}}New{{/if}}Condition",
+            "availability": "https://schema.org/{{#if product.pre_order}}PreOrder{{else if product.out_of_stock}}OutOfStock{{else if product.can_purchase '===' false}}OutOfStock{{else}}InStock{{/if}}",
+            "url": {{{JSONstringify product.url}}},
+            "priceValidUntil": "{{moment (moment add='31536000000') 'YYYY-MM-DD' }}"
+        }
+        {{/or}}
+        {{/if}}
+    }
+</script>
+<script nonce="{{nonce}}">
+    (function () {
+        var schema = document.getElementById('product-json-ld');
+        var meta = document.querySelector('meta[name="description"]');
+        if (!schema || !meta || !meta.content.trim()) return;
+
+        try {
+            var data = JSON.parse(schema.textContent);
+            data.description = meta.content.trim().slice(0, 5000);
+            var offer = data.offers;
+
+            if (offer) {
+                offer.validFrom = new Date().toISOString().slice(0, 10);
+
+                if (window.location.hostname.replace(/^www\./, '') === 'shop.solatube.com') {
+                    offer.hasMerchantReturnPolicy = {
+                        '@type': 'MerchantReturnPolicy',
+                        applicableCountry: 'US',
+                        returnPolicyCountry: 'US',
+                        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+                        merchantReturnDays: 90,
+                        returnMethod: 'https://schema.org/ReturnByMail',
+                        returnFees: 'https://schema.org/ReturnFeesCustomerResponsibility',
+                        itemCondition: 'https://schema.org/NewCondition',
+                        restockingFee: 0.20,
+                        merchantReturnLink: 'https://shop.solatube.com/shipping-returns/'
+                    };
+
+                    if (!/(?:whole house fan|fixed(?: solatube)? skylight)/i.test(data.name || '')) {
+                        offer.shippingDetails = {
+                            '@type': 'OfferShippingDetails',
+                            shippingRate: {
+                                '@type': 'MonetaryAmount',
+                                value: 0,
+                                currency: 'USD'
+                            },
+                            shippingDestination: {
+                                '@type': 'DefinedRegion',
+                                addressCountry: 'US'
+                            }
+                        };
+                    }
+                }
+            }
+
+            schema.textContent = JSON.stringify(data);
+        } catch (error) {
+            // Keep the valid server-rendered title fallback when schema parsing fails.
+        }
+    }());
+</script>
+{{/or}}

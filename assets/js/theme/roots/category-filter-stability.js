@@ -1,0 +1,233 @@
+(function categoryFilterStability() {
+    'use strict';
+
+    var filterContainer = document.getElementById('faceted-search-container');
+    if (!filterContainer) return;
+
+    function normalized(value) {
+        return String(value || '').trim().toLowerCase();
+    }
+
+    function filterByFacet(filters, fragment) {
+        return filters.find(function findFilter(filter) {
+            return filter.facet.indexOf(fragment) !== -1;
+        });
+    }
+
+    function filterByExactFacet(filters, facetName) {
+        return filters.find(function findFilter(filter) {
+            return filter.facet === facetName;
+        });
+    }
+
+    function filterLabel(facet) {
+        if (facet === 'room size' || facet.indexOf('recommended space size') !== -1 || facet === 'space size') return 'Room size';
+        if (facet.indexOf('night light') !== -1 || facet.indexOf('nightlight') !== -1) return 'NightLight';
+        if (facet.indexOf('fixture shape') !== -1) return 'Fixture';
+        if (facet.indexOf('coverage') !== -1) return 'Coverage';
+        if (facet.indexOf('diameter') !== -1) return 'Diameter';
+        if (facet.indexOf('roof') !== -1) return 'Roof';
+        if (facet.indexOf('extension') !== -1) return 'Extension tubes';
+        return '';
+    }
+
+    function sizeDescription(filters) {
+        var size = filterByFacet(filters, 'room size')
+            || filterByFacet(filters, 'recommended space size')
+            || filterByFacet(filters, 'space size')
+            || filterByFacet(filters, 'coverage')
+            || filterByFacet(filters, 'diameter');
+        var value = size && size.value;
+
+        if (!value) return '';
+        if (value.indexOf('smaller') !== -1
+            || value.indexOf('0–150') !== -1
+            || value.indexOf('0-150') !== -1
+            || value.indexOf('150-200') !== -1
+            || value.indexOf('10 in') !== -1
+            || value.indexOf('250 mm') !== -1
+            || value.indexOf('25cm') !== -1) return 'smaller';
+        if (value.indexOf('larger') !== -1
+            || value.indexOf('150–300') !== -1
+            || value.indexOf('150-300') !== -1
+            || value.indexOf('250-300') !== -1
+            || value.indexOf('14 in') !== -1
+            || value.indexOf('350 mm') !== -1
+            || value.indexOf('35cm') !== -1) return 'larger';
+        return '';
+    }
+
+    function extensionDescription(filter) {
+        var lengthMatch = filter && filter.facet.match(/(\d+)\s*["”]/);
+
+        return lengthMatch ? lengthMatch[1] + '-inch extension tubes' : 'extension tubes';
+    }
+
+    function skylightCurrentViewTitle(filters) {
+        var size = sizeDescription(filters);
+        var shapeFilter = filterByFacet(filters, 'fixture shape');
+        var nightFilter = filterByFacet(filters, 'night light') || filterByFacet(filters, 'nightlight');
+        var extensionFilter = filterByFacet(filters, 'extension');
+        var roofFilter = filterByFacet(filters, 'roof');
+        var shape = shapeFilter && shapeFilter.rawValue;
+        var night = nightFilter && nightFilter.value;
+        var extension = extensionFilter && extensionFilter.value;
+        var extensionTubes = extensionDescription(extensionFilter);
+        var title;
+
+        if (size) {
+            title = (shape ? shape + ' skylights' : 'Skylights') + ' for ' + size + ' spaces';
+        } else if (shape) {
+            title = shape + ' skylights';
+        } else if (roofFilter) {
+            title = 'Skylights for ' + roofFilter.rawValue.toLowerCase();
+        } else if (extension === 'yes') {
+            title = 'Skylight kits with ' + extensionTubes + ' included';
+        } else if (extension === 'no') {
+            title = 'Skylight kits without included ' + extensionTubes;
+        } else {
+            title = 'Solatube skylights';
+        }
+
+        if (night === 'yes') title += ' with an integrated NightLight';
+        if (night === 'no') title += ' without an integrated NightLight';
+        if (extension === 'yes' && title.indexOf('extension tubes') === -1) {
+            title += ' with ' + extensionTubes + ' included';
+        }
+        if (extension === 'no' && title.indexOf('extension tubes') === -1) {
+            title += ' without included ' + extensionTubes;
+        }
+
+        return title;
+    }
+
+    function accessoryTypeTitle(rawValue) {
+        var value = normalized(rawValue);
+
+        if (value === 'extension tube') return 'Extension Tubes';
+        if (value === 'add-on kit') return 'Add-On Kits';
+        if (value === 'flashing/installation') return 'Roof Flashing & Installation';
+        if (value === 'daylight control') return 'Daylight Controls';
+
+        return rawValue;
+    }
+
+    function accessoryFunctionTitle(rawValue) {
+        var value = normalized(rawValue);
+
+        if (value === 'light control') return 'Daylight Controls';
+        if (value === 'structural') return 'Structural Accessories';
+        if (value === 'ventilation') return 'Ventilation Accessories';
+
+        return rawValue;
+    }
+
+    function tubeDiameterTitle(filter) {
+        var rawValue = filter && filter.rawValue;
+        var inchMatch = rawValue && rawValue.match(/(\d+(?:\s*\/\s*\d+)?)\s*(?:inch|in\b|[\"”])/i);
+        var metricMatch = rawValue && rawValue.match(/(\d+)\s*(mm|cm)\b/i);
+
+        if (inchMatch) return inchMatch[1].replace(/\s/g, '') + '-Inch';
+        if (metricMatch) return metricMatch[1] + ' ' + metricMatch[2].toLowerCase();
+
+        return '';
+    }
+
+    function categoryCurrentViewTitle(filters, categoryName) {
+        var typeFilter = filterByExactFacet(filters, 'type');
+        var functionFilter = filterByExactFacet(filters, 'function');
+        var diameterFilter = filterByExactFacet(filters, 'tube diameter');
+        var typeTitle = typeFilter && accessoryTypeTitle(typeFilter.rawValue);
+        var functionTitle = functionFilter && accessoryFunctionTitle(functionFilter.rawValue);
+        var diameterTitle = tubeDiameterTitle(diameterFilter);
+
+        if (typeTitle) return (diameterTitle ? diameterTitle + ' ' : '') + typeTitle;
+        if (functionTitle) return (diameterTitle ? diameterTitle + ' ' : '') + functionTitle;
+        if (diameterTitle) return diameterTitle + ' Accessories';
+
+        return categoryName || 'Products';
+    }
+
+    function isSkylightCurrentView(categoryName) {
+        var name = normalized(categoryName);
+        var path = normalized(window.location.pathname).replace(/\/+$/, '');
+
+        return name.indexOf('skylight') !== -1
+            || name === 'daylighting systems'
+            || path === '/solatube-skylights'
+            || path === '/daylighting-systems';
+    }
+
+    function currentViewTitle(filters, categoryName) {
+        if (isSkylightCurrentView(categoryName)) return skylightCurrentViewTitle(filters);
+
+        return categoryCurrentViewTitle(filters, categoryName);
+    }
+
+    function isUsOrCanadaSkylightCategory() {
+        var host = normalized(window.location.hostname);
+        var path = normalized(window.location.pathname).replace(/\/+$/, '');
+        var isCanada = host === 'solatubeshop.ca' || host === 'www.solatubeshop.ca';
+        var isUs = host === 'shop.solatube.com' || host === 'www.shop.solatube.com';
+
+        return (isCanada && path === '/solatube-skylights')
+            || (isUs && path === '/daylighting-systems');
+    }
+
+    function hideRoofTypeFacet() {
+        if (!isUsOrCanadaSkylightCategory()) return;
+
+        Array.prototype.forEach.call(filterContainer.querySelectorAll('[data-facet]'), function hideFacet(facet) {
+            if (normalized(facet.getAttribute('data-facet')) !== 'roof type') return;
+
+            var block = facet.closest('.accordion-block');
+            if (block) block.hidden = true;
+        });
+    }
+
+    function updateCurrentView() {
+        var views = document.querySelectorAll('.categoryCurrentView');
+
+        Array.prototype.forEach.call(views, function updateView(view) {
+            var heading = view.querySelector('[data-current-view-heading]');
+            var categoryName = view.getAttribute('data-current-view-category') || '';
+            var filters = Array.prototype.map.call(view.querySelectorAll('[data-current-view-filter]'), function readFilter(filter) {
+                var facet = normalized(filter.getAttribute('data-filter-facet'));
+                var rawValue = filter.getAttribute('data-filter-value') || '';
+                var shortLabel = filterLabel(facet);
+                var label = filter.querySelector('[data-current-view-filter-label]');
+
+                if (label) {
+                    if (shortLabel) {
+                        if (label.textContent !== shortLabel + ':') label.textContent = shortLabel + ':';
+                    } else if (!label.hidden) {
+                        label.hidden = true;
+                    }
+                }
+
+                return {
+                    facet: facet,
+                    rawValue: rawValue,
+                    value: normalized(rawValue)
+                };
+            });
+            var title = currentViewTitle(filters, categoryName);
+
+            if (heading && heading.textContent !== title) heading.textContent = title;
+        });
+    }
+
+    updateCurrentView();
+    hideRoofTypeFacet();
+    if (window.MutationObserver) {
+        var listingContainer = document.getElementById('product-listing-container');
+        if (listingContainer) {
+            new MutationObserver(function listingChanged() {
+                updateCurrentView();
+                hideRoofTypeFacet();
+            }).observe(listingContainer, { childList: true, subtree: true });
+        }
+        new MutationObserver(hideRoofTypeFacet).observe(filterContainer, { childList: true, subtree: true });
+    }
+
+}());

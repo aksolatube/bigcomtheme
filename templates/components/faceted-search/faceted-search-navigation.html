@@ -1,0 +1,36 @@
+<div
+    class="accordion-navigation toggleLink {{#unless start_collapsed }} is-open {{/unless}}"
+    role="button"
+    data-collapsible="#facetedSearch-content--{{dashcase facet}}">
+    <h5 class="accordion-title">
+        {{#if title '===' 'Room Size'}}
+            Room Size
+            <span class="spaceSizeHelp spaceSizeHelp--facet">
+                <button class="spaceSizeHelp-trigger" type="button" data-space-size-help aria-expanded="false" aria-controls="space-size-filter-help" aria-label="How should I choose a room size?">?</button>
+                <span class="spaceSizeHelp-tooltip" id="space-size-filter-help" role="tooltip" hidden>Choose for each room, not the whole home. Smaller spaces generally suit a 160 / 250 mm skylight; larger or open spaces generally suit a 290 / 350 mm skylight. Separate rooms usually need separate skylights, and a very large space may need more than one.</span>
+            </span>
+        {{else}}
+            {{#if title '===' 'Recommended Space Size'}}
+                Room Size
+                <span class="spaceSizeHelp spaceSizeHelp--facet">
+                    <button class="spaceSizeHelp-trigger" type="button" data-space-size-help aria-expanded="false" aria-controls="space-size-filter-help" aria-label="How should I choose a room size?">?</button>
+                    <span class="spaceSizeHelp-tooltip" id="space-size-filter-help" role="tooltip" hidden>Choose for each room, not the whole home. Smaller spaces generally suit a 160 / 250 mm skylight; larger or open spaces generally suit a 290 / 350 mm skylight. Separate rooms usually need separate skylights, and a very large space may need more than one.</span>
+                </span>
+            {{else}}
+                {{ title }}
+            {{/if}}
+        {{/if}}
+    </h5>
+
+    <div class="accordion-navigation-actions">
+        {{#if selected}}
+            <a href="{{ remove_url }}" class="facetedSearch-clearLink" data-faceted-search-facet>{{lang 'search.faceted.clear'}}</a>
+        {{/if}}
+        <svg class="icon accordion-indicator toggleLink-text toggleLink-text--off">
+            <use xlink:href="#icon-downselector" />
+        </svg>
+        <svg class="icon accordion-indicator toggleLink-text toggleLink-text--on">
+            <use xlink:href="#icon-downselector" />
+        </svg>
+    </div>
+</div>

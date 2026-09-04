@@ -1,0 +1,86 @@
+{{#partial "head"}}
+
+{{{ checkout.checkout_head }}}
+{{{ stylesheet '/assets/css/optimized-checkout.css' }}}
+{{ getFontsCollection }}
+
+<script nonce="{{nonce}}" type="text/javascript">
+    window.language = {{{langJson 'optimized_checkout'}}};
+</script>
+
+{{{head.scripts}}}
+
+{{/partial}}
+
+{{#partial "page"}}
+<header class="checkoutHeader optimizedCheckout-header">
+    <div class="checkoutHeader-content">
+        <h1 class="checkoutHeader-title optimizedCheckout-headingPrimary">{{lang 'checkout.title'}}</h1>
+        <h2 class="checkoutHeader-heading">
+            <a class="checkoutHeader-link" href="{{urls.home}}">
+                {{#if checkout.header_image}}
+                    <img alt="{{settings.store_logo.title}}" class="checkoutHeader-logo" id="logoImage" src="{{ checkout.header_image }}"/>
+                {{ else }}
+                    <span class="header-logo-text">{{settings.store_logo.title}}</span>
+                {{/if}}
+            </a>
+        </h2>
+    </div>
+</header>
+
+{{{ checkout.checkout_content }}}
+
+<script nonce="{{nonce}}" type="text/javascript">
+    (function keepCheckoutCouponVisible() {
+        'use strict';
+
+        function prepareCoupon(label) {
+            var container = label.parentElement;
+            var heading;
+
+            if (!container) return;
+
+            container.classList.add('stCheckout-couponOpen');
+            heading = container.querySelector('.stCheckout-couponHeading');
+            if (!heading) {
+                heading = document.createElement('div');
+                heading.className = 'stCheckout-couponHeading';
+                heading.setAttribute('role', 'heading');
+                heading.setAttribute('aria-level', '3');
+                heading.textContent = 'Have a coupon or promo code?';
+                container.insertBefore(heading, label);
+            }
+
+            if (label.getAttribute('aria-expanded') !== 'true') {
+                label.click();
+                window.setTimeout(syncCoupons, 0);
+                return;
+            }
+
+            if (label.getAttribute('aria-hidden') !== 'true') {
+                label.setAttribute('aria-hidden', 'true');
+                label.setAttribute('tabindex', '-1');
+            }
+        }
+
+        function syncCoupons() {
+            Array.prototype.forEach.call(document.querySelectorAll('a.redeemable-label'), prepareCoupon);
+        }
+
+        syncCoupons();
+        if (window.MutationObserver && document.body) {
+            new MutationObserver(syncCoupons).observe(document.body, {
+                attributes: true,
+                attributeFilter: ['aria-expanded'],
+                childList: true,
+                subtree: true
+            });
+        }
+    }());
+</script>
+
+{{{ footer.scripts }}}
+
+{{/partial}}
+
+{{> layout/empty}}

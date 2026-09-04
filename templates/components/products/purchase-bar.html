@@ -1,0 +1,30 @@
+<aside class="pdpPurchaseBar" data-pdp-purchase-bar hidden aria-label="Your product selection"
+    data-currency-code="{{currency_selector.active_currency_code}}"
+    data-unit-price="{{#if product.price.with_tax}}{{product.price.with_tax.value}}{{else}}{{product.price.without_tax.value}}{{/if}}"
+    data-price-range="{{#if product.price.price_range}}true{{else}}false{{/if}}">
+    <div class="pdpPurchaseBar-inner">
+        {{#if product.main_image}}
+            <img class="pdpPurchaseBar-image" src="{{getImage product.main_image 'thumb_size'}}" alt="" width="52" height="52" loading="lazy">
+        {{/if}}
+        <div class="pdpPurchaseBar-product">
+            <strong class="pdpPurchaseBar-title">{{product.title}}</strong>
+            <span class="pdpPurchaseBar-selection" data-pdp-bar-selection></span>
+        </div>
+        <div class="pdpPurchaseBar-priceGroup">
+            <span class="pdpPurchaseBar-priceLabel" data-pdp-bar-price-label>Selection subtotal</span>
+            <strong class="pdpPurchaseBar-price" data-pdp-bar-price></strong>
+            <span class="pdpPurchaseBar-note">Before shipping &amp; discounts</span>
+        </div>
+        <div class="pdpPurchaseBar-actions">
+            <button type="button" class="button button--primary pdpPurchaseBar-buy" data-pdp-bar-buy>{{lang 'products.add_to_cart'}}</button>
+            <div class="pdpPurchaseBar-links">
+                <button type="button" data-pdp-bar-edit>Edit selection</button>
+                <button type="button" data-contact-hub-open="product" class="pdpPurchaseBar-help" hidden>Need help?</button>
+            </div>
+        </div>
+    </div>
+</aside>
+<div class="pdpPurchaseBar-spacer" data-pdp-bar-spacer aria-hidden="true"></div>
+<div class="container pdpPurchaseBar-feedback">
+    <button type="button" data-pdp-survey-open hidden aria-controls="purchase-survey-panel" aria-expanded="false">Website feedback</button>
+</div>

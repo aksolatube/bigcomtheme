@@ -1,0 +1,49 @@
+{{#if product_results.products}}
+    <div class="quickSearchHeading">Products for &ldquo;{{forms.search.query}}&rdquo;</div>
+    <ul class="quickSearchProducts" {{#if settings.data_tag_enabled}} data-list-name="Quick Search Results" {{/if}}>
+        {{#each (limit product_results.products 5)}}
+            <li class="quickSearchProduct">
+                <a class="quickSearchProduct-link"
+                   id="quick-search-product-{{id}}"
+                   role="option"
+                   aria-selected="false"
+                   href="{{url}}"
+                   {{#if ../settings.data_tag_enabled}}
+                       data-event-type="product-click"
+                       data-entity-id="{{id}}"
+                       data-position="{{add @index 1}}"
+                       data-name="{{name}}"
+                   {{/if}}>
+                    <span class="quickSearchProduct-imageWrap">
+                        <img class="quickSearchProduct-image lazyload"
+                             data-sizes="auto"
+                             src="{{cdn 'img/loading.svg'}}"
+                             data-src="{{getImage image 'productthumb_size' (cdn ../theme_settings.default_image_product)}}"
+                             alt="{{image.alt}}">
+                    </span>
+                    <span class="quickSearchProduct-details">
+                        <span class="quickSearchProduct-name">{{name}}</span>
+                        <span class="quickSearchProduct-price">
+                            {{#or ../customer (if ../theme_settings.restrict_to_login '!==' true)}}
+                                {{> components/products/price price=price}}
+                            {{else}}
+                                {{lang 'common.login_for_pricing'}}
+                            {{/or}}
+                        </span>
+                    </span>
+                    <span class="quickSearchProduct-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+    <div class="quickSearchFooter">
+        <button type="button" class="quickSearchAll">View all results</button>
+    </div>
+{{else}}
+    <p class="quickSearchMessage">
+        {{{lang 'search.results.quick_count' count=pagination.product_results.total search_query=(sanitize forms.search.query) }}}
+    </p>
+    <div class="quickSearchFooter">
+        <button type="button" class="quickSearchAll">Search all products</button>
+    </div>
+{{/if}}

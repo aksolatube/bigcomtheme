@@ -1,0 +1,14 @@
+{
+    "header": {
+        "welcome_back": "Good day, {name}",
+        "sign_out": "Sign Out"
+    },
+    "checkout": {
+        "title": "Secure Checkout"
+    },
+    "optimized_checkout": {
+        "customer": {
+            "guest_marketing_consent": "Yes, email me Solatube tips, updates and occasional offers."
+        }
+    }
+}

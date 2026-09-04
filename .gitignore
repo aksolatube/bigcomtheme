@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# BigCommerce Stencil local configuration and generated output
+config.stencil.json
+.stencil
+stencil_bundle*
+parsed/
+stencil_context/
+assets/dist/
+
+# Logs and local environment files
+*.log
+.env
+.env.*
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

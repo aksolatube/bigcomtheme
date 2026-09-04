@@ -1,0 +1,34 @@
+{{#or product.custom_fields product.availability product.upc}}
+<details class="productSpecifications" id="accordion--custom-fields" open>
+    <summary class="productSpecifications-toggle">
+        <span>Specifications</span>
+        <span class="productSpecifications-icon" aria-hidden="true"></span>
+    </summary>
+    <dl class="productSpecifications-list">
+        {{#each product.custom_fields}}
+            {{#if name '===' 'Gallery Video MP4'}}
+            {{else}}
+                {{#if name '===' 'Gallery Video Poster'}}
+                {{else}}
+                    <div class="productSpecifications-row">
+                        <dt>{{name}}</dt>
+                        <dd>{{{value}}}</dd>
+                    </div>
+                {{/if}}
+            {{/if}}
+        {{/each}}
+        {{#if product.availability}}
+            <div class="productSpecifications-row">
+                <dt>{{lang 'products.availability'}}</dt>
+                <dd>{{product.availability}}</dd>
+            </div>
+        {{/if}}
+        {{#if product.upc}}
+            <div class="productSpecifications-row" data-product-identifier-row="upc">
+                <dt>{{lang 'products.upc'}}</dt>
+                <dd data-product-upc-display>{{product.upc}}</dd>
+            </div>
+        {{/if}}
+    </dl>
+</details>
+{{/or}}

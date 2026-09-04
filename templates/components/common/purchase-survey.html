@@ -1,0 +1,145 @@
+<button
+    class="purchaseSurvey-tab"
+    type="button"
+    aria-controls="purchase-survey-panel"
+    aria-expanded="false"
+    data-purchase-survey-open
+    hidden
+>
+    <span>Quick question</span>
+</button>
+
+<aside
+    class="purchaseSurvey"
+    id="purchase-survey-panel"
+    aria-labelledby="purchase-survey-title"
+    data-purchase-survey
+    hidden
+>
+    <div class="purchaseSurvey-header">
+        <div>
+            <span class="purchaseSurvey-eyebrow">Help us improve</span>
+            <h2 class="purchaseSurvey-title" id="purchase-survey-title">One quick question</h2>
+        </div>
+        <button class="purchaseSurvey-close" type="button" aria-label="Close survey" data-purchase-survey-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form class="purchaseSurvey-form" data-purchase-survey-form>
+        <fieldset class="purchaseSurvey-step" data-purchase-survey-step="1">
+            <legend>What would help you feel ready to order?</legend>
+
+            <div class="purchaseSurvey-choices">
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="choosing_skylight" required>
+                    <span>Help choosing the right skylight or size</span>
+                </label>
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="roof_flashing">
+                    <span>Confirmation about my roof or flashing</span>
+                </label>
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="installation">
+                    <span>Installation advice</span>
+                </label>
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="total_cost">
+                    <span>A clearer idea of the total cost</span>
+                </label>
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="shipping_delivery">
+                    <span>Shipping or delivery information</span>
+                </label>
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="researching">
+                    <span>I am still researching</span>
+                </label>
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="site_problem">
+                    <span>Something on the site is not working</span>
+                </label>
+                <label class="purchaseSurvey-choice">
+                    <input type="radio" name="primary_reason" value="other">
+                    <span>Something else</span>
+                </label>
+            </div>
+
+            <p class="purchaseSurvey-status" role="alert" data-purchase-survey-choice-error hidden>
+                Please choose one answer.
+            </p>
+
+            <div class="purchaseSurvey-actions">
+                <button class="button button--primary purchaseSurvey-primary" type="button" data-purchase-survey-next>
+                    Next
+                </button>
+                <button class="purchaseSurvey-textButton" type="button" data-purchase-survey-dismiss>No thanks</button>
+            </div>
+        </fieldset>
+
+        <div class="purchaseSurvey-step" data-purchase-survey-step="2" hidden>
+            <p class="purchaseSurvey-question" data-purchase-survey-follow-up>Anything else you would like us to know?</p>
+            <label class="purchaseSurvey-commentLabel">
+                <span class="u-hiddenVisually">Optional feedback details</span>
+                <textarea name="comments" rows="3" maxlength="1000" placeholder="Optional"></textarea>
+            </label>
+
+            <div class="purchaseSurvey-contact">
+                <label class="purchaseSurvey-contactToggle">
+                    <input
+                        type="checkbox"
+                        name="contact_requested"
+                        value="yes"
+                        aria-controls="purchase-survey-contact-fields"
+                        aria-expanded="false"
+                        data-purchase-survey-contact-toggle
+                    >
+                    <span>
+                        <strong>Yes, please contact me about my project</strong>
+                        <small>Optional — your survey can remain anonymous.</small>
+                    </span>
+                </label>
+
+                <div class="purchaseSurvey-contactFields" id="purchase-survey-contact-fields" data-purchase-survey-contact-fields hidden>
+                    <label class="purchaseSurvey-field">
+                        <span>Name</span>
+                        <input type="text" name="contact_name" autocomplete="name" maxlength="100" disabled>
+                    </label>
+
+                    <fieldset class="purchaseSurvey-contactMethod">
+                        <legend>How should we contact you?</legend>
+                        <label><input type="radio" name="preferred_contact_method" value="email" checked disabled> Email</label>
+                        <label><input type="radio" name="preferred_contact_method" value="phone" disabled> Phone</label>
+                    </fieldset>
+
+                    <label class="purchaseSurvey-field" data-purchase-survey-email-field>
+                        <span>Email</span>
+                        <input type="email" name="contact_email" autocomplete="email" maxlength="254" disabled>
+                    </label>
+                    <label class="purchaseSurvey-field" data-purchase-survey-phone-field hidden>
+                        <span>Phone</span>
+                        <input type="tel" name="contact_phone" autocomplete="tel" inputmode="tel" maxlength="30" disabled>
+                    </label>
+
+                    <p class="purchaseSurvey-privacy">We’ll only use this information to respond to your request.</p>
+                </div>
+            </div>
+
+            <p class="purchaseSurvey-status" role="status" aria-live="polite" data-purchase-survey-status></p>
+
+            <div class="purchaseSurvey-actions purchaseSurvey-actions--split">
+                <button class="purchaseSurvey-textButton" type="button" data-purchase-survey-back>Back</button>
+                <button class="button button--primary purchaseSurvey-primary" type="submit" data-purchase-survey-submit>
+                    Send feedback
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <div class="purchaseSurvey-result" data-purchase-survey-success hidden>
+        <span class="purchaseSurvey-resultIcon" aria-hidden="true">&#10003;</span>
+        <h2>Thank you</h2>
+        <p data-purchase-survey-result-copy>Your feedback will help us improve the Solatube shopping experience.</p>
+        <button class="button button--primary" type="button" data-purchase-survey-finish>Done</button>
+    </div>
+</aside>

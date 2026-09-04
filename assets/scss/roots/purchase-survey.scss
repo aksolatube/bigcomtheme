@@ -1,0 +1,418 @@
+.purchaseSurvey[hidden],
+.purchaseSurvey-tab[hidden],
+.purchaseSurvey-step[hidden],
+.purchaseSurvey-result[hidden],
+.purchaseSurvey-contactFields[hidden],
+.purchaseSurvey-field[hidden],
+.purchaseSurvey-status[hidden] {
+    display: none !important;
+}
+
+.purchaseSurvey-tab {
+    align-items: center;
+    background: #0088c7;
+    border: 0;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 3px 12px rgba(0, 55, 90, .2);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    font-weight: 700;
+    left: 0;
+    line-height: 1;
+    min-height: 0;
+    min-width: 38px;
+    padding: 13px 10px;
+    position: fixed;
+    top: 52%;
+    transform: translateY(-50%);
+    transition: background-color .15s ease, box-shadow .15s ease;
+    writing-mode: vertical-rl;
+    z-index: 88;
+}
+
+.purchaseSurvey-tab:hover,
+.purchaseSurvey-tab:focus-visible {
+    background: #006fa8;
+    box-shadow: 0 5px 16px rgba(0, 55, 90, .28);
+}
+
+.purchaseSurvey-tab:focus-visible,
+.purchaseSurvey-close:focus-visible,
+.purchaseSurvey-textButton:focus-visible {
+    outline: 3px solid rgba(0, 136, 199, .3);
+    outline-offset: 2px;
+}
+
+.purchaseSurvey {
+    background: #fff;
+    border: 1px solid #cbd9e1;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 0 12px 32px rgba(0, 45, 72, .22);
+    left: 0;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 360px;
+    z-index: 100;
+}
+
+.purchaseSurvey-header {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.purchaseSurvey-eyebrow {
+    color: #0088c7;
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+}
+
+.purchaseSurvey-title {
+    color: #3f4245;
+    font-size: 21px;
+    line-height: 1.15;
+    margin: 0;
+}
+
+.purchaseSurvey-close {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    color: #4d5961;
+    cursor: pointer;
+    display: flex;
+    font-size: 26px;
+    height: 32px;
+    justify-content: center;
+    line-height: 1;
+    margin: -6px -7px 0 8px;
+    padding: 0 0 3px;
+    width: 32px;
+}
+
+.purchaseSurvey-step {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.purchaseSurvey-step legend,
+.purchaseSurvey-question {
+    color: #343f46;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 11px;
+    padding: 0;
+}
+
+.purchaseSurvey-choices {
+    display: grid;
+    gap: 6px;
+}
+
+.purchaseSurvey-choice {
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid #d6e0e5;
+    border-radius: 3px;
+    color: #3d4951;
+    cursor: pointer;
+    display: flex;
+    font-size: 13px;
+    gap: 8px;
+    line-height: 1.3;
+    padding: 8px 9px;
+}
+
+.purchaseSurvey-choice:hover {
+    border-color: #8dbed5;
+}
+
+.purchaseSurvey-choice input {
+    flex: 0 0 auto;
+    margin: 2px 0 0;
+}
+
+.purchaseSurvey-choice input:checked + span {
+    color: #006fa8;
+    font-weight: 700;
+}
+
+.purchaseSurvey-commentLabel,
+.purchaseSurvey-commentLabel textarea {
+    display: block;
+    width: 100%;
+}
+
+.purchaseSurvey-commentLabel textarea {
+    border: 1px solid #bfcbd2;
+    border-radius: 3px;
+    color: #303a40;
+    font-family: inherit;
+    font-size: 16px;
+    min-height: 90px;
+    padding: 10px;
+    resize: vertical;
+}
+
+.purchaseSurvey-commentLabel textarea:focus {
+    border-color: #0088c7;
+    box-shadow: 0 0 0 3px rgba(0, 136, 199, .12);
+    outline: 0;
+}
+
+.purchaseSurvey-contact {
+    border: 1px solid #d6e0e5;
+    border-radius: 4px;
+    margin-top: 12px;
+}
+
+.purchaseSurvey-contactToggle {
+    align-items: flex-start;
+    color: #343f46;
+    cursor: pointer;
+    display: flex;
+    font-size: 13px;
+    gap: 9px;
+    line-height: 1.35;
+    padding: 11px;
+}
+
+.purchaseSurvey-contactToggle input {
+    flex: 0 0 auto;
+    margin: 2px 0 0;
+}
+
+.purchaseSurvey-contactToggle strong,
+.purchaseSurvey-contactToggle small {
+    display: block;
+}
+
+.purchaseSurvey-contactToggle small {
+    color: #71808a;
+    font-size: 11px;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.purchaseSurvey-contactFields {
+    background: #f6f9fb;
+    border-top: 1px solid #d6e0e5;
+    display: grid;
+    gap: 10px;
+    padding: 11px;
+}
+
+.purchaseSurvey-field,
+.purchaseSurvey-field > span {
+    display: block;
+}
+
+.purchaseSurvey-field > span,
+.purchaseSurvey-contactMethod legend {
+    color: #343f46;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.purchaseSurvey-field input {
+    background: #fff;
+    border: 1px solid #bfcbd2;
+    border-radius: 3px;
+    color: #303a40;
+    font-family: inherit;
+    font-size: 16px;
+    height: 40px;
+    padding: 8px 9px;
+    width: 100%;
+}
+
+.purchaseSurvey-field input:focus {
+    border-color: #0088c7;
+    box-shadow: 0 0 0 3px rgba(0, 136, 199, .12);
+    outline: 0;
+}
+
+.purchaseSurvey-contactMethod {
+    border: 0;
+    display: grid;
+    gap: 4px 18px;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    margin: 0;
+    padding: 0;
+}
+
+.purchaseSurvey-contactMethod legend {
+    display: block;
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.purchaseSurvey-contactMethod label {
+    align-items: center;
+    color: #3d4951;
+    display: inline-flex;
+    font-size: 12px;
+    gap: 5px;
+}
+
+.purchaseSurvey-contactFields .purchaseSurvey-privacy {
+    margin-top: 0;
+}
+
+.purchaseSurvey-privacy,
+.purchaseSurvey-status {
+    color: #71808a;
+    font-size: 11px;
+    line-height: 1.4;
+    margin: 8px 0 0;
+}
+
+.purchaseSurvey-status {
+    color: #b42318;
+}
+
+.purchaseSurvey-actions {
+    align-items: center;
+    display: flex;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.purchaseSurvey-actions--split {
+    justify-content: space-between;
+}
+
+.purchaseSurvey-primary {
+    margin: 0;
+    min-width: 118px;
+}
+
+.purchaseSurvey-textButton {
+    background: transparent;
+    border: 0;
+    color: #50616b;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 7px 0;
+    text-decoration: underline;
+}
+
+.purchaseSurvey-result {
+    padding: 8px 4px 2px;
+    text-align: center;
+}
+
+.purchaseSurvey-resultIcon {
+    align-items: center;
+    background: #e8f6ec;
+    border-radius: 50%;
+    color: #18783c;
+    display: inline-flex;
+    font-size: 22px;
+    height: 48px;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 48px;
+}
+
+.purchaseSurvey-result h2 {
+    color: #3f4245;
+    font-size: 22px;
+    margin: 0 0 7px;
+}
+
+.purchaseSurvey-result p {
+    color: #5d6972;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 16px;
+}
+
+.has-activeModal .purchaseSurvey-tab,
+.has-activeNavPages .purchaseSurvey-tab,
+.has-contactHubModal .purchaseSurvey-tab,
+.has-purchaseSurveyPanel .contactHub-fab {
+    display: none !important;
+}
+
+@media (max-width: 800px) {
+    .purchaseSurvey-tab {
+        border-radius: 6px 6px 0 0;
+        bottom: env(safe-area-inset-bottom);
+        box-shadow: 0 -3px 14px rgba(0, 55, 90, .22);
+        flex-direction: row;
+        font-size: 12px;
+        justify-content: center;
+        left: 16px;
+        min-height: 36px;
+        min-width: 126px;
+        padding: 8px 12px;
+        top: auto;
+        transform: none;
+        writing-mode: horizontal-tb;
+    }
+
+    .purchaseSurvey-tab::after {
+        background: inherit;
+        content: "";
+        height: env(safe-area-inset-bottom);
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 100%;
+    }
+
+    .purchaseSurvey {
+        border: 0;
+        border-radius: 10px 10px 0 0;
+        bottom: 0;
+        box-shadow: 0 -8px 28px rgba(0, 45, 72, .22);
+        left: 0;
+        max-height: calc(100dvh - 72px);
+        overflow-y: auto;
+        padding: 17px 18px calc(17px + env(safe-area-inset-bottom));
+        top: auto;
+        transform: none;
+        width: 100%;
+    }
+
+    .purchaseSurvey-header {
+        margin-bottom: 11px;
+    }
+
+    .purchaseSurvey-title {
+        font-size: 19px;
+    }
+
+    .purchaseSurvey-choice {
+        font-size: 12px;
+        padding: 7px 8px;
+    }
+
+    .purchaseSurvey-actions {
+        margin-top: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .purchaseSurvey-tab {
+        transition: none;
+    }
+}

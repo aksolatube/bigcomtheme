@@ -1,0 +1,349 @@
+.pdpLongForm {
+    --pdp-story-blue: #087fb6;
+    --pdp-story-dark: #183f56;
+    --pdp-story-line: #dce6eb;
+    color: #34434b;
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    max-width: 1240px;
+}
+
+.pdpLongForm *,
+.pdpLongForm *::before,
+.pdpLongForm *::after { box-sizing: border-box; }
+
+.pdpLongForm-nav {
+    border-bottom: 1px solid var(--pdp-story-line);
+    border-top: 1px solid var(--pdp-story-line);
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin: 8px 0 20px;
+    overflow-x: auto;
+    padding: 13px 2px;
+    scrollbar-width: thin;
+}
+
+.pdpLongForm-nav a {
+    color: #076b9c;
+    flex: 0 0 auto;
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.pdpLongForm-nav a:hover,
+.pdpLongForm-nav a:focus-visible { color: #034d72; text-decoration: underline; }
+
+.pdpLongForm-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 620px;
+    padding: 48px 0;
+    scroll-margin-top: 110px;
+}
+
+.pdpLongForm-section + .pdpLongForm-section { border-top: 1px solid var(--pdp-story-line); }
+
+.pdpLongForm-eyebrow {
+    color: var(--pdp-story-blue);
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+}
+
+.pdpLongForm h2 {
+    color: var(--pdp-story-dark);
+    font-family: Oswald, Arial, sans-serif;
+    font-size: clamp(30px, 3.2vw, 44px);
+    line-height: 1.12;
+    margin: 0 0 16px;
+    text-transform: none;
+}
+
+.pdpLongForm h3 {
+    color: var(--pdp-story-dark);
+    font-size: 21px;
+    line-height: 1.25;
+    margin: 0 0 10px;
+}
+
+.pdpLongForm p { font-size: 16px; line-height: 1.65; }
+.pdpLongForm-lede { font-size: 18px; max-width: 720px; }
+
+.pdpLongForm-split {
+    align-items: center;
+    display: grid;
+    gap: clamp(28px, 5vw, 72px);
+    grid-template-columns: minmax(0, 1fr) minmax(320px, .9fr);
+}
+
+.pdpLongForm-media {
+    background: #f3f7f9;
+    margin: 0;
+    overflow: hidden;
+}
+
+.pdpLongForm-media img {
+    display: block;
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+}
+
+.pdpLongForm-facts {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    list-style: none !important;
+    margin: 24px 0 0 !important;
+    padding: 0 !important;
+}
+
+.pdpLongForm-facts li {
+    border-top: 3px solid #f4c542;
+    color: var(--pdp-story-dark);
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 10px;
+}
+
+.pdpLongForm-checklist {
+    list-style: none !important;
+    margin: 20px 0 0 !important;
+    padding: 0 !important;
+}
+
+.pdpLongForm-checklist li {
+    border-bottom: 1px solid #e5ecef;
+    font-size: 16px;
+    line-height: 1.45;
+    padding: 10px 4px 10px 28px;
+    position: relative;
+}
+
+.pdpLongForm-checklist li::before {
+    color: var(--pdp-story-blue);
+    content: '\2713';
+    font-weight: 700;
+    left: 4px;
+    position: absolute;
+    top: 10px;
+}
+
+.pdpLongForm-note {
+    background: #f4f8fa;
+    color: #40545f;
+    font-size: 14px !important;
+    margin: 18px 0 0 !important;
+    padding: 12px 14px;
+}
+
+.pdpLongForm-sectionHeader { margin: 0 auto 28px; max-width: 850px; text-align: center; }
+
+.pdpLongForm-cardGrid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pdpLongForm-card {
+    background: #fff;
+    border: 1px solid var(--pdp-story-line);
+    min-width: 0;
+}
+
+.pdpLongForm-card img {
+    aspect-ratio: 4 / 3;
+    display: block;
+    object-fit: cover;
+    width: 100%;
+}
+
+.pdpLongForm-cardBody { padding: 20px; }
+.pdpLongForm-cardBody > :last-child { margin-bottom: 0; }
+
+.pdpLongForm-gallery {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pdpLongForm-gallery figure { margin: 0; min-width: 0; }
+.pdpLongForm-gallery img { aspect-ratio: 4 / 3; display: block; object-fit: cover; width: 100%; }
+.pdpLongForm-gallery figcaption { color: #52646e; font-size: 14px; padding: 9px 2px 0; }
+
+.pdpLongForm-videoGrid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pdpLongForm-videoButton {
+    background: #092f4a;
+    border: 0;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    padding: 0;
+    position: relative;
+    text-align: left;
+    width: 100%;
+}
+
+.pdpLongForm-videoButton img { aspect-ratio: 16 / 9; display: block; object-fit: cover; opacity: .88; width: 100%; }
+.pdpLongForm-videoButton:hover img,
+.pdpLongForm-videoButton:focus-visible img { opacity: .7; }
+
+.pdpLongForm-play {
+    align-items: center;
+    background: #f4c542;
+    border-radius: 50%;
+    color: #063f60;
+    display: flex;
+    font-size: 24px;
+    height: 58px;
+    justify-content: center;
+    left: 50%;
+    padding-left: 4px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 58px;
+}
+
+.pdpLongForm-videoTitle { display: block; font-size: 15px; font-weight: 700; padding: 12px 14px; }
+.pdpLongForm-videoFrame { aspect-ratio: 16 / 9; border: 0; display: block; width: 100%; }
+
+.pdpLongForm-linkGrid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    list-style: none !important;
+    margin: 22px 0 !important;
+    padding: 0 !important;
+}
+
+.pdpLongForm-linkGrid a {
+    align-items: center;
+    border: 1px solid #cddce4;
+    color: #075f8a;
+    display: flex;
+    font-weight: 700;
+    justify-content: space-between;
+    min-height: 52px;
+    padding: 13px 15px;
+    text-decoration: none;
+}
+
+.pdpLongForm-linkGrid a::after { content: '\2192'; margin-left: 12px; }
+.pdpLongForm-linkGrid a:hover,
+.pdpLongForm-linkGrid a:focus-visible { background: #f1f8fb; color: #034d72; }
+
+.pdpLongForm-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.pdpLongForm-actions .button { margin: 0; }
+
+.pdpLongForm-warning {
+    background: #fff8df;
+    border: 1px solid #ead27a;
+    color: #483e1b;
+    margin-top: 28px;
+    padding: 18px;
+}
+
+// Native product warranty accordion. Keep the established interaction while
+// giving the disclosure a clearer hierarchy and a more intentional open state.
+.productWarrantyAccordion {
+    background: #f7fafb;
+    border-bottom: 1px solid #d7e2e8;
+    border-top: 1px solid #d7e2e8;
+    margin: 32px 0 48px;
+}
+
+.productWarrantyAccordion .accordion-navigation {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    min-height: 64px;
+    padding: 16px 20px;
+    transition: background-color .18s ease, color .18s ease;
+}
+
+.productWarrantyAccordion .accordion-navigation:hover,
+.productWarrantyAccordion .accordion-navigation:focus-visible {
+    background: #eef5f8;
+    outline: 2px solid transparent;
+}
+
+.productWarrantyAccordion .accordion-title {
+    color: #183f56;
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    padding: 0;
+    text-transform: none;
+}
+
+.productWarrantyAccordion .accordion-navigation-actions {
+    align-items: center;
+    border: 1px solid #b9cbd4;
+    border-radius: 50%;
+    display: flex;
+    flex: 0 0 32px;
+    height: 32px;
+    justify-content: center;
+    margin-left: 20px;
+    width: 32px;
+}
+
+.productWarrantyAccordion .accordion-indicator {
+    fill: #087fb6;
+    height: 12px;
+    width: 12px;
+}
+
+.productWarrantyAccordion #accordion--warranty {
+    border-top: 1px solid #d7e2e8;
+    color: #46555d;
+    font-size: 16px;
+    line-height: 1.65;
+    padding: 20px 20px 24px;
+}
+
+.productWarrantyAccordion #accordion--warranty p:last-child { margin-bottom: 0; }
+
+.productWarrantyAccordion #accordion--warranty a {
+    color: #076b9c;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.productWarrantyAccordion #accordion--warranty a:hover,
+.productWarrantyAccordion #accordion--warranty a:focus-visible { color: #034d72; }
+
+@media only screen and (max-width: 800px) {
+    .pdpLongForm-nav { gap: 18px; justify-content: flex-start; margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
+    .pdpLongForm-section { contain-intrinsic-size: auto 760px; padding: 36px 0; scroll-margin-top: 96px; }
+    .pdpLongForm-split { grid-template-columns: 1fr; }
+    .pdpLongForm-split .pdpLongForm-media { order: -1; }
+    .pdpLongForm-facts { grid-template-columns: 1fr; }
+    .pdpLongForm-cardGrid,
+    .pdpLongForm-gallery { grid-template-columns: 1fr; }
+    .pdpLongForm-videoGrid,
+    .pdpLongForm-linkGrid { grid-template-columns: 1fr; }
+    .pdpLongForm h2 { font-size: 30px; }
+    .pdpLongForm-lede { font-size: 17px; }
+    .productWarrantyAccordion { margin: 24px 0 36px; }
+    .productWarrantyAccordion .accordion-navigation { min-height: 58px; padding: 13px 14px; }
+    .productWarrantyAccordion #accordion--warranty { font-size: 15px; padding: 18px 14px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pdpLongForm { scroll-behavior: auto; }
+}

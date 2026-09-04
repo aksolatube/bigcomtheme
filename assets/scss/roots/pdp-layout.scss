@@ -1,0 +1,243 @@
+// Keep the buying details together without introducing a second scrollbar.
+.productDescription {
+    clear: both;
+    margin: 16px 0 32px;
+}
+
+.productSpecifications {
+    border: 1px solid #dce4e8;
+    border-radius: 4px;
+    clear: both;
+    margin-top: 12px;
+    text-align: left;
+    width: 100%;
+}
+
+.productSpecifications-toggle {
+    align-items: center;
+    background: #f5f9fb;
+    border-radius: 4px;
+    color: #3f4245;
+    cursor: pointer;
+    display: flex;
+    font-size: 19px;
+    font-weight: 600;
+    gap: 16px;
+    justify-content: space-between;
+    line-height: 1.25;
+    list-style: none;
+    min-height: 52px;
+    padding: 14px 16px;
+}
+
+.productSpecifications-toggle::-webkit-details-marker { display: none; }
+.productSpecifications-toggle::marker { content: ""; }
+
+.productSpecifications-toggle:hover,
+.productSpecifications-toggle:focus-visible {
+    background: #eef6fa;
+}
+
+.productSpecifications-toggle:focus-visible {
+    box-shadow: inset 0 0 0 2px #0088c7;
+    outline: 0;
+}
+
+.productSpecifications-icon {
+    border-bottom: 2px solid #087fb6;
+    border-right: 2px solid #087fb6;
+    flex: 0 0 9px;
+    height: 9px;
+    margin: -4px 2px 0 0;
+    transform: rotate(45deg);
+    width: 9px;
+}
+
+.productSpecifications[open] > .productSpecifications-toggle {
+    border-bottom: 1px solid #dce4e8;
+    border-radius: 4px 4px 0 0;
+}
+
+.productSpecifications[open] .productSpecifications-icon {
+    margin-top: 4px;
+    transform: rotate(225deg);
+}
+
+.productSpecifications-list {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0 16px;
+}
+
+.productSpecifications-row {
+    display: grid;
+    gap: 8px 16px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    padding: 12px 0;
+}
+
+.productSpecifications-row + .productSpecifications-row {
+    border-top: 1px solid #e8edef;
+}
+
+.productSpecifications-row[hidden] { display: none; }
+
+.productSpecifications-row dt,
+.productSpecifications-row dd {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.productSpecifications-row dt { font-weight: 600; }
+.productSpecifications-row dd > :last-child { margin-bottom: 0; }
+.productSpecifications-row img { height: auto; max-width: 100%; }
+
+@media only screen and (max-width: 800px) {
+    // One compact breadcrumb row on mobile PDPs. Keep the full labels/links
+    // in the DOM and structured data; truncate visually, not in the template.
+    .body--product { margin-top: 6px; }
+
+    .productPage-breadcrumbs {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    .productPage-breadcrumbs ol.breadcrumbs {
+        align-items: center;
+        display: flex;
+        flex-wrap: nowrap;
+        line-height: 1.4;
+        margin: 0;
+        padding: 4px 0;
+        row-gap: 0;
+    }
+
+    .productPage-breadcrumbs ol.breadcrumbs .breadcrumb {
+        align-items: center;
+        display: flex;
+        flex: 0 1 auto;
+        font-size: 12px;
+        margin: 0;
+        max-width: 32%;
+        min-width: 0;
+    }
+
+    .productPage-breadcrumbs ol.breadcrumbs .breadcrumb:first-child { flex-shrink: 0; }
+    .productPage-breadcrumbs ol.breadcrumbs .breadcrumb:not(:first-child):not(.is-active) { flex-basis: 20%; max-width: 20%; }
+    .productPage-breadcrumbs ol.breadcrumbs .breadcrumb.is-active { flex: 1 1 35%; max-width: none; }
+    .productPage-breadcrumbs ol.breadcrumbs .breadcrumb:not(:first-child)::before { flex-shrink: 0; height: 10px; margin: 0 5px; }
+
+    .productPage-breadcrumbs ol.breadcrumbs .breadcrumb-label {
+        display: block;
+        line-height: 1.4;
+        min-width: 0;
+    }
+
+    .productPage-breadcrumbs .breadcrumb-label span {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .productPage-main > .productView { padding-top: 4px; }
+
+    .productPage-main .pdpPurchaseControls .form-field--increments {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+
+    .productPage-main .pdpPurchaseControls .form-field--increments > .form-label {
+        font-size: 13px;
+        margin: 0 12px 0 0;
+    }
+
+    .productPage-main .pdpPurchaseControls .add-to-cart-buttons {
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .productPage-main .pdpPurchaseControls .form-action,
+    .productPage-main .pdpPurchaseControls #form-action-addToCart {
+        margin: 0;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 801px) {
+    .productPage-main .pdpPurchaseControls {
+        align-items: end;
+        display: grid;
+        gap: 0 12px;
+        grid-template-columns: auto minmax(0, 1fr);
+        width: 100%;
+    }
+
+    .productPage-main .pdpPurchaseControls .form-field--increments {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 0;
+    }
+
+    .productPage-main .pdpPurchaseControls .productAttributes-message {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-top: 10px;
+    }
+
+    .productPage-main .pdpPurchaseControls .add-to-cart-buttons {
+        display: contents;
+    }
+
+    .productPage-main .pdpPurchaseControls .form-action {
+        display: block;
+        grid-column: 2;
+        grid-row: 1;
+        margin: 0;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .productPage-main .pdpPurchaseControls .add-to-cart-wallet-buttons {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        margin-top: 12px;
+    }
+
+    .productPage-main .pdpPurchaseControls #form-action-addToCart {
+        margin: 0;
+        min-height: 45px;
+        width: 100%;
+    }
+
+    .productPage-main .pdpPurchaseControls--buttonOnly { display: block; max-width: 60%; }
+}
+
+@media only screen and (min-width: 1025px) {
+    .productPage-main > .productView > .productView-images {
+        // A stretched flex item has no room to move inside the product row.
+        align-self: flex-start;
+    }
+
+    .productPage-main > .productView > .productView-images--sticky {
+        position: sticky;
+        top: var(--pdp-gallery-top, 16px);
+    }
+
+    .productPage-main > .productView > .productView-images .productView-img-container {
+        // Only cap the existing image stage when needed to fit the thumbnails.
+        // The controller removes this cap on small/short windows.
+        max-height: var(--pdp-gallery-stage-max, none);
+    }
+}
+
+@media print {
+    .productPage-main > .productView > .productView-images--sticky {
+        position: static;
+    }
+}

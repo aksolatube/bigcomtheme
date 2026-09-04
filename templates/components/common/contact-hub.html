@@ -1,0 +1,86 @@
+<button
+    class="contactHub-fab"
+    type="button"
+    aria-label="Ask Solatube a question"
+    aria-haspopup="dialog"
+    data-contact-hub-open="general"
+    hidden
+>
+    <span class="contactHub-fabIcon" aria-hidden="true">?</span>
+    <span class="contactHub-fabLabel">Need help?</span>
+</button>
+
+<div class="contactHub" data-contact-hub hidden>
+    <div class="contactHub-backdrop" data-contact-hub-close></div>
+    <section
+        class="contactHub-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-hub-title"
+        aria-describedby="contact-hub-intro"
+        tabindex="-1"
+    >
+        <button class="contactHub-close" type="button" aria-label="Close contact form" data-contact-hub-close>
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+        <div class="contactHub-content" data-contact-hub-content>
+            <header class="contactHub-header">
+                <span class="contactHub-eyebrow">Solatube support</span>
+                <h2 class="contactHub-title" id="contact-hub-title" data-contact-hub-title>How can we help?</h2>
+                <p class="contactHub-intro" id="contact-hub-intro" data-contact-hub-intro>
+                    Tell us about your project or question and a Solatube specialist will get back to you.
+                </p>
+                <p class="contactHub-productContext" data-contact-hub-product-context hidden></p>
+            </header>
+
+            <form class="contactHub-form" data-contact-hub-form novalidate>
+                <div class="contactHub-nameFields">
+                    <label class="contactHub-field">
+                        <span>First name <span aria-hidden="true">*</span></span>
+                        <input type="text" name="firstname" autocomplete="given-name" required>
+                    </label>
+                    <label class="contactHub-field">
+                        <span>Last name <span aria-hidden="true">*</span></span>
+                        <input type="text" name="lastname" autocomplete="family-name" required>
+                    </label>
+                </div>
+
+                <div class="contactHub-contactFields">
+                    <label class="contactHub-field">
+                        <span>Email address <span aria-hidden="true">*</span></span>
+                        <input type="email" name="email" autocomplete="email" required>
+                    </label>
+
+                    <label class="contactHub-field">
+                        <span>Cell phone <span aria-hidden="true">*</span></span>
+                        <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required>
+                    </label>
+
+                    <label class="contactHub-field">
+                        <span><span data-contact-hub-postal-label>ZIP / postal code</span> <span aria-hidden="true">*</span></span>
+                        <input type="text" name="zip" autocomplete="postal-code" required>
+                    </label>
+                </div>
+
+                <label class="contactHub-field">
+                    <span>Your question or comment <span aria-hidden="true">*</span></span>
+                    <textarea name="message" rows="4" required></textarea>
+                </label>
+
+                <p class="contactHub-status" role="status" aria-live="polite" data-contact-hub-status></p>
+
+                <button class="button button--primary contactHub-submit" type="submit" data-contact-hub-submit>
+                    Send to Solatube
+                </button>
+            </form>
+        </div>
+
+        <div class="contactHub-result" data-contact-hub-success hidden>
+            <span class="contactHub-resultIcon" aria-hidden="true">&#10003;</span>
+            <h2>Thanks, we got your question.</h2>
+            <p>A Solatube product specialist will contact you shortly.</p>
+            <button class="button button--primary" type="button" data-contact-hub-close>Close</button>
+        </div>
+    </section>
+</div>

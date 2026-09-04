@@ -1,6 +1,6 @@
 {
-  "name": "Solatube Shop 5.8.134 - Cleaner PDP Offers and Mobile Gallery",
-  "version": "5.8.134",
+  "name": "Solatube Shop 5.8.135 - Fix Free Shipping Badge Visibility",
+  "version": "5.8.135",
   "template_engine": "handlebars_v4",
   "meta": {
     "price": 0,

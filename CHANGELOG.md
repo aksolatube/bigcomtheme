@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.135 (2026-09-04)
+
+- Honor the free-shipping badge's hidden attribute so CSS cannot expose it on excluded whole-house fans, traditional skylights, or unrecognized products.
+- Preserve the existing USA eligibility checks and keep eligible daylighting systems, extension tubes, accessories and solar attic fans visible.
+
 ## 5.8.134 (2026-09-04)
 
 - Move the mobile PDP fullscreen control to the lower-left corner, retaining its 44px touch target and clearance above inline video controls.

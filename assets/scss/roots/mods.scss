@@ -3839,6 +3839,11 @@ li.pagination-item--previous a{
     white-space: nowrap;
 }
 
+// Respect eligibility and remain hidden until the PDP script opts in.
+.productView-freeShippingBadge[hidden]{
+    display: none;
+}
+
 .productView-freeShippingBadge svg{
     fill: currentColor;
     height: 14px;

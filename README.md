@@ -31,12 +31,14 @@ the bundle:
 
 1. Open the repository's **Actions** tab.
 2. Open the latest successful **Build BigCommerce theme** run.
-3. Download the `bigcommerce-theme-...` artifact from the **Artifacts** section.
+3. Download the `solatube-theme-v<version>-build-<number>` artifact from the
+   **Artifacts** section.
 4. Extract the downloaded artifact once. Upload the theme ZIP inside it to
    BigCommerce.
 
 The workflow can also be started manually with **Run workflow** from the Actions
-tab. Build artifacts are retained for 30 days.
+tab. The version comes from `package.json`, and the build number increases with
+each workflow run. Build artifacts are retained for 30 days.
 
 To create the same uploadable bundle locally, install Stencil CLI and run:
 

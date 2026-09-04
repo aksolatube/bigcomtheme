@@ -10,6 +10,27 @@ product:
         limit: {{theme_settings.productpage_similar_by_views_count}}
 ---
 {{inject 'productId' product.id}}
+{{inject 'klaviyoProductName' product.title}}
+{{inject 'klaviyoProductId' product.id}}
+{{inject 'klaviyoProductSku' product.sku}}
+{{inject 'klaviyoProductCategories' product.category}}
+{{inject 'klaviyoProductImageUrl' (getImage product.main_image 'product_size' (cdn theme_settings.default_image_product))}}
+{{inject 'klaviyoProductBrand' product.brand.name}}
+{{#if product.price.with_tax}}
+    {{inject 'klaviyoProductPrice' product.price.with_tax.value}}
+    {{#if product.price.non_sale_price_with_tax}}
+        {{inject 'klaviyoProductCompareAtPrice' product.price.non_sale_price_with_tax.value}}
+    {{else}}
+        {{inject 'klaviyoProductCompareAtPrice' product.price.rrp_with_tax.value}}
+    {{/if}}
+{{else}}
+    {{inject 'klaviyoProductPrice' product.price.without_tax.value}}
+    {{#if product.price.non_sale_price_without_tax}}
+        {{inject 'klaviyoProductCompareAtPrice' product.price.non_sale_price_without_tax.value}}
+    {{else}}
+        {{inject 'klaviyoProductCompareAtPrice' product.price.rrp_without_tax.value}}
+    {{/if}}
+{{/if}}
 
 {{#partial "head"}}
     {{#if product.main_image}}

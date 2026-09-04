@@ -13,6 +13,7 @@ import completeSystem from './roots/complete-system';
 import pdpLayout from './roots/pdp-layout';
 import pdpPurchaseBar from './roots/pdp-purchase-bar';
 import pdpLongForm from './roots/pdp-long-form';
+import trackKlaviyoViewedProduct from './roots/klaviyo-viewed-product';
 
 export default class Product extends PageManager {
     constructor(context) {
@@ -24,6 +25,18 @@ export default class Product extends PageManager {
     }
 
     onReady() {
+        trackKlaviyoViewedProduct({
+            ProductName: this.context.klaviyoProductName,
+            ProductID: this.context.klaviyoProductId,
+            SKU: this.context.klaviyoProductSku,
+            Categories: this.context.klaviyoProductCategories,
+            ImageURL: this.context.klaviyoProductImageUrl,
+            URL: window.location.href,
+            Brand: this.context.klaviyoProductBrand,
+            Price: this.context.klaviyoProductPrice,
+            CompareAtPrice: this.context.klaviyoProductCompareAtPrice,
+        });
+
         // Listen for foundation modal close events to sanitize URL after review.
         $(document).on('close.fndtn.reveal', () => {
             if (this.url.indexOf('#write_review') !== -1 && typeof window.history.replaceState === 'function') {

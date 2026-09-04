@@ -265,14 +265,9 @@
         trigger.setAttribute('aria-label', 'View product media full screen');
         trigger.setAttribute('title', 'View full screen');
 
-        // The mobile product image owns press-and-hold/touch gestures for its
-        // inline zoom. Keep this control outside that gesture surface so a tap
-        // belongs to the lightbox control instead of the product zoom.
-        if (window.innerWidth <= 800) {
-            gallery.appendChild(trigger);
-        } else {
-            imageContainer.appendChild(trigger);
-        }
+        // Keep the control anchored to the visible media stage. It is a sibling
+        // of the image link, so its tap cannot trigger the product-image zoom.
+        imageContainer.appendChild(trigger);
 
         var overlay = document.createElement('div');
         overlay.className = 'productLightbox';

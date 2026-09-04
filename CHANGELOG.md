@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.130 (2026-09-04)
+
+- Move the mobile PDP fullscreen-gallery control from the upper-left artwork area to the lower-right of the main media stage.
+- Keep the control clear of native playback controls when the inline product video is active, without changing its desktop position or full-screen behavior.
+
 ## 5.8.129 (2026-09-04)
 
 - Defer the PDP gallery video file and oversized poster until a shopper chooses the video, avoiding their multi-megabyte cost during ordinary page loads.

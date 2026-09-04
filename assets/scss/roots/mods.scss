@@ -3307,13 +3307,19 @@ li.pagination-item--previous a{
     }
 
     .productLightbox-trigger{
+        bottom: 12px;
         height: 44px;
         justify-content: center;
-        left: 8px;
+        left: auto;
         min-height: 44px;
         padding: 0;
-        top: 8px;
+        right: 12px;
+        top: auto;
         width: 44px;
+    }
+
+    .productView-image.is-showing-video .productLightbox-trigger{
+        bottom: 56px;
     }
 
     .productLightbox-trigger span{

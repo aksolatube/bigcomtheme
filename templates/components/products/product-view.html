@@ -44,9 +44,9 @@
                     image=product.main_image
                     class="productView-image--default"
                     fallback_size=theme_settings.product_size
-                    lazyload=theme_settings.lazyload_mode
+                    lazyload="disabled"
                     default_image=theme_settings.default_image_product
-                    otherAttributes="data-main-image"
+                    otherAttributes="data-main-image fetchpriority='high' loading='eager' decoding='async'"
                 }}
                 {{!-- Remove the surrounding a-element if there is no main image. --}}
                 {{#if product.main_image}}

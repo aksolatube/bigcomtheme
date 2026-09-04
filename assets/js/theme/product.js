@@ -68,6 +68,7 @@ export default class Product extends PageManager {
         const review = new Review({ $reviewForm });
 
         $('body').on('click', '[data-reveal-id="modal-review-form"]', () => {
+            this.loadReviewRecaptcha();
             validator = review.registerValidation(this.context);
             this.ariaDescribeReviewInputs($reviewForm);
         });
@@ -83,6 +84,63 @@ export default class Product extends PageManager {
         rootsLoaded();
 
         this.productReviewHandler();
+    }
+
+    loadReviewRecaptcha() {
+        const template = document.querySelector('[data-review-recaptcha-template]');
+        const mount = document.querySelector('[data-review-recaptcha-mount]');
+
+        if (!template || !mount || mount.getAttribute('data-recaptcha-loaded') === 'true') return;
+
+        const content = template.content.cloneNode(true);
+        const captchaScript = content.querySelector('script[src*="recaptcha"]');
+        const scriptUrl = captchaScript && captchaScript.getAttribute('src');
+
+        Array.prototype.forEach.call(content.querySelectorAll('script'), script => script.remove());
+        mount.appendChild(content);
+        mount.setAttribute('data-recaptcha-loaded', 'true');
+        template.remove();
+
+        const widget = mount.querySelector('.g-recaptcha');
+
+        if (!widget) return;
+
+        const renderCaptcha = () => {
+            if (!window.grecaptcha || typeof window.grecaptcha.render !== 'function' || widget.children.length) return;
+
+            const render = () => {
+                if (widget.children.length) return;
+                window.grecaptcha.render(widget, {
+                    sitekey: widget.getAttribute('data-sitekey'),
+                });
+            };
+
+            if (typeof window.grecaptcha.ready === 'function') window.grecaptcha.ready(render);
+            else render();
+        };
+
+        if (window.grecaptcha && typeof window.grecaptcha.render === 'function') {
+            renderCaptcha();
+            return;
+        }
+
+        if (!scriptUrl) return;
+
+        const existingScript = document.querySelector('script[src*="google.com/recaptcha/api.js"]');
+
+        if (existingScript) {
+            existingScript.addEventListener('load', renderCaptcha, { once: true });
+            return;
+        }
+
+        const script = document.createElement('script');
+        const nonceScript = document.querySelector('script[nonce]');
+        script.src = `${scriptUrl}${scriptUrl.indexOf('?') === -1 ? '?' : '&'}render=explicit`;
+        script.async = true;
+        script.defer = true;
+        if (nonceScript && nonceScript.nonce) script.nonce = nonceScript.nonce;
+        script.addEventListener('load', renderCaptcha, { once: true });
+        document.head.appendChild(script);
     }
 
     ariaDescribeReviewInputs($form) {

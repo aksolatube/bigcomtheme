@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.129 (2026-09-04)
+
+- Defer the PDP gallery video file and oversized poster until a shopper chooses the video, avoiding their multi-megabyte cost during ordinary page loads.
+- Load the primary PDP product image eagerly with high fetch priority so the browser can discover the page's LCP image immediately.
+- Keep the protected Write a Review form but defer its Google reCAPTCHA markup and scripts until the review modal is opened.
+
 ## 5.8.128 (2026-09-04)
 
 - Load the PDP Specifications disclosure collapsed by default while retaining its native accessible expand-and-collapse behavior.

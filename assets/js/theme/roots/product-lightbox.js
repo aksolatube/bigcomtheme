@@ -196,6 +196,10 @@
 
         function showMainVideo(activeTrigger) {
             if (!mainVideoStage || !videoUrl) return;
+            if (!mainVideo.querySelector('source')) {
+                setMp4Source(mainVideo, videoUrl);
+                if (posterUrl) mainVideo.poster = posterUrl;
+            }
             clearActiveThumbnails();
             activeTrigger.classList.add('is-active');
             mainFigure.classList.add('is-showing-video');
@@ -213,20 +217,12 @@
         }
 
         if (videoUrl) {
-            Array.prototype.forEach.call(gallery.querySelectorAll('[data-product-gallery-video-thumbnail-poster]'), function (posterImage) {
-                if (!posterUrl) return;
-                posterImage.src = posterUrl;
-                posterImage.hidden = false;
-            });
-
             mainVideoStage = document.createElement('div');
             mainVideoStage.className = 'productView-video-stage';
             mainVideoStage.hidden = true;
-            mainVideoStage.innerHTML = '<video class="productView-video" controls playsinline webkit-playsinline preload="metadata" aria-label="Product video"></video>';
+            mainVideoStage.innerHTML = '<video class="productView-video" controls playsinline webkit-playsinline preload="none" aria-label="Product video"></video>';
             imageContainer.appendChild(mainVideoStage);
             mainVideo = mainVideoStage.querySelector('video');
-            setMp4Source(mainVideo, videoUrl);
-            if (posterUrl) mainVideo.poster = posterUrl;
             trackVideo(mainVideo, 'pdp_gallery');
 
             gallery.addEventListener('click', function (event) {
@@ -289,7 +285,7 @@
             '<button type="button" class="productLightbox-arrow productLightbox-prev" aria-label="Previous product media">&#8249;</button>',
             '<div class="productLightbox-stage">',
                 '<img class="productLightbox-image" alt="">',
-                '<video class="productLightbox-video" controls playsinline webkit-playsinline preload="metadata" aria-label="Product video" hidden></video>',
+                '<video class="productLightbox-video" controls playsinline webkit-playsinline preload="none" aria-label="Product video" hidden></video>',
                 '<span class="productLightbox-count" aria-live="polite"></span>',
             '</div>',
             '<button type="button" class="productLightbox-arrow productLightbox-next" aria-label="Next product media">&#8250;</button>'
@@ -408,7 +404,10 @@
 
             if (item.type === 'video') {
                 if (mainVideo) {
-                    if (item.poster) mainVideo.poster = item.poster;
+                    if (!mainVideo.querySelector('source')) {
+                        setMp4Source(mainVideo, item.url);
+                        if (item.poster) mainVideo.poster = item.poster;
+                    }
                     mainVideo.classList.add('productLightbox-video');
                     mainVideo.hidden = false;
                     overlay.querySelector('.productLightbox-stage').insertBefore(mainVideo, count);

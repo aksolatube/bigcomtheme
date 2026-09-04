@@ -1,6 +1,6 @@
 {
-  "name": "Solatube Shop 5.8.128 - Collapsed PDP Specifications",
-  "version": "5.8.128",
+  "name": "Solatube Shop 5.8.129 - Faster PDP First Load",
+  "version": "5.8.129",
   "template_engine": "handlebars_v4",
   "meta": {
     "price": 0,

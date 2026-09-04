@@ -41,6 +41,16 @@ The workflow can also be started manually with **Run workflow** from the Actions
 tab. The version comes from `package.json`, and the build number increases with
 each workflow run. Build artifacts are retained for 30 days.
 
+Before creating a new theme release, update all of the following in the same
+commit:
+
+- `package.json` and `package-lock.json` version
+- `config.json` version and customer-facing theme name/release description
+- `CHANGELOG.md` release heading and notes
+
+The GitHub workflow rejects a build if these version fields or release notes are
+out of sync.
+
 To create the same uploadable bundle locally, install Stencil CLI and run:
 
 ```sh

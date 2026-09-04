@@ -25,11 +25,29 @@ jobs:
           node-version: 24
           cache: npm
 
-      - name: Name this theme build
+      - name: Validate and name this theme build
         id: theme
         shell: bash
         run: |
           version="$(node -p "require('./package.json').version")"
+          config_version="$(node -p "require('./config.json').version")"
+          config_name="$(node -p "require('./config.json').name")"
+
+          if [[ "$config_version" != "$version" ]]; then
+            echo "package.json version ($version) does not match config.json version ($config_version)." >&2
+            exit 1
+          fi
+
+          if [[ "$config_name" != *"$version"* ]]; then
+            echo "config.json name must include version $version." >&2
+            exit 1
+          fi
+
+          if ! grep -Fq "## ${version} (" CHANGELOG.md; then
+            echo "CHANGELOG.md is missing release notes for version $version." >&2
+            exit 1
+          fi
+
           echo "artifact_name=EXTRACT-FIRST-solatube-theme-v${version}-build-${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
           echo "bundle_name=UPLOAD-TO-BIGCOMMERCE-solatube-theme-v${version}-build-${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
 

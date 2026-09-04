@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.127 (2026-09-04)
+
+- Add Klaviyo `Viewed Product` and `trackViewedItem` events to product pages using safely serialized Stencil product data.
+- Include product identity, SKU, categories, image, URL, brand, current price and comparison price while supporting Klaviyo's asynchronously loaded onsite script.
+- Add reproducible GitHub theme bundling with versioned artifacts and unmistakable extract-versus-upload ZIP filenames.
+
 ## 5.8.126 (2026-09-03)
 
 - Remove the generic “NEW Brighten Up Skylight Series” label from the PDP purchase area so it cannot appear on unrelated skylight series.

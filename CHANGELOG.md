@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.134 (2026-09-04)
+
+- Move the mobile PDP fullscreen control to the lower-left corner, retaining its 44px touch target and clearance above inline video controls.
+- Keep the USA free-shipping badge beside the price and place the existing Script Manager sale offer and copy-code button on a dedicated compact row below.
+- Preserve storefront shipping eligibility, sale scheduling, coupon behavior and desktop gallery positioning.
+
 ## 5.8.133 (2026-09-04)
 
 - Limit the storefront-controlled USA free-shipping badge to Solatube tubular skylights/daylighting systems, extension tubes, accessories and solar attic fans using the PDP's product name and category paths.

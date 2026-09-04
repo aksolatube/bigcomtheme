@@ -3310,10 +3310,10 @@ li.pagination-item--previous a{
         bottom: 12px;
         height: 44px;
         justify-content: center;
-        left: auto;
+        left: 12px;
         min-height: 44px;
         padding: 0;
-        right: 12px;
+        right: auto;
         top: auto;
         width: 44px;
     }
@@ -3796,6 +3796,32 @@ li.pagination-item--previous a{
     display: flex;
     flex-wrap: wrap;
     gap: 0 10px;
+}
+
+// Script Manager inserts the offer immediately after the price. Give it a
+// dedicated second row so the shipping assurance stays beside the price.
+// Specificity keeps this stable when the script injects its CSS after ours.
+.productView-priceRow > .stSale-productMessage{
+    flex: 0 0 100%;
+    gap: 6px 8px;
+    margin: 0 0 10px;
+    min-width: 0;
+    order: 1;
+}
+
+.productView-priceRow > .stSale-productMessage > strong{
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.productView-priceRow > .stSale-productMessage .stSale-code{
+    box-shadow: none;
+    min-height: 32px;
+}
+
+.productView-priceRow > .stSale-productMessage .stSale-code:focus-visible{
+    outline: 2px solid #075f8c;
+    outline-offset: 2px;
 }
 
 .productView-freeShippingBadge{

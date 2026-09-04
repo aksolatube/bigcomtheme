@@ -196,12 +196,39 @@
                     {{/or}}
                 </div>
                 {{#if settings.store_name '===' 'Solatube International, Inc.'}}
-                    <span class="productView-freeShippingBadge">
-                        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                            <path d="M3 6h11v10H3V6Zm11 4h3.4l2.6 3v3h-6v-6Zm-7 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm13 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
-                        </svg>
-                        <span>Free shipping</span>
-                    </span>
+                    {{#unless is_ajax}}
+                        <span
+                            class="productView-freeShippingBadge"
+                            data-free-shipping-badge
+                            data-product-name="{{product.title}}"
+                            data-product-categories="{{#each product.category}}{{this}}{{#unless @last}}|{{/unless}}{{/each}}"
+                            hidden
+                        >
+                            <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                <path d="M3 6h11v10H3V6Zm11 4h3.4l2.6 3v3h-6v-6Zm-7 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm13 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                            </svg>
+                            <span>Free shipping</span>
+                        </span>
+                        <script nonce="{{nonce}}">
+                            (function () {
+                                var script = document.currentScript;
+                                var badge = script && script.previousElementSibling;
+                                var productData;
+                                var isExcluded;
+                                var isEligible;
+
+                                if (!badge || !badge.hasAttribute('data-free-shipping-badge')) return;
+                                productData = [
+                                    badge.getAttribute('data-product-name'),
+                                    badge.getAttribute('data-product-categories')
+                                ].join(' ').toLowerCase();
+                                isExcluded = /whole[\s-]+house\s+fan|\bwhf\b/.test(productData);
+                                isEligible = /solatube\s+skylights?|daylighting\s+systems?|tubular\s+(?:daylighting|skylights?)|diameter\s+tube\s+skylights?|extension\s+tubes?|accessor(?:y|ies)|solar\s+attic\s+fans?/.test(productData);
+
+                                if (isEligible && !isExcluded) badge.hidden = false;
+                            }());
+                        </script>
+                    {{/unless}}
                 {{/if}}
             </div>
 

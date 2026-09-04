@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.133 (2026-09-04)
+
+- Limit the storefront-controlled USA free-shipping badge to Solatube tubular skylights/daylighting systems, extension tubes, accessories and solar attic fans using the PDP's product name and category paths.
+- Keep conventional skylights, whole-house fans and WHF products outside the eligible category patterns.
+
 ## 5.8.132 (2026-09-04)
 
 - Show the minimal free-shipping badge on USA PDPs independently of BigCommerce's native product shipping-price fields.

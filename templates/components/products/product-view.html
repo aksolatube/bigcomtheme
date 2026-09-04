@@ -187,12 +187,28 @@
                     <span>{{product.call_for_price}}</span>
                 </p>
             {{/if}}
-            <div class="productView-price{{#or product.price.non_sale_price_with_tax product.price.non_sale_price_without_tax}} productView-price--sale{{/or}}">
-                {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
-                    {{> components/products/price price=product.price}}
-                {{else}}
-                    {{> components/common/login-for-pricing}}
-                {{/or}}
+            <div class="productView-priceRow">
+                <div class="productView-price{{#or product.price.non_sale_price_with_tax product.price.non_sale_price_without_tax}} productView-price--sale{{/or}}">
+                    {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                        {{> components/products/price price=product.price}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
+                </div>
+                {{#if settings.store_name '===' 'Solatube International, Inc.'}}
+                    {{#if product.shipping}}
+                        {{#unless product.shipping.calculated}}
+                            {{#if product.shipping.price.value '===' 0}}
+                                <span class="productView-freeShippingBadge">
+                                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                        <path d="M3 6h11v10H3V6Zm11 4h3.4l2.6 3v3h-6v-6Zm-7 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm13 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                                    </svg>
+                                    <span>Free shipping</span>
+                                </span>
+                            {{/if}}
+                        {{/unless}}
+                    {{/if}}
+                {{/if}}
             </div>
 
             {{#and settings.bulk_discount_enabled product.bulk_discount_rates.length}}
@@ -317,17 +333,19 @@
                     {{#if product.shipping}}
                         {{#unless product.shipping.calculated}}
                             {{#if product.shipping.price.value '===' 0}}
-                                <div class="productView-shipping productView-shipping--free">
-                                    <span class="productView-shippingIcon" aria-hidden="true">
-                                        <svg viewBox="0 0 24 24" focusable="false">
-                                            <path d="M3 6h11v10H3V6Zm11 4h3.4l2.6 3v3h-6v-6Zm-7 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm13 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
-                                        </svg>
-                                    </span>
-                                    <span class="productView-shippingCopy">
-                                        <strong>{{lang 'products.shipping_free'}}</strong>
-                                        <small>Included with this item</small>
-                                    </span>
-                                </div>
+                                {{#unless settings.store_name '===' 'Solatube International, Inc.'}}
+                                    <div class="productView-shipping productView-shipping--free">
+                                        <span class="productView-shippingIcon" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" focusable="false">
+                                                <path d="M3 6h11v10H3V6Zm11 4h3.4l2.6 3v3h-6v-6Zm-7 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm13 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="productView-shippingCopy">
+                                            <strong>{{lang 'products.shipping_free'}}</strong>
+                                            <small>Included with this item</small>
+                                        </span>
+                                    </div>
+                                {{/unless}}
                             {{else}}
                                 <div class="productView-shipping">
                                     <dt class="productView-info-name">Fixed Shipping Cost: </dt>

@@ -3791,6 +3791,34 @@ li.pagination-item--previous a{
     margin-top: 5px;
 }
 
+.productView-priceRow{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 10px;
+}
+
+.productView-freeShippingBadge{
+    align-items: center;
+    background: #eef7fb;
+    border-radius: 999px;
+    color: #075f8c;
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 600;
+    gap: 5px;
+    line-height: 1;
+    margin: 5px 0 spacing("third");
+    padding: 5px 8px;
+    white-space: nowrap;
+}
+
+.productView-freeShippingBadge svg{
+    fill: currentColor;
+    height: 14px;
+    width: 14px;
+}
+
 .productView-reviewLink:last-of-type:first-of-type{margin-left: 0;}
 
 .min-max-purchase{margin-bottom: 1rem;}

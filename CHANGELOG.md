@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.131 (2026-09-04)
+
+- Show a compact truck-icon “Free shipping” assurance beside eligible USA PDP prices using BigCommerce's existing zero-shipping-price signal.
+- Suppress the older, larger free-shipping card on the USA storefront to keep the purchase area uncluttered and avoid duplicate messaging; other storefronts retain their existing presentation.
+
 ## 5.8.130 (2026-09-04)
 
 - Move the mobile PDP fullscreen-gallery control from the upper-left artwork area to the lower-right of the main media stage.

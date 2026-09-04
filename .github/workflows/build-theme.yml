@@ -39,7 +39,7 @@ jobs:
         run: npm install --global @bigcommerce/stencil-cli@9.2.0
 
       - name: Build BigCommerce bundle
-        run: stencil bundle --name "${{ steps.theme.outputs.bundle_name }}.zip" --timeout 600
+        run: stencil bundle --name "${{ steps.theme.outputs.bundle_name }}" --timeout 600
 
       - name: Upload theme ZIP
         uses: actions/upload-artifact@v7

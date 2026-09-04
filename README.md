@@ -31,10 +31,11 @@ the bundle:
 
 1. Open the repository's **Actions** tab.
 2. Open the latest successful **Build BigCommerce theme** run.
-3. Download the `solatube-theme-v<version>-build-<number>` artifact from the
-   **Artifacts** section.
-4. Extract the downloaded artifact once. Upload the theme ZIP inside it to
-   BigCommerce.
+3. Download the `EXTRACT-FIRST-solatube-theme-v<version>-build-<number>`
+   artifact from the **Artifacts** section.
+4. Extract the downloaded artifact once.
+5. Upload the `UPLOAD-TO-BIGCOMMERCE-solatube-theme-v<version>-build-<number>.zip`
+   file inside it. Do not upload the outer `EXTRACT-FIRST` ZIP to BigCommerce.
 
 The workflow can also be started manually with **Run workflow** from the Actions
 tab. The version comes from `package.json`, and the build number increases with

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.132 (2026-09-04)
+
+- Show the minimal free-shipping badge on USA PDPs independently of BigCommerce's native product shipping-price fields.
+- Keep the badge scoped to the USA storefront so multi-storefront shipping configuration limitations cannot suppress it or expose it elsewhere.
+
 ## 5.8.131 (2026-09-04)
 
 - Show a compact truck-icon “Free shipping” assurance beside eligible USA PDP prices using BigCommerce's existing zero-shipping-price signal.

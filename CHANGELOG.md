@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.138 (2026-09-05)
+
+- Improve Parts & Accessories filtered titles with Solatube 160/290 system names, combined diameter selections and roof type mappings.
+- Keep accessory type and function titles specific when combined with a selected system diameter.
+
 ## 5.8.137 (2026-09-05)
 
 - Synchronize the top desktop category heading with the dynamic filter title on initial load and AJAX updates, resetting to the category name when filters clear.

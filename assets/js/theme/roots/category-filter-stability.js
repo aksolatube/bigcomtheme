@@ -133,17 +133,55 @@
         return '';
     }
 
+    function selectedFiltersByFacet(filters, facetName) {
+        return filters.filter(function matchFacet(filter) {
+            return filter.facet === facetName;
+        });
+    }
+
+    function accessoryDiameterTitle(filters) {
+        var diameterFilters = selectedFiltersByFacet(filters, 'tube diameter');
+        var modelNames = diameterFilters.map(function mapDiameter(filter) {
+            var rawValue = normalized(filter.rawValue);
+
+            if (rawValue.indexOf('10 inch') !== -1 || rawValue.indexOf('160 model') !== -1) return 'Solatube 160';
+            if (rawValue.indexOf('14 inch') !== -1 || rawValue.indexOf('290 model') !== -1) return 'Solatube 290';
+
+            return tubeDiameterTitle(filter);
+        }).filter(function uniqueValue(value, index, values) {
+            return value && values.indexOf(value) === index;
+        });
+
+        if (modelNames.length === 1) return 'Parts for ' + modelNames[0] + ' Systems';
+        if (modelNames.length > 1) return 'Parts for ' + modelNames.join(' & ') + ' Systems';
+
+        return '';
+    }
+
+    function accessoryRoofTitle(filters) {
+        var roofFilter = filters.find(function matchRoof(filter) {
+            return filter.facet === 'roof type';
+        });
+        var value = normalized(roofFilter && roofFilter.rawValue);
+
+        if (value.indexOf('flat') !== -1 || value.indexOf('no-pitch') !== -1) return 'Flat Roofs';
+        if (value.indexOf('sloped') !== -1 || value.indexOf('pitched') !== -1) return 'Pitched Roofs';
+
+        return '';
+    }
+
     function categoryCurrentViewTitle(filters, categoryName) {
         var typeFilter = filterByExactFacet(filters, 'type');
         var functionFilter = filterByExactFacet(filters, 'function');
-        var diameterFilter = filterByExactFacet(filters, 'tube diameter');
         var typeTitle = typeFilter && accessoryTypeTitle(typeFilter.rawValue);
         var functionTitle = functionFilter && accessoryFunctionTitle(functionFilter.rawValue);
-        var diameterTitle = tubeDiameterTitle(diameterFilter);
+        var diameterTitle = accessoryDiameterTitle(filters);
+        var roofTitle = accessoryRoofTitle(filters);
 
-        if (typeTitle) return (diameterTitle ? diameterTitle + ' ' : '') + typeTitle;
-        if (functionTitle) return (diameterTitle ? diameterTitle + ' ' : '') + functionTitle;
-        if (diameterTitle) return diameterTitle + ' Accessories';
+        if (typeTitle) return typeTitle + (diameterTitle ? ' for ' + diameterTitle.replace(/^Parts for /, '').replace(/ Systems$/, '') : '');
+        if (functionTitle) return functionTitle + (diameterTitle ? ' for ' + diameterTitle.replace(/^Parts for /, '').replace(/ Systems$/, '') : '');
+        if (diameterTitle) return diameterTitle;
+        if (roofTitle) return 'Solatube Parts for ' + roofTitle;
 
         return categoryName || 'Products';
     }

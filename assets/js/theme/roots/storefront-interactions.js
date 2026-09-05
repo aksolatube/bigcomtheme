@@ -185,7 +185,7 @@
             trigger.addEventListener('click', initializeGuide);
 
             field.classList.add('roofTypeHelp-field');
-            heading.insertAdjacentElement('afterend', trigger);
+            field.appendChild(trigger);
         });
 
         modal.querySelectorAll('[data-roof-flashing-choice]').forEach(function bindFlashingChoice(choice) {

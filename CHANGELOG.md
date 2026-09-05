@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.139 (2026-09-05)
+
+- Move the PDP roof-flashing/type guide link below the option choices, retaining its existing modal and selection behavior.
+- Hide the support FAB on project-form pages at all viewport sizes.
+- Route the USA popular-search shortcut for Solatube skylight kits directly to the daylighting systems category.
+- Use native fullscreen-button clicks instead of unconditional touchend activation so scrolling over the mobile PDP gallery control does not open the viewer.
+
 ## 5.8.138 (2026-09-05)
 
 - Improve Parts & Accessories filtered titles with Solatube 160/290 system names, combined diameter selections and roof type mappings.

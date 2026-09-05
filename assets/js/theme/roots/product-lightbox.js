@@ -531,23 +531,11 @@
             });
         }
 
-        var lastTouchActivation = 0;
-
-        trigger.addEventListener('touchstart', function (event) {
-            event.stopPropagation();
-        }, { passive: true });
-
-        trigger.addEventListener('touchend', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            lastTouchActivation = Date.now();
-            if (!openActiveVideoFullscreen()) openLightbox();
-        }, { passive: false });
-
+        // Native button clicks distinguish taps from scrolling and cancelled
+        // touches. Opening on touchend also opened the gallery after a swipe.
         trigger.addEventListener('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            if (Date.now() - lastTouchActivation < 700) return;
             if (!openActiveVideoFullscreen()) openLightbox();
         });
         closeButton.addEventListener('click', closeLightbox);

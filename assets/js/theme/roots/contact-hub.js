@@ -25,7 +25,7 @@ const STOREFRONTS = {
     },
 };
 
-const EXCLUDED_PATHS = ['/cart', '/checkout', '/order-confirmation', '/orderconfirmation'];
+const EXCLUDED_PATHS = ['/cart', '/checkout', '/order-confirmation', '/orderconfirmation', '/project-form'];
 const FOCUSABLE_SELECTOR = 'button:not([disabled]), [href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function normalizedHostname() {

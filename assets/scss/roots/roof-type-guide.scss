@@ -1,7 +1,7 @@
 // Roof Type PDP selection guide
 
 .roofTypeHelp-field > .form-label--alternate {
-    display: inline-block;
+    display: block;
 }
 
 .productView [data-roof-flashing-option] > .form-label.form-label--alternate {
@@ -26,10 +26,11 @@
 }
 
 .roofTypeHelp-trigger {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     min-height: 34px;
-    margin: 0 0 10px 10px;
+    margin: 8px 0 0;
     padding: 2px 0;
     border: 0;
     background: transparent;
@@ -490,7 +491,7 @@
 
     .roofTypeHelp-trigger {
         min-height: 44px;
-        margin: 0 0 10px;
+        margin: 8px 0 0;
         font-size: 14px;
     }
 

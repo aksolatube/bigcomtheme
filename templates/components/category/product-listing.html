@@ -1,16 +1,18 @@
 {{inject 'noCompareMessage' (lang 'compare.no_compare')}}
 
-{{#if category.products}}
     <div class="categoryListingHeader">
         {{> components/category/current-view selected=category.selected}}
         <div class="categoryListingToolbar">
-            <span class="categoryListingToolbar-label">Products</span>
+            <span class="categoryListingToolbar-label" data-category-product-count role="status">{{#if category.total_products}}{{category.total_products}}{{else}}0{{/if}} {{#if category.total_products '===' 1}}product{{else}}products{{/if}}</span>
+            {{#if category.products}}
             <div class="categoryListingSort">
                 {{> components/products/filter sort=pagination.category.sort}}
             </div>
+            {{/if}}
         </div>
     </div>
 
+{{#if category.products}}
     <div {{#if settings.data_tag_enabled}} data-list-name="Category: {{category.name}}" {{/if}}>
         {{#if theme_settings.product_list_display_mode '===' 'grid'}}
             {{#if settings.data_tag_enabled}}

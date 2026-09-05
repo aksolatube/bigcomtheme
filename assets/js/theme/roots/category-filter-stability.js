@@ -214,6 +214,15 @@
             var title = currentViewTitle(filters, categoryName);
 
             if (heading && heading.textContent !== title) heading.textContent = title;
+
+            // The listing is replaced on every filter/sort response. Use that
+            // fresh state rather than the independently refreshed mobile sidebar.
+            if (view.closest('#product-listing-container')) {
+                var pageHeading = document.querySelector('[data-category-page-title]');
+                var pageTitle = filters.length ? title : categoryName;
+
+                if (pageHeading && pageHeading.textContent !== pageTitle) pageHeading.textContent = pageTitle;
+            }
         });
     }
 

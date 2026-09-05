@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.137 (2026-09-05)
+
+- Synchronize the top desktop category heading with the dynamic filter title on initial load and AJAX updates, resetting to the category name when filters clear.
+- Remove the duplicate desktop filtered heading while preserving its mobile presentation and the Script Manager sale container.
+- Tighten desktop header and results spacing and display the server-rendered product total beside Sort By, including zero results.
+
 ## 5.8.136 (2026-09-05)
 
 - Add the Option B desktop category header: breadcrumbs on the left with a larger category title centered in the remaining space.

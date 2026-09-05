@@ -16,11 +16,13 @@
                 </div>
             {{/or}}
         {{/if}}
+        {{#unless isQuickView}}
         {{#each product.custom_fields}}
             {{#if name '===' 'Gallery Video Poster'}}
                 <span hidden data-product-gallery-video-poster data-video-poster-url="{{value}}"></span>
             {{/if}}
         {{/each}}
+        {{/unless}}
         {{!--
             Note that these image sizes are coupled to image sizes used in /assets/js/theme/common/product-details.js
             for variant/rule image replacement
@@ -123,6 +125,7 @@
                     </a>
                 </li>
                 {{#if @first}}
+                    {{#unless ../isQuickView}}
                     {{#each ../product.custom_fields}}
                         {{#if name '===' 'Gallery Video MP4'}}
                             <li class="productView-thumbnail productView-thumbnail--video" data-product-gallery-video>
@@ -150,6 +153,7 @@
                             </li>
                         {{/if}}
                     {{/each}}
+                    {{/unless}}
                 {{/if}}
             {{/each}}
         </ul>
@@ -165,6 +169,9 @@
             {{/if}}
 
             <h1 class="productView-title main-heading">{{product.title}}</h1>
+            {{#if isQuickView}}
+                <a class="quickView-productLink" href="{{product.url}}">View full product details <span aria-hidden="true">&rarr;</span></a>
+            {{/if}}
             {{#if product.brand}}
                 <span class="productView-brand">
                     <a href="{{product.brand.url}}"><span><strong>{{product.brand.name}}</strong></span></a>
@@ -250,31 +257,6 @@
                     {{else}}
                         <span>{{lang 'products.reviews.link_to_review' total=product.num_reviews}}</span>
                     {{/if}}
-                {{/if}}
-                {{#if settings.show_product_reviews}}
-                    {{#if is_ajax}}
-                        <a
-                            class="productView-reviewLink productView-reviewLink--new"
-                            href="{{product.url}}#write_review"
-                            aria-label="{{lang 'products.reviews.new'}}"
-                        >
-                            <span class="productView-reviewAddIcon" aria-hidden="true">+</span>
-                            <span>Review</span>
-                        </a>
-                    {{else}}
-                        <button
-                            class="productView-reviewLink productView-reviewLink--new"
-                            type="button"
-                            data-reveal-id="modal-review-form"
-                            aria-haspopup="dialog"
-                            aria-controls="modal-review-form"
-                            aria-label="{{lang 'products.reviews.new'}}"
-                        >
-                            <span class="productView-reviewAddIcon" aria-hidden="true">+</span>
-                            <span>Review</span>
-                        </button>
-                    {{/if}}
-                    {{> components/products/modals/writeReview}}
                 {{/if}}
             </div>
             <div class="productView-specs">

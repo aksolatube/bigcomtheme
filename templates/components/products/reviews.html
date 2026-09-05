@@ -1,5 +1,5 @@
-{{#if reviews.total}}
 <section class="productReviews" id="product-reviews" data-product-reviews>
+    {{#if reviews.total}}
     <div id="productReviews-content" aria-hidden="false">
         <ul class="productReviews-list" id="productReviews-list">
             {{#each reviews.list}}
@@ -28,5 +28,5 @@
         </ul>
         {{> components/common/paginator pagination.reviews reload=true}}
     </div>
+    {{/if}}
 </section>
-{{/if}}

@@ -43,7 +43,11 @@
                 {{/if}}
                 <a class="quickSearchGuide" id="quick-search-guide-tubes" role="option" aria-selected="false" href="{{urls.search}}?search_query=extension%20tubes">Extension tubes</a>
                 <a class="quickSearchGuide" id="quick-search-guide-nightlight" role="option" aria-selected="false" href="{{urls.search}}?search_query=NightLight%20kits">NightLight kits</a>
-                <a class="quickSearchGuide" id="quick-search-guide-parts" role="option" aria-selected="false" href="{{urls.search}}?search_query=parts%20accessories">Parts &amp; accessories</a>
+                {{#if settings.store_name '===' 'Solatube International, Inc.'}}
+                    <a class="quickSearchGuide" id="quick-search-guide-parts" role="option" aria-selected="false" href="/solatube-replacement-parts-addons-accessories">Parts &amp; accessories</a>
+                {{else}}
+                    <a class="quickSearchGuide" id="quick-search-guide-parts" role="option" aria-selected="false" href="{{urls.search}}?search_query=parts%20accessories">Parts &amp; accessories</a>
+                {{/if}}
             </div>
             <p class="quickSearchHint">Type at least 3 characters to search products.</p>
         </div>

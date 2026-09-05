@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.140 (2026-09-05)
+
+- Route the USA Parts & Accessories popular-search shortcut directly to its category.
+- Move Write a Review from the PDP purchase summary to the lower Reviews header while retaining the review form and support for products with no reviews.
+- Omit custom gallery video thumbnails and poster metadata in Quick View while preserving them on full product pages.
+- Add a View full product details link below the Quick View product title.
+
 ## 5.8.139 (2026-09-05)
 
 - Move the PDP roof-flashing/type guide link below the option choices, retaining its existing modal and selection behavior.

@@ -1,4 +1,41 @@
 // Keep the buying details together without introducing a second scrollbar.
+.productReviews-header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.productReviews-header .main-heading {
+    margin: 0;
+}
+
+.productReviews-writeReview {
+    background: transparent;
+    border: 0;
+    color: stencilColor("color-textLink");
+    cursor: pointer;
+    font-size: 14px;
+    min-height: 44px;
+    padding: 8px 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.quickView-productLink {
+    align-items: center;
+    display: inline-flex;
+    font-size: 15px;
+    font-weight: 600;
+    gap: 8px;
+    margin: 0 0 12px;
+    min-height: 44px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 .productDescription {
     clear: both;
     margin: 16px 0 32px;

@@ -91,12 +91,14 @@ product:
         {{/if}}
         
         {{#if settings.show_product_reviews}}
-            {{#gt product.reviews.total 0}}
-                <div class="container">
+            <div class="container">
+                <div class="productReviews-header">
                     <h3 class="main-heading uppercase" id="reviews-accordion">Reviews</h3>
-                    {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
+                    <button class="productReviews-writeReview" type="button" data-reveal-id="modal-review-form" aria-haspopup="dialog" aria-controls="modal-review-form">{{lang 'products.reviews.write_a_review'}}</button>
                 </div>
-            {{/gt}}
+                {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
+            </div>
+            {{> components/products/modals/writeReview}}
         {{/if}}
     </div>
 

@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.136 (2026-09-05)
+
+- Add the Option B desktop category header: breadcrumbs on the left with a larger category title centered in the remaining space.
+- Keep the Script Manager sale banner in its own row and group Sort By with the Products toolbar below.
+- Allow long breadcrumb paths and titles to wrap while preserving the existing mobile listing controls.
+
 ## 5.8.135 (2026-09-04)
 
 - Honor the free-shipping badge's hidden attribute so CSS cannot expose it on excluded whole-house fans, traditional skylights, or unrecognized products.

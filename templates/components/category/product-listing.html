@@ -3,8 +3,11 @@
 {{#if category.products}}
     <div class="categoryListingHeader">
         {{> components/category/current-view selected=category.selected}}
-        <div class="categoryListingSort">
-            {{> components/products/filter sort=pagination.category.sort}}
+        <div class="categoryListingToolbar">
+            <span class="categoryListingToolbar-label">Products</span>
+            <div class="categoryListingSort">
+                {{> components/products/filter sort=pagination.category.sort}}
+            </div>
         </div>
     </div>
 

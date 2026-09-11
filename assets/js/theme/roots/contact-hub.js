@@ -252,6 +252,7 @@ export default function contactHub() {
         formData.set('page_url', window.location.href);
         formData.set('lead_source', 'Web Site');
         formData.set('lead_status', 'Open');
+        formData.set('company', 'Ecom Customer');
         formData.set('Source_Detail__c', normalizedHostname());
         formData.set('product_name', product.name);
         formData.set('product_id', product.id);
@@ -266,7 +267,7 @@ export default function contactHub() {
         const phone = normalizePhone(form.querySelector('[name="phone"]').value, storefront.country);
         const zip = form.querySelector('[name="zip"]').value.trim().toUpperCase();
         const firstName = form.querySelector('[name="firstname"]').value.trim();
-        const lastName = form.querySelector('[name="lastname"]').value.trim();
+        const lastName = form.querySelector('[name="lastName"]').value.trim();
         const leadValue = mode === 'product' ? 25 : 100;
 
         window.dataLayer = window.dataLayer || [];

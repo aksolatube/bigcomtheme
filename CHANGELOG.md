@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.141 (2026-09-11)
+
+- Restore the background company value Ecom Customer on help-form submissions for Salesforce lead creation.
+- Submit the last-name field as lastName and update the success analytics lookup to match.
+
 ## 5.8.140 (2026-09-05)
 
 - Route the USA Parts & Accessories popular-search shortcut directly to its category.

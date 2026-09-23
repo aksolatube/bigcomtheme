@@ -1,0 +1,50 @@
+.swal2-modal.cart-removePrompt {
+    max-width: calc(100vw - 32px);
+    padding: 28px 24px 24px;
+    width: 440px;
+
+    .swal2-content {
+        font-size: 17px;
+        line-height: 1.4;
+    }
+
+    .swal2-actions {
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .swal2-confirm,
+    .swal2-cancel {
+        margin: 0;
+        min-height: 44px;
+        min-width: 128px;
+    }
+
+    .swal2-confirm {
+        background: #fff;
+        border: 1px solid #b9c3cc;
+        color: #374151;
+    }
+
+    .swal2-confirm:hover,
+    .swal2-confirm:focus {
+        background: #f3f6f8;
+        border-color: #8998a3;
+        color: #374151;
+    }
+
+    .swal2-cancel,
+    .swal2-cancel:active,
+    .swal2-cancel:focus,
+    .swal2-cancel:hover {
+        background: #0077b8;
+        border: 1px solid #0077b8;
+        color: #fff;
+    }
+
+    .swal2-cancel:hover,
+    .swal2-cancel:focus {
+        background: #005e93;
+        border-color: #005e93;
+    }
+}

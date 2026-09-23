@@ -76,7 +76,9 @@
         "reconfigure_product": "Configurar \"{name}\"",
         "shipping_peritem": "Envio por item",
         "remove_item": "Remover {name} do carrinho",
-        "confirm_delete": "Deseja mesmo excluir esse item?",
+        "confirm_delete": "Remover este item do carrinho?",
+        "remove_button": "Remover item",
+        "keep_button": "Manter item",
         "coupons": {
             "empty_error": "Digite o código do cupom.",
             "cancel": "Cancelar",

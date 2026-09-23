@@ -75,8 +75,10 @@
         "freeshipping": "Livraison gratuite",
         "reconfigure_product": "Configurer '{name}'",
         "shipping_peritem": "Par article expédié",
-        "remove_item": "Supprimer {name} du panier",
-        "confirm_delete": "Voulez-vous vraiment supprimer cet article ?",
+        "remove_item": "Retirer {name} du panier",
+        "confirm_delete": "Retirer cet article du panier ?",
+        "remove_button": "Retirer l’article",
+        "keep_button": "Garder l’article",
         "coupons": {
             "empty_error": "Veuillez saisir votre code promotionnel.",
             "cancel": "Annuler",

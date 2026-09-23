@@ -76,7 +76,9 @@
         "reconfigure_product": "Configura \"{name}\"",
         "shipping_peritem": "Spedizione per articolo",
         "remove_item": "Rimuovi {name} dal carrello",
-        "confirm_delete": "Vuoi davvero eliminare questo articolo?",
+        "confirm_delete": "Rimuovere questo articolo dal carrello?",
+        "remove_button": "Rimuovi articolo",
+        "keep_button": "Mantieni articolo",
         "coupons": {
             "empty_error": "Inserisci il codice coupon.",
             "cancel": "Annulla",

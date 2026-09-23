@@ -76,7 +76,9 @@
         "reconfigure_product": "'{name}' configureren",
         "shipping_peritem": "Verzendkosten per artikel",
         "remove_item": "{name} verwijderen uit winkelmandje",
-        "confirm_delete": "Weet u zeker dat u dit artikel wilt verwijderen?",
+        "confirm_delete": "Dit artikel uit uw winkelwagen verwijderen?",
+        "remove_button": "Artikel verwijderen",
+        "keep_button": "Artikel behouden",
         "coupons": {
             "empty_error": "Voer uw couponcode in.",
             "cancel": "Annuleren",

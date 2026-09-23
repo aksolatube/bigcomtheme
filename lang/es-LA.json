@@ -75,8 +75,10 @@
         "freeshipping": "Envío gratuito",
         "reconfigure_product": "Configurar '{name}'",
         "shipping_peritem": "Envío por artículo",
-        "remove_item": "Eliminar {name} del carrito",
-        "confirm_delete": "¿Estás seguro de que deseas eliminar este elemento?",
+        "remove_item": "Quitar {name} del carrito",
+        "confirm_delete": "¿Quitar este artículo del carrito?",
+        "remove_button": "Quitar artículo",
+        "keep_button": "Conservar artículo",
         "coupons": {
             "empty_error": "Ingresa tu código de cupón.",
             "cancel": "Cancelar",

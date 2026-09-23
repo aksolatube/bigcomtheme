@@ -7,6 +7,9 @@
         "title": "Secure Checkout"
     },
     "cart": {
+        "confirm_delete": "Remove this item from your cart?",
+        "remove_button": "Remove item",
+        "keep_button": "Keep item",
         "added_to_cart": {
             "what_next": "Added to cart",
             "express_checkout": "Express checkout"

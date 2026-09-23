@@ -76,7 +76,9 @@
         "reconfigure_product": "Konfigurera '{name}'",
         "shipping_peritem": "Frakt per artikel",
         "remove_item": "Ta bort {name} från kundvagnen",
-        "confirm_delete": "Är du säker på att du vill ta bort det här temat?",
+        "confirm_delete": "Ta bort den här varan från kundvagnen?",
+        "remove_button": "Ta bort vara",
+        "keep_button": "Behåll vara",
         "coupons": {
             "empty_error": "Ange din kupongkod.",
             "cancel": "Annullera",

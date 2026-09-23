@@ -282,13 +282,20 @@ export default class Cart extends PageManager {
         });
 
         $('.cart-remove', this.$cartContent).on('click', event => {
-            const itemId = $(event.currentTarget).data('cartItemid');
-            const string = $(event.currentTarget).data('confirmDelete');
+            const $removeButton = $(event.currentTarget);
+            const itemId = $removeButton.data('cartItemid');
+            const string = $removeButton.data('confirmDelete');
             swal.fire({
                 text: string,
-                icon: 'warning',
                 showCancelButton: true,
-                cancelButtonText: this.context.cancelButtonText,
+                confirmButtonText: $removeButton.data('removeButtonText'),
+                cancelButtonText: $removeButton.data('keepButtonText'),
+                focusCancel: true,
+                customClass: {
+                    popup: 'cart-removePrompt',
+                    confirmButton: 'button',
+                    cancelButton: 'button',
+                },
             }).then((result) => {
                 if (result.value) {
                     // remove item from cart

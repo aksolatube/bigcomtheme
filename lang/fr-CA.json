@@ -3,6 +3,9 @@
         "welcome_back": "Bonjour, {name}"
     },
     "cart": {
+        "confirm_delete": "Retirer cet article du panier ?",
+        "remove_button": "Retirer l’article",
+        "keep_button": "Garder l’article",
         "added_to_cart": {
             "what_next": "Ajouté au panier",
             "express_checkout": "Paiement express"

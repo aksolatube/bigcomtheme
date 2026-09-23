@@ -25,7 +25,6 @@
             {{#if cart.show_primary_checkout_button}}
                 {{#if cart.additional_checkout_buttons}}
                     <div class="previewCartCheckout-additionalCheckoutButtons" role="group" aria-label="{{lang 'cart.added_to_cart.express_checkout'}}">
-                        <p class="previewCartCheckout-expressHeading">{{lang 'cart.added_to_cart.express_checkout'}}</p>
                         {{#each cart.additional_checkout_buttons}}
                             {{{this}}}
                         {{/each}}

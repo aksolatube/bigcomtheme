@@ -76,7 +76,9 @@
         "reconfigure_product": "'{name}' konfigurieren",
         "shipping_peritem": "Versandkosten pro Artikel",
         "remove_item": "{name} aus dem Warenkorb entfernen",
-        "confirm_delete": "Möchten Sie diesen Artikel wirklich löschen?",
+        "confirm_delete": "Diesen Artikel aus dem Warenkorb entfernen?",
+        "remove_button": "Artikel entfernen",
+        "keep_button": "Artikel behalten",
         "coupons": {
             "empty_error": "Bitte geben Sie Ihren Gutscheincode ein.",
             "cancel": "Abbrechen",

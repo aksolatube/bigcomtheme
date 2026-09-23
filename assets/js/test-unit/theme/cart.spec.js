@@ -84,7 +84,7 @@ var $dom = $('<table class="cart" data-cart-quantity="2">\
                 <td class="cart-item-block cart-item-info">\
                     <span class="cart-item-label">Total</span>\
                         <strong class="cart-item-value ">$98.00</strong>\
-                        <a class="cart-remove icon" data-cart-itemid="item-id" href="#" data-confirm-delete="Are you sure you want to delete this item?">\
+                        <a class="cart-remove icon" data-cart-itemid="item-id" href="#" data-confirm-delete="Remove this item from your cart?" data-remove-button-text="Remove item" data-keep-button-text="Keep item">\
                             <svg><use xmlns:xlink="www.eee.com" xlink:href="#icon-close"></use></svg>\
                         </a>\
                 </td>\

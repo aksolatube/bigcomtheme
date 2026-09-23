@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.150 (2026-09-23)
+
+- Remove the duplicate visible Express checkout heading from the add-to-cart modal; the payment provider already supplies its "or use" label.
+- Tighten spacing between the divider and the express payment options while retaining the accessible payment-group label.
+- Replace the cart item's harsh warning dialog with a quieter Remove from cart confirmation, explicit Keep item and Remove item actions, and safe default focus.
+
 ## 5.8.149 (2026-09-23)
 
 - Simplify the add-to-cart confirmation headline so the cart total cannot be mistaken for the quantity just added.

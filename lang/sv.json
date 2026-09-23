@@ -125,13 +125,14 @@
             "preview": "Förhandsvisa"
         },
         "added_to_cart": {
-            "what_next": "Ok, {num_products, plural, one {1 artikel } other {# artiklar}} lades till i din kundvagn. Vad händer nu?",
+            "what_next": "Tillagd i kundvagnen",
             "your_cart_contains": "Din varukorg innehåller {num_products, plural, one { 1 artikel } other { # artiklar}}",
             "proceed_to_checkout": "Fortsätt till utcheckningen",
             "order_subtotal": "Beställningens totala kostnad",
             "continue_shopping": "Fortsätt handla",
             "view_or_edit_cart": "Visa eller redigera din vagn",
-            "you_might_also_like": "Du kanske också gillar"
+            "you_might_also_like": "Du kanske också gillar",
+            "express_checkout": "Snabbkassa"
         }
     },
     "common": {

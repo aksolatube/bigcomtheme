@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.149 (2026-09-23)
+
+- Simplify the add-to-cart confirmation headline so the cart total cannot be mistaken for the quantity just added.
+- Add a quiet Continue Shopping control below the product that closes the existing modal.
+- Give the subtotal and primary checkout action priority; present View Cart as a text link and group existing express payment buttons under a divider.
+- Narrow the desktop modal and refine spacing when the existing modal appears on mobile; preserve store Fast Cart settings.
+
 ## 5.8.148 (2026-09-15)
 
 - Add mobile-menu click-to-call using the storefront phone number and an entry to the existing help form.

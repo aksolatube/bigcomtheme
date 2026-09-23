@@ -1,5 +1,11 @@
 {
     "header": {
         "welcome_back": "Bonjour, {name}"
+    },
+    "cart": {
+        "added_to_cart": {
+            "what_next": "Ajouté au panier",
+            "express_checkout": "Paiement express"
+        }
     }
 }

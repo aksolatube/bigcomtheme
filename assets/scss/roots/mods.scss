@@ -4496,45 +4496,6 @@ li.pagination-item--previous a{
 .fastCart .productView-info{margin-bottom: 0;}
 .fastCart .productView .productView-price{font-size: 14px;}
 
-.fastCart .previewCartCheckout{
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-}
-
-.fastCart .previewCartCheckout .button{
-    width: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-.fastCart .previewCartCheckout > div{
-    flex: 0 1 48%;
-    width: 48%;
-}
-
-.fastCart .previewCartCheckout > div p{margin-bottom: 0;}
-
-@media only screen and (max-width: 600px){
-    .fastCart .previewCartCheckout{
-        flex-direction: column;
-    }
-
-    .fastCart .previewCartCheckout > div{
-        flex: 1 1 auto;
-        width: 100%;
-    }
-
-    .fastCart .previewCartCheckout > div:nth-child(2){
-        order: -1;
-    }
-
-    .fastCart .previewCartCheckout .button{
-        width: 100%;
-    }
-}
-
 .fastCart .previewCart:after{display: none;}
 .fastCart .suggestiveCart{clear: both;}
 

@@ -125,13 +125,14 @@
             "preview": "Prévia"
         },
         "added_to_cart": {
-            "what_next": "Ok, {num_products, plural, one {1 item foi} other {#itens foram}} adicionados ao carrinho. E agora?",
+            "what_next": "Adicionado ao carrinho",
             "your_cart_contains": "O carrinho contém {num_products, plural, one {1 item} other {# itens}}",
             "proceed_to_checkout": "Prosseguir para a finalização da compra",
             "order_subtotal": "Subtotal do pedido",
             "continue_shopping": "Continuar comprando",
             "view_or_edit_cart": "Ver ou editar seu carrinho",
-            "you_might_also_like": "Talvez você goste também"
+            "you_might_also_like": "Talvez você goste também",
+            "express_checkout": "Pagamento expresso"
         }
     },
     "common": {

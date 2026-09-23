@@ -547,7 +547,7 @@ export default class ProductDetails extends ProductDetailsBase {
             const $cartCounter = $('.navUser-action .cart-count');
             const quantity = $cartQuantity.data('cartQuantity') || 0;
             const $promotionBanner = $('[data-promotion-banner]');
-            const $backToShopppingBtn = $('.previewCartCheckout > [data-reveal-close]');
+            const $backToShopppingBtn = $('.fastCart-continueShopping', modal.$content);
             const $modalCloseBtn = $('#previewModal > .modal-close');
             const bannerUpdateHandler = () => {
                 const $productContainer = $('#main-content > .container');

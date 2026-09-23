@@ -125,13 +125,14 @@
             "preview": "Preview"
         },
         "added_to_cart": {
-            "what_next": "Ok, {num_products, plural, one {1 item was} other {# items were}} added to your cart. What's next?",
+            "what_next": "Added to cart",
             "your_cart_contains": "Your cart now contains {num_products, plural, one {1 item} other {# items}}",
             "proceed_to_checkout": "Proceed to checkout",
             "order_subtotal": "Subtotal",
             "continue_shopping": "Continue Shopping",
             "view_or_edit_cart": "View or edit your cart",
-            "you_might_also_like": "You may also like"
+            "you_might_also_like": "You may also like",
+            "express_checkout": "Express checkout"
         }
     },
     "common": {

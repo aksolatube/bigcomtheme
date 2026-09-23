@@ -125,13 +125,14 @@
             "preview": "Voorbeeld"
         },
         "added_to_cart": {
-            "what_next": "Oké, {num_products, plural, one {er is 1 item} other {er zijn # items}} toegevoegd aan uw winkelmandje. Wat nu?",
+            "what_next": "Toegevoegd aan winkelwagen",
             "your_cart_contains": "Uw winkemandje bevat {num_products, plural, one {1 item} other {# items}}",
             "proceed_to_checkout": "Doorgaan naar betaalomgeving",
             "order_subtotal": "Subtotaal bestelling",
             "continue_shopping": "Verdergaan met winkelen",
             "view_or_edit_cart": "Uw winkelmandje bekijken of bewerken",
-            "you_might_also_like": "Misschien vindt u dit ook leuk"
+            "you_might_also_like": "Misschien vindt u dit ook leuk",
+            "express_checkout": "Snel afrekenen"
         }
     },
     "common": {

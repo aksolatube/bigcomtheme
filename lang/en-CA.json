@@ -6,6 +6,12 @@
     "checkout": {
         "title": "Secure Checkout"
     },
+    "cart": {
+        "added_to_cart": {
+            "what_next": "Added to cart",
+            "express_checkout": "Express checkout"
+        }
+    },
     "optimized_checkout": {
         "customer": {
             "guest_marketing_consent": "Yes, email me Solatube tips, updates and occasional offers."

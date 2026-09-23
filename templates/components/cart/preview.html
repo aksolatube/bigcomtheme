@@ -39,6 +39,9 @@
                 {{/if}}
             {{/if}}
         </section>
+        <button class="fastCart-continueShopping fastCart-continueShopping--mobile" type="button" data-reveal-close>
+            <span aria-hidden="true">&larr;</span> {{lang 'cart.added_to_cart.continue_shopping'}}
+        </button>
         <section class="productView">
             <div class="whatNext">
                 <h2>{{lang 'cart.added_to_cart.what_next'}}</h2>
@@ -85,7 +88,7 @@
                     {{/each}}
                 </div>
             {{/with}}
-            <button class="fastCart-continueShopping" type="button" data-reveal-close>
+            <button class="fastCart-continueShopping fastCart-continueShopping--desktop" type="button" data-reveal-close>
                 <span aria-hidden="true">&larr;</span> {{lang 'cart.added_to_cart.continue_shopping'}}
             </button>
         </section>

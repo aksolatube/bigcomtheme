@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.151 (2026-09-23)
+
+- Move Continue Shopping beneath the checkout panel on mobile, while retaining its desktop placement.
+- Compact the mobile add-to-cart product summary into a thumbnail and details row, hide the repeated brand, and reduce spacing so subtotal and checkout appear sooner.
+
 ## 5.8.150 (2026-09-23)
 
 - Remove the duplicate visible Express checkout heading from the add-to-cart modal; the payment provider already supplies its "or use" label.

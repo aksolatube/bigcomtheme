@@ -2081,7 +2081,7 @@ footer .socialLinks{
     background: #fff;
     border-bottom: 1px solid #edf0f2;
     display: flex;
-    height: 175px;
+    height: 200px;
     justify-content: center;
     overflow: hidden;
     padding: 4px;
@@ -2090,7 +2090,7 @@ footer .socialLinks{
 .featuredMega-productMedia img{
     height: 100%;
     object-fit: contain;
-    transform: scale(1.12);
+    transform: none;
     transform-origin: center;
     transition: transform .18s ease;
     width: 100%;
@@ -6665,4 +6665,48 @@ iframe.goog-te-banner-frame,
     .featuredMega-item .featuredMega-status{
         display: block;
     }
+}
+
+
+// Help stays in the mobile drawer's normal scroll flow.
+.mobileMenu-help {
+    margin: 20px 0 24px;
+    padding: 16px;
+    background: #f0f7fa;
+    border: 1px solid #d9e7ee;
+    border-radius: 3px;
+    text-align: left;
+
+    @include breakpoint("medium") { display: none; }
+
+    .mobileMenu-helpTitle {
+        margin: 0 0 6px;
+        font-size: 18px;
+        color: #193f52;
+    }
+
+    p { margin: 0 0 10px; font-size: 14px; line-height: 1.5; color: #455965; }
+
+    .mobileMenu-helpAction {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 44px;
+        width: 100%;
+        padding: 8px 0;
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.4;
+        text-align: left;
+        color: #007cad;
+        text-decoration: none;
+        background: transparent;
+        border: 0;
+        white-space: normal;
+        i { width: 18px; flex-shrink: 0; text-align: center; }
+        &:focus-visible { outline: 2px solid #0088c7; outline-offset: 3px; }
+        &[hidden] { display: none; }
+    }
+
+    .mobileMenu-helpCall { font-weight: 700; }
 }

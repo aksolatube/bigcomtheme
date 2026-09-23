@@ -199,6 +199,13 @@ export default function contactHub() {
 
     function open(trigger) {
         opener = trigger;
+        if (trigger.hasAttribute('data-mobile-menu-help')) {
+            const menuToggle = document.querySelector('.header > [data-mobile-menu-toggle]');
+            if (menuToggle) {
+                if (document.body.classList.contains('has-activeNavPages')) menuToggle.click();
+                opener = menuToggle;
+            }
+        }
         mode = trigger.getAttribute('data-contact-hub-open') || 'general';
         resetResult();
 

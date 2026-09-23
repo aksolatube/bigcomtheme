@@ -533,6 +533,13 @@
 
         // Native button clicks distinguish taps from scrolling and cancelled
         // touches. Opening on touchend also opened the gallery after a swipe.
+        // EasyZoom on the ancestor figure cancels touchstart, suppressing the
+        // native click. Isolate this control without cancelling browser scrolling.
+        ['touchstart', 'touchmove', 'touchend'].forEach(function (eventName) {
+            trigger.addEventListener(eventName, function (event) {
+                event.stopPropagation();
+            }, { passive: true });
+        });
         trigger.addEventListener('click', function (event) {
             event.preventDefault();
             event.stopPropagation();

@@ -635,3 +635,21 @@
     }
 
 }
+
+.completeSystem-ventOptions {
+    grid-column: 1 / -1;
+    padding: 8px 4px 2px;
+    border-top: 1px solid #dce6eb;
+    font-size: 12px;
+    line-height: 1.5;
+}
+.completeSystem-ventOptions[hidden] { display: none; }
+.completeSystem-ventOptions label {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    min-height: 44px;
+    cursor: pointer;
+}
+.completeSystem-ventOptions input { margin: 0; }
+.completeSystem-ventOptions span { display: block; color: #52616d; }

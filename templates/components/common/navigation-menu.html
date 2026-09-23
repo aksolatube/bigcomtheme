@@ -309,11 +309,6 @@
         {{/if}}
     </ul>
     <ul class="navPages-list navPages-list--user">
-        {{#and settings.phone_number theme_settings.header-phone}}
-            <li class="navPages-item">
-                <a class="navPages-action navUser-action--phone" href="tel:{{settings.phone_number}}"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;{{settings.phone_number}}</a>
-            </li>
-        {{/and}}
         {{#if settings.gift_certificates_enabled}}
             <li class="navPages-item">
                 <a class="navPages-action" href="{{urls.gift_certificate.purchase}}">{{lang 'common.gift_cert'}}</a>
@@ -337,4 +332,16 @@
             </li>
         {{/if}}
     </ul>
+    <section class="mobileMenu-help" aria-label="Solatube help">
+        <h2 class="mobileMenu-helpTitle">Need a hand?</h2>
+        <p>Get help choosing the right Solatube.</p>
+        {{#if settings.phone_number}}
+            <a class="mobileMenu-helpAction mobileMenu-helpCall" href="tel:{{settings.phone_number}}">
+                <i class="fa fa-phone" aria-hidden="true"></i><span>Call {{settings.phone_number}}</span>
+            </a>
+        {{/if}}
+        <button class="mobileMenu-helpAction" type="button" data-contact-hub-open="general" data-mobile-menu-help aria-haspopup="dialog" hidden>
+            <i class="fa fa-envelope-o" aria-hidden="true"></i><span>Ask a question</span>
+        </button>
+    </section>
 </nav>

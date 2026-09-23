@@ -3,30 +3,12 @@
     
     {{#unless theme_settings.show_short_desc}}
         {{#if product.warranty}}
-            <div class="accordion-block productWarrantyAccordion">
-                <div
-                    class="accordion-navigation toggleLink"
-                    role="button"
-                    tabindex="0"
-                    data-collapsible="#accordion--warranty">
-                    <h5 class="accordion-title">
-                        Warranty
-                    </h5>
-    
-                    <div class="accordion-navigation-actions">
-                        <svg class="icon accordion-indicator toggleLink-text toggleLink-text--off">
-                            <use xlink:href="#icon-plus" />
-                        </svg>
-                        <svg class="icon accordion-indicator toggleLink-text toggleLink-text--on">
-                            <use xlink:href="#icon-minus" />
-                        </svg>
-                    </div>
-                </div>
-    
-                <div id="accordion--warranty" class="accordion-content">
+            <section class="productWarrantyAccordion productWarrantyStatic" aria-labelledby="product-warranty-heading">
+                <h2 id="product-warranty-heading">Warranty</h2>
+                <div id="accordion--warranty">
                     {{{product.warranty}}}
                 </div>
-            </div>
+            </section>
         {{/if}}
     {{/unless}}
     

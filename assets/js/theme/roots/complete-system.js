@@ -49,6 +49,13 @@ const NORTH_AMERICAN_ACCESSORIES = [
     },
 ];
 
+const VENT_ACCESSORY = {
+    productId: 18,
+    type: 'ventilation',
+    name: 'Bathroom Ventilation Kit',
+    description: 'Combines daylight and powered bathroom ventilation for compatible 10-inch 160 DS and 160ISn systems. Includes the fan and ceiling vent components. Two runs of 4-inch ducting are required and sold separately. The base kit excludes the roof vent cap; add it using the option in this card.',
+};
+
 const CATALOG = {
     ca: NORTH_AMERICAN_ACCESSORIES,
     us: NORTH_AMERICAN_ACCESSORIES,
@@ -156,17 +163,20 @@ function includesNightLight(root) {
 function compatibleDefinitions(root, definitions) {
     const hasNightLight = includesNightLight(root);
 
-    return definitions.filter(definition => !(hasNightLight && definition.type === 'nightLight'));
+    return definitions.map(definition => (systemSeries(root) === '160' && definition.type === 'nightLight' ? VENT_ACCESSORY : definition))
+        .filter(definition => !(hasNightLight && definition.type === 'nightLight'));
+}
+
+function optionLabel(field, choice) {
+    if (choice.tagName === 'OPTION') return choice.textContent.trim().toLowerCase();
+    const label = field.querySelector(`label[for="${choice.id}"]`);
+    const swatch = label && label.querySelector('[title]');
+    return ((label && label.textContent.trim()) || choice.getAttribute('aria-label') || (swatch && swatch.title) || '').trim().toLowerCase();
 }
 
 function compatibleValue(field, series, roofPitch) {
     const choices = Array.prototype.slice.call(field.querySelectorAll('option, input[type="radio"]'));
-    const labelFor = choice => {
-        if (choice.tagName === 'OPTION') return choice.textContent.trim().toLowerCase();
-
-        const label = field.querySelector(`label[for="${choice.id}"]`);
-        return label ? label.textContent.trim().toLowerCase() : '';
-    };
+    const labelFor = choice => optionLabel(field, choice);
     const usable = choices.filter(choice => String(choice.value || '').trim() !== '');
     const seriesPattern = series === '290'
         ? /14\s*(inch|in\.)|290\s*models|350\s*mm|35\s*cm/
@@ -190,7 +200,10 @@ function selectCompatibleOptions(item, series, roofPitch) {
     let valid = true;
 
     fields.forEach(field => {
-        const choice = compatibleValue(field, series, roofPitch);
+        const isVentCap = item.dataset.completeSystemType === 'ventilation' && /roof.*vent.*cap/i.test(field.textContent);
+        const choice = isVentCap
+            ? Array.from(field.querySelectorAll('option, input[type="radio"]')).find(candidate => optionLabel(field, candidate) === (item.dataset.ventCap === 'yes' ? 'yes' : 'no'))
+            : compatibleValue(field, series, roofPitch);
 
         if (!choice) {
             valid = false;
@@ -205,6 +218,44 @@ function selectCompatibleOptions(item, series, roofPitch) {
     });
 
     return valid;
+}
+
+function installVentCap(item, series, roofPitch) {
+    item.dataset.ventCap = 'no';
+    const controls = document.createElement('div');
+    controls.className = 'completeSystem-ventOptions';
+    controls.hidden = true;
+    controls.innerHTML = '<label><input type="checkbox" data-vent-cap> Add roof vent cap</label><span data-vent-cap-status role="status">Kit only — roof vent cap not included.</span>';
+    item.querySelector('[data-complete-system-form]').before(controls);
+    const cap = controls.querySelector('[data-vent-cap]');
+    const status = controls.querySelector('[data-vent-cap-status]');
+    const checkbox = item.querySelector('[data-complete-system-checkbox]');
+    checkbox.addEventListener('change', () => { controls.hidden = !checkbox.checked; });
+    cap.addEventListener('change', () => {
+        item.dataset.ventCap = cap.checked ? 'yes' : 'no';
+        cap.disabled = true;
+        status.textContent = 'Updating price…';
+        const root = item.closest('[data-complete-system]');
+        const pending = resolveVariant(item, series, roofPitch).then(available => {
+            checkbox.disabled = !available;
+            item.classList.toggle('is-unavailable', !available);
+            if (!available) {
+                checkbox.checked = false;
+                item.querySelector('[data-complete-system-price]').textContent = 'Unavailable';
+            }
+            status.textContent = available
+                ? (cap.checked ? 'Roof vent cap included in the price shown.' : 'Kit only — roof vent cap not included.')
+                : 'This option is unavailable. Change the roof-cap option to try again.';
+            updateSummary(root);
+            updateDisclosureLabel(root);
+            trackAccessoryEvent('pdp_accessory_roof_cap_change', root, item, { roof_cap_included: cap.checked, available });
+            return available;
+        }).finally(() => {
+            cap.disabled = false;
+            if (root.ventCapPending === pending) root.ventCapPending = null;
+        });
+        root.ventCapPending = pending;
+    });
 }
 
 function formattedPrice(price) {
@@ -245,7 +296,7 @@ function resolveVariant(item, series, roofPitch) {
             $(form).serialize(),
             'products/bulk-discount-rates',
             (err, response) => {
-                if (err || !response || !response.data) {
+                if (err || !response || !response.data || response.data.error) {
                     resolve(false);
                     return;
                 }
@@ -299,6 +350,7 @@ function renderAccessory(definition, series, roofPitch) {
                 const quantity = item.querySelector('[data-complete-system-quantity]');
                 if (definition.quantity && quantity) quantity.hidden = false;
 
+                if (definition.type === 'ventilation') installVentCap(item, series, roofPitch);
                 const isAvailable = await resolveVariant(item, series, roofPitch);
                 checkbox.disabled = !isAvailable;
 
@@ -441,6 +493,13 @@ function installCartBridge(root) {
         },
 
         addSelected(callback) {
+            if (root.ventCapPending) {
+                root.ventCapPending.then(available => {
+                    if (available) this.addSelected(callback);
+                    else callback('The ventilation kit option is unavailable. Please review your accessory selection.');
+                }).catch(() => callback('Unable to confirm the ventilation kit option. Please try again.'));
+                return;
+            }
             const items = selectedItems(root);
             const status = root.querySelector('[data-complete-system-status]');
             const selection = selectionAnalytics(items);

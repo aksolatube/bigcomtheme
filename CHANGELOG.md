@@ -1,6 +1,46 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.148 (2026-09-15)
+
+- Add mobile-menu click-to-call using the storefront phone number and an entry to the existing help form.
+- Close the drawer before opening help and restore focus to the menu toggle afterward.
+
+## 5.8.147 (2026-09-15)
+
+- Recommend the bathroom ventilation kit instead of Solar NightLight for 160-series skylights in the US and Canada, including integrated-NightLight models.
+- Add an optional roof-cap checkbox with live storefront pricing, required-option serialization, and pending-price protection before accessory cart submission.
+- Read image-swatch option names from accessible labels and titles as well as visible labels.
+- Preserve 290-series recommendations and existing accessory quantities, details, and totals.
+
+## 5.8.146 (2026-09-15)
+
+- Isolate fullscreen-button touch events from EasyZoom so native mobile taps open the product viewer without opening it after a swipe.
+
+## 5.8.145 (2026-09-14)
+
+- Show description videos in a two-column desktop grid while retaining mobile swipe navigation.
+- Move the installation video beside the installation instructions in the supplied PDP HTML and add the fourth gallery video.
+- Display warranty content without a collapse control and soften the Proposition 65 notice with spacing before related products.
+
+## 5.8.144 (2026-09-14)
+
+- Reveal and briefly highlight the matching accessory when a long-form add-on CTA is clicked, without selecting it.
+- Expand, scroll to, and briefly highlight Specifications from the long-form Review Specifications CTA.
+- Support existing pasted add-on labels as well as explicit accessory target attributes.
+
+## 5.8.143 (2026-09-14)
+
+- Add responsive product-description video carousels with arrow and swipe navigation, click-to-load playback, and one active player.
+- Expand the compatible accessory selector when shoppers follow description add-on anchors.
+- Place the existing Proposition 65 disclosure below the warranty accordion on long-form product pages.
+- Supply revised 290 Low-Profile HVHZ description HTML with four videos and compatible accessory links.
+
+## 5.8.142 (2026-09-11)
+
+- Increase desktop mega-menu product image areas from 175px to 200px and remove image zoom so embedded artwork text remains visible.
+- Preserve the existing mobile mega-menu image sizing.
+
 ## 5.8.141 (2026-09-11)
 
 - Restore the background company value Ecom Customer on help-form submissions for Salesforce lead creation.

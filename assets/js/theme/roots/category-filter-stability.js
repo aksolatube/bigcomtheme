@@ -64,6 +64,8 @@
     }
 
     function skylightCurrentViewTitle(filters) {
+        var hurricaneFilter = filterByExactFacet(filters, 'high velocity hurricane zone rated');
+        var hurricaneRated = hurricaneFilter && hurricaneFilter.value === 'yes';
         var size = sizeDescription(filters);
         var shapeFilter = filterByFacet(filters, 'fixture shape');
         var nightFilter = filterByFacet(filters, 'night light') || filterByFacet(filters, 'nightlight');
@@ -87,6 +89,12 @@
             title = 'Skylight kits without included ' + extensionTubes;
         } else {
             title = 'Solatube skylights';
+        }
+
+        if (hurricaneRated) {
+            title = title === 'Solatube skylights'
+                ? 'Hurricane-Rated Skylight Kits'
+                : 'Hurricane-Rated ' + title.charAt(0).toLowerCase() + title.slice(1);
         }
 
         if (night === 'yes') title += ' with an integrated NightLight';

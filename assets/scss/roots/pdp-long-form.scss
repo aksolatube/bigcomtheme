@@ -157,7 +157,7 @@
 }
 
 .pdpLongForm-card img {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
     display: block;
     object-fit: cover;
     width: 100%;
@@ -425,4 +425,268 @@
     margin-bottom: 48px;
     font-size: 14px;
     line-height: 1.6;
+}
+
+
+.pdpLongForm-compareGrid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pdpLongForm-compareCard {
+    margin: 0;
+    min-width: 0;
+}
+
+.pdpLongForm-compare {
+    --pdp-compare-position: 50%;
+    aspect-ratio: 4 / 3;
+    background: #dce6eb;
+    overflow: hidden;
+    position: relative;
+}
+
+.pdpLongForm-compare img {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.pdpLongForm-compareBefore,
+.pdpLongForm-compareAfter {
+    inset: 0;
+    position: absolute;
+}
+
+.pdpLongForm-compareAfter {
+    clip-path: inset(0 calc(100% - var(--pdp-compare-position)) 0 0);
+}
+
+.pdpLongForm-compareDivider {
+    background: #fff;
+    bottom: 0;
+    left: var(--pdp-compare-position);
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    width: 3px;
+    z-index: 2;
+}
+
+.pdpLongForm-compareDivider span {
+    align-items: center;
+    background: #f4c542;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    color: #183f56;
+    display: flex;
+    font-size: 15px;
+    font-weight: 700;
+    height: 48px;
+    justify-content: center;
+    left: 50%;
+    letter-spacing: -4px;
+    padding-right: 4px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+}
+
+.pdpLongForm-compareLabel {
+    background: rgba(9, 47, 74, .86);
+    border-radius: 2px;
+    bottom: 14px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    padding: 6px 9px;
+    pointer-events: none;
+    position: absolute;
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.pdpLongForm-compareLabel--after { left: 14px; }
+.pdpLongForm-compareLabel--before { right: 14px; }
+.pdpLongForm-compareLabel { transition: opacity .15s ease; }
+.pdpLongForm-compare[data-pdp-compare-state="after"] .pdpLongForm-compareLabel--before,
+.pdpLongForm-compare[data-pdp-compare-state="before"] .pdpLongForm-compareLabel--after { opacity: 0; }
+
+.pdpLongForm-compareControl {
+    cursor: ew-resize;
+    height: 100%;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+}
+
+.pdpLongForm-compare:focus-within {
+    outline: 3px solid #087fb6;
+    outline-offset: 3px;
+}
+
+.pdpLongForm-compareCard figcaption {
+    color: #52646e;
+    padding: 12px 2px 0;
+}
+
+.pdpLongForm-compareCard figcaption strong {
+    color: #183f56;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.pdpLongForm-compareCard figcaption span {
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.pdpLongForm-accessoryCarousel {
+    container-type: inline-size;
+    min-width: 0;
+    position: relative;
+}
+
+.pdpLongForm-accessoryTrack {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.pdpLongForm-accessoryTrack::-webkit-scrollbar { display: none; }
+
+.pdpLongForm-accessoryTrack:focus-visible {
+    outline: 3px solid #087fb6;
+    outline-offset: 3px;
+}
+
+.pdpLongForm-accessorySlide {
+    background: #fff;
+    border: 1px solid var(--pdp-story-line);
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.pdpLongForm-accessorySlide > img {
+    aspect-ratio: auto;
+    background: #f4f7f8;
+    display: block;
+    height: auto;
+    object-fit: contain;
+    padding: 10px;
+    width: 100%;
+}
+
+.pdpLongForm-accessoryBody {
+    padding: 20px;
+}
+
+.pdpLongForm-accessoryBody > :last-child { margin-bottom: 0; }
+
+.pdpLongForm-accessoryBody h3 {
+    margin-bottom: 8px;
+}
+
+.pdpLongForm-accessoryBody p {
+    font-size: 15px;
+    margin: 0 0 14px;
+}
+
+.pdpLongForm-accessoryBody .pdpLongForm-accessoryCount {
+    color: #087fb6;
+    font-family: Oswald, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+}
+
+.pdpLongForm-accessoryAvailability {
+    color: #52646e;
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.pdpLongForm-accessoryBody a {
+    color: #076b9c;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.pdpLongForm-accessoryControls {
+    inset: 0;
+    margin: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 4;
+}
+
+.pdpLongForm-accessoryControls button {
+    align-items: center;
+    background: rgba(255, 255, 255, .94);
+    border: 1px solid #b9cbd4;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(9, 47, 74, .18);
+    color: #075f8a;
+    cursor: pointer;
+    display: flex;
+    font-size: 17px;
+    height: 36px;
+    justify-content: center;
+    pointer-events: auto;
+    position: absolute;
+    top: 50cqi;
+    transform: translateY(-50%);
+    width: 36px;
+}
+
+.pdpLongForm-accessoryControls button:first-of-type { left: 10px; }
+.pdpLongForm-accessoryControls button:last-of-type { right: 10px; }
+
+.pdpLongForm-accessoryControls button:focus-visible {
+    outline: 2px solid #087fb6;
+    outline-offset: 2px;
+}
+
+.pdpLongForm-accessoryControls span {
+    background: rgba(9, 47, 74, .86);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    left: 50%;
+    min-width: 50px;
+    padding: 5px 9px;
+    position: absolute;
+    text-align: center;
+    top: 12px;
+    transform: translateX(-50%);
+}
+
+@media only screen and (max-width: 800px) {
+    .pdpLongForm-compareGrid { grid-template-columns: 1fr; }
+    .pdpLongForm-compareDivider span { height: 44px; width: 44px; }
+    .pdpLongForm-accessoryBody { padding: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pdpLongForm-accessoryTrack { scroll-behavior: auto; }
 }

@@ -25,6 +25,10 @@ function removedFacet(link) {
 function friendlyBooleanFacetLabel(facet) {
     if (!facet || !/^(yes|no)$/i.test(facet.value)) return '';
 
+    if (facet.name === 'High Velocity Hurricane Zone Rated') {
+        return /^yes$/i.test(facet.value) ? 'Hurricane Rated (HVHZ)' : 'Not Hurricane Rated (HVHZ)';
+    }
+
     const included = /^yes$/i.test(facet.value) ? 'Included' : 'Not included';
 
     if (facet.name === '20" Extension Tubes Included') {

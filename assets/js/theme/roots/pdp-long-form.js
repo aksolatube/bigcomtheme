@@ -52,6 +52,90 @@ function installVideoCarousel(root) {
     });
 }
 
+function installImageComparisons(root) {
+    root.querySelectorAll('[data-pdp-compare]').forEach(comparison => {
+        const control = comparison.querySelector('[data-pdp-compare-control]');
+        if (!control) return;
+        const update = () => {
+            const value = Number(control.value);
+            const state = value === 0 ? 'before' : (value === 100 ? 'after' : 'mixed');
+            comparison.style.setProperty('--pdp-compare-position', `${value}%`);
+            comparison.dataset.pdpCompareState = state;
+            comparison.querySelector('.pdpLongForm-compareLabel--before')?.setAttribute('aria-hidden', state === 'after' ? 'true' : 'false');
+            comparison.querySelector('.pdpLongForm-compareLabel--after')?.setAttribute('aria-hidden', state === 'before' ? 'true' : 'false');
+            control.setAttribute('aria-valuetext', `${value}% after image visible`);
+        };
+        control.addEventListener('input', update);
+        control.addEventListener('change', () => {
+            track('pdp_story_comparison', {
+                comparison_name: comparison.dataset.pdpCompare || '',
+                reveal_percent: Number(control.value),
+            });
+        });
+        update();
+    });
+}
+
+function installAccessoryCarousels(root) {
+    root.querySelectorAll('[data-pdp-accessory-carousel]').forEach((carousel, carouselIndex) => {
+        const trackElement = carousel.querySelector('[data-pdp-accessory-track]');
+        const slides = Array.from(carousel.querySelectorAll('[data-pdp-accessory-slide]'));
+        const previous = carousel.querySelector('[data-pdp-accessory-previous]');
+        const next = carousel.querySelector('[data-pdp-accessory-next]');
+        const status = carousel.querySelector('[data-pdp-accessory-status]');
+        if (!trackElement || !slides.length || !previous || !next || !status) return;
+        trackElement.id = trackElement.id || `pdp-accessory-carousel-${carouselIndex}`;
+        previous.setAttribute('aria-controls', trackElement.id);
+        next.setAttribute('aria-controls', trackElement.id);
+        slides.forEach((slide, slideIndex) => {
+            slide.setAttribute('role', 'group');
+            slide.setAttribute('aria-roledescription', 'slide');
+            slide.setAttribute('aria-label', `${slideIndex + 1} of ${slides.length}`);
+        });
+        let currentIndex = 0;
+        let scrollTimer;
+        const update = () => {
+            const trackLeft = trackElement.getBoundingClientRect().left;
+            currentIndex = slides.reduce((closest, slide, index) => (
+                Math.abs(slide.getBoundingClientRect().left - trackLeft)
+                    < Math.abs(slides[closest].getBoundingClientRect().left - trackLeft) ? index : closest
+            ), 0);
+            status.textContent = `${currentIndex + 1} of ${slides.length}`;
+        };
+        const show = (index, source) => {
+            const targetIndex = (index + slides.length) % slides.length;
+            const wrapped = index < 0 || index >= slides.length;
+            currentIndex = targetIndex;
+            status.textContent = `${currentIndex + 1} of ${slides.length}`;
+            slides[targetIndex].scrollIntoView({
+                behavior: wrapped || window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+                block: 'nearest',
+                inline: 'start',
+            });
+            if (source) {
+                track('pdp_story_accessory_carousel', {
+                    accessory_name: slides[targetIndex].dataset.pdpAccessorySlide || '',
+                    carousel_action: source,
+                });
+            }
+        };
+        previous.addEventListener('click', () => show(currentIndex - 1, 'previous'));
+        next.addEventListener('click', () => show(currentIndex + 1, 'next'));
+        trackElement.addEventListener('scroll', () => {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(update, 80);
+        }, { passive: true });
+        trackElement.addEventListener('keydown', event => {
+            if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+            event.preventDefault();
+            show(currentIndex + (event.key === 'ArrowLeft' ? -1 : 1), 'keyboard');
+        });
+        if (window.ResizeObserver) new ResizeObserver(update).observe(trackElement);
+        else window.addEventListener('resize', update);
+        update();
+    });
+}
+
 function track(eventName, details) {
     window.dataLayer = window.dataLayer || [];
 
@@ -86,6 +170,8 @@ export default function pdpLongForm() {
     const root = document.querySelector('[data-pdp-long-form]');
     if (!root) return;
     installVideoCarousel(root);
+    installImageComparisons(root);
+    installAccessoryCarousels(root);
     root.querySelectorAll('.pdpLongForm-installVideo .pdpLongForm-videoSlide').forEach(slide => {
         slide.videoPoster = slide.querySelector('[data-pdp-video-id]').cloneNode(true);
     });
@@ -108,6 +194,7 @@ export default function pdpLongForm() {
                 const legacyTypes = {
                     'extension tubes': 'extensionTube',
                     'electric light add-on': 'electricLight',
+                    'solar nightlight': 'nightLight',
                     'daylight dimmer': 'dimmer',
                 };
                 const type = accessoryLink.dataset.pdpAccessory || legacyTypes[accessoryLink.textContent.trim().toLowerCase()];

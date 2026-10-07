@@ -1,6 +1,30 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.155 (2026-10-06)
+
+- Replace the extension-tube mega-menu shortcut with Hurricane-Rated (HVHZ) Kits linking to the US hurricane-rated filtered listing.
+- Update the listing title when the hurricane rating filter is active while preserving combined-filter descriptions.
+- Label the selected hurricane filter as Hurricane Rated (HVHZ) instead of Yes, including its accessible removal label.
+
+## 5.8.154 (2026-09-23)
+
+- Hide the 160-only ventilation artwork on incompatible 290 PDPs and keep the accessory carousel limited to the four selectable options.
+- Preserve the full square accessory artwork with additional breathing room, move compact controls over the image, and loop navigation in both directions.
+- Hide the opposite Before or After badge when a comparison slider reaches its endpoint.
+
+## 5.8.153 (2026-09-23)
+
+- Replace the PDP comparison placeholders with matched dining-room and kitchen before-and-after photography.
+- Expand accessory storytelling to five supplied images, add the Solar NightLight selector link, and clearly label the ventilation kit as compatible with 10-inch 160 systems only.
+- Replace the capture, transfer, and delivery cards with the supplied zone artwork, using the low-profile capture image for the 290 HVHZ page.
+
+## 5.8.152 (2026-09-23)
+
+- Replace the three-image inspiration gallery with two accessible before-and-after comparison sliders that support drag, swipe, and keyboard input.
+- Add a responsive accessory detail carousel while retaining links to the matching item in Complete Your Skylight Kit.
+- Add analytics events for comparison engagement and accessory carousel navigation.
+
 ## 5.8.151 (2026-09-23)
 
 - Move Continue Shopping beneath the checkout panel on mobile, while retaining its desktop placement.

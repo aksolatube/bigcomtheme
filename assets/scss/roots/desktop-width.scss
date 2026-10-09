@@ -1,0 +1,20 @@
+// Give desktop page content more room while preserving the existing mobile layout.
+@media only screen and (min-width: 1025px) {
+    #main-content .container {
+        max-width: none;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    #main-content .pdpLongForm {
+        max-width: none;
+    }
+
+    // Keep standalone copy and forms readable inside the wider page shell.
+    #main-content .page-content--centered {
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 960px;
+    }
+}

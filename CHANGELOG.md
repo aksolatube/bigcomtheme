@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.156 (2026-10-09)
+
+- Remove the desktop page-container width cap above 1024px and retain 32px side padding.
+- Widen product storytelling sections while keeping standalone text and forms constrained for readability.
+- Preserve existing tablet and mobile spacing, and include the HVHZ menu Featured-sort fix.
+
 ## 5.8.155 (2026-10-06)
 
 - Replace the extension-tube mega-menu shortcut with Hurricane-Rated (HVHZ) Kits linking to the US hurricane-rated filtered listing.

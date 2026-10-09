@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.157 (2026-10-09)
+
+- Restore product-page containers and storytelling sections to their original centered width.
+- Widen homepage Page Builder category and trust cards, gallery, reviews, and project CTA using 32px desktop side margins.
+- Align the homepage hero text panel to the wider content gutter while preserving readable copy and existing mobile layouts.
+
 ## 5.8.156 (2026-10-09)
 
 - Remove the desktop page-container width cap above 1024px and retain 32px side padding.

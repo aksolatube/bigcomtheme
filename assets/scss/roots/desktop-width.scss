@@ -1,13 +1,27 @@
 // Give desktop page content more room while preserving the existing mobile layout.
 @media only screen and (min-width: 1025px) {
-    #main-content .container {
+    #main-content:not(.body--product) .container {
         max-width: none;
         padding-left: 32px;
         padding-right: 32px;
     }
 
-    #main-content .pdpLongForm {
-        max-width: none;
+    // Page Builder widgets carry their own width caps in inline styles.
+    #main-content.home .st-home-v2 {
+        --st-container: calc(100% - 64px);
+    }
+
+    #main-content.home .st-home-v2 .st-hero-content {
+        left: 32px;
+    }
+
+    #main-content.home .st-gallery,
+    #main-content.home .st-reviews {
+        --container: calc(100% - 64px);
+    }
+
+    #main-content.home .st-project-cta .cta-wrap {
+        width: calc(100% - 64px);
     }
 
     // Keep standalone copy and forms readable inside the wider page shell.

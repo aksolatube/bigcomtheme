@@ -1,6 +1,6 @@
 // Give desktop page content more room while preserving the existing mobile layout.
 @media only screen and (min-width: 1025px) {
-    #main-content:not(.body--product) .container {
+    #main-content:not(.body--product):not(.body--cart):not(.body--search) .container {
         max-width: none;
         padding-left: 32px;
         padding-right: 32px;
@@ -25,10 +25,19 @@
     }
 
     // Keep standalone copy and forms readable inside the wider page shell.
-    #main-content .page-content--centered {
+    #main-content:not(.body--search) .page-content--centered {
         float: none;
         margin-left: auto;
         margin-right: auto;
         max-width: 960px;
+    }
+}
+
+// The homepage gallery moves its dialog to body when opened.
+@media only screen and (min-width: 1025px) {
+    .st-gallery .lightbox .frame img,
+    .st-gallery-lightbox .frame img {
+        max-height: 84vh;
+        max-width: 90vw;
     }
 }

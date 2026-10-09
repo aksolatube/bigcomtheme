@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.159 (2026-10-09)
+
+- Restore cart and search containers to their original centered desktop width.
+- Exclude search results from the standalone centered-content override so the product grid stays beside its filters.
+- Enlarge homepage gallery images by up to 30% on desktop, preserving aspect ratio and viewport margins; retain mobile sizing.
+
 ## 5.8.158 (2026-10-09)
 
 - Set main global navigation, language selector, and account/sign-in/register controls to grey with a darker hover color.

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.8.158 (2026-10-09)
+
+- Set main global navigation, language selector, and account/sign-in/register controls to grey with a darker hover color.
+- Keep the header cart icon and quantity Solatube blue.
+
 ## 5.8.157 (2026-10-09)
 
 - Restore product-page containers and storytelling sections to their original centered width.

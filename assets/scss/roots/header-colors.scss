@@ -1,0 +1,31 @@
+// Use neutral header navigation while retaining the blue cart action.
+.header .navPages .navPages-mainNav > .navPages-item > .navPages-action,
+.header .navPages .navPages-list--user > .navPages-item > .navPages-action,
+.header .languageSelector,
+.header .languageSelector-toggle,
+.header .navUser-item--account,
+.header .navUser-item--account .navUser-action {
+    color: #555;
+}
+
+.header .navPages .navPages-mainNav > .navPages-item > .navPages-action:hover,
+.header .navPages .navPages-list--user > .navPages-item > .navPages-action:hover,
+.header .languageSelector-toggle:hover,
+.header .navUser-item--account .navUser-action:hover {
+    color: #333;
+}
+
+.header .navPages-mainNav > .navPages-item > .navPages-action .icon svg,
+.header .navPages-list--user > .navPages-item > .navPages-action .icon svg,
+.header .navUser-item--account > .icon svg,
+.header .languageSelector-chevron {
+    fill: currentColor;
+}
+
+.header .navUser-item--cart .navUser-action {
+    color: #0081c3;
+}
+
+.header .navUser-item--cart .navUser-action .icon svg {
+    fill: currentColor;
+}
